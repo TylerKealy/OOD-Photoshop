@@ -26,7 +26,7 @@ public interface PhotoshopModel {
    * Flips image in flipDirection direction.
    * @param flipDirection horiztonal or vertical.
    */
-  void flipImage(Direction flipDirection);
+  void flipImage(Direction flipDirection, String imageName, String destImageName);
 
   /**
    * Saves a new version of the given imageName image that only has the given color

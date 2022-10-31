@@ -16,7 +16,7 @@ public class ImageUtil {
    *
    * @param filename the path of the file. 
    */
-  public static void readPPM(String filename) {
+  public static RGB[][] readPPM(String filename) {
     Scanner sc;
     
     try {
@@ -24,7 +24,7 @@ public class ImageUtil {
     }
     catch (FileNotFoundException e) {
         System.out.println("File "+filename+ " not found!");
-        return;
+        return null;
     }
     StringBuilder builder = new StringBuilder();
     //read the file line by line, and populate a string. This will throw away any comment lines
@@ -45,20 +45,24 @@ public class ImageUtil {
         System.out.println("Invalid PPM file: plain RAW file should begin with P3");
     }
     int width = sc.nextInt();
-    System.out.println("Width of image: "+width);
+    //System.out.println("Width of image: "+width);
     int height = sc.nextInt();
-    System.out.println("Height of image: "+height);
+    //System.out.println("Height of image: "+height);
     int maxValue = sc.nextInt();
-    System.out.println("Maximum value of a color in this file (usually 255): "+maxValue);
-    
+    //System.out.println("Maximum value of a color in this file (usually 255): "+maxValue);
+
+    RGB[][] output = new RGB[width][height];
     for (int i=0;i<height;i++) {
         for (int j=0;j<width;j++) {
             int r = sc.nextInt();
             int g = sc.nextInt();
             int b = sc.nextInt();
-            System.out.println("Color of pixel ("+j+","+i+"): "+ r+","+g+","+b);
+            RGB pixel = new RGB(r,g,b);
+            output[j][i] = pixel;
+            //System.out.println("Color of pixel ("+j+","+i+"): "+ r+","+g+","+b);
         }
     }
+    return output;
   }
 
   //demo main
@@ -69,7 +73,7 @@ public class ImageUtil {
           filename = args[0];
       }
       else {
-          filename = "sample.ppm";
+          filename = "images/Koala.ppm";
       }
       
       ImageUtil.readPPM(filename);
