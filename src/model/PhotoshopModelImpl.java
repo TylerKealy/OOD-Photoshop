@@ -100,6 +100,8 @@ public class PhotoshopModelImpl implements PhotoshopModel {
     saveImage("images/", destImageName);
   }
 
+
+  //figure out loading/saving an image and why its currently broken.
   public static void main(String []args) {
     PhotoshopModelImpl impl = new PhotoshopModelImpl();
     impl.loadImage("images/Koala.ppm", "koala");
