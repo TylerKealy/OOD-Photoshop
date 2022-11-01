@@ -1,7 +1,7 @@
 package model;
 
 enum Direction {Horizontal, Vertical};
-enum RGBColor {Red, Green, Blue};
+enum ComponentGreyscale {Red, Green, Blue, Value, Luma};
 
 /**
  * The model for the Photoshop Program. Will handle all computations, adjustments to an iamge.
@@ -35,7 +35,7 @@ public interface PhotoshopModel {
    * @param imageName the source image.
    * @param destImageName the output image.
    */
-  void colorComponent(RGBColor color, String imageName, String destImageName);
+  void greyscaleComponent(ComponentGreyscale color, String imageName, String destImageName);
 
   /**
    * Brightens the given imageName by the given increment and saves it as

@@ -54,10 +54,10 @@ public class PhotoshopModelImpl implements PhotoshopModel {
       for (int row = 0; row < source[0].length; row++) {
         switch (flipDirection) {
           case Horizontal:
-            output[col][source[0].length - row] = source[col][row];
+            output[col][source[0].length - row - 1] = source[col][row];
             break;
           case Vertical:
-            output[source.length - col][row] = source[col][row];
+            output[source.length - col - 1][row] = source[col][row];
             break;
           default:
             throw new IllegalArgumentException("Flip direction invalid.");
@@ -68,8 +68,21 @@ public class PhotoshopModelImpl implements PhotoshopModel {
   }
 
   @Override
-  public void colorComponent(RGBColor color, String imageName, String destImageName) {
+  public void greyscaleComponent(ComponentGreyscale color, String imageName, String destImageName) {
+    RGB[][] pixels = imageStorage.get(imageName);
 
+    for (int col = 0; col < pixels.length; col++) {
+      for (int row = 0; row < pixels[0].length; row++) {
+        pixels[col][row].r = greyscaleHelper(pixels[col][row].r, ComponentGreyscale.Red, color);
+        pixels[col][row].g = greyscaleHelper(pixels[col][row].g, ComponentGreyscale.Green, color);
+        pixels[col][row].b = greyscaleHelper(pixels[col][row].b, ComponentGreyscale.Blue, color);
+      }
+    }
+    imageStorage.put(destImageName, pixels);
+  }
+
+  private int greyscaleHelper(int value, ComponentGreyscale thisColor, ComponentGreyscale greyScaleColor) {
+    return (thisColor == greyScaleColor) ? value : 0;
   }
 
   /**
@@ -84,7 +97,6 @@ public class PhotoshopModelImpl implements PhotoshopModel {
   public void brighten(int increment, String imageName, String destImageName) {
     //go through each pixel and add increment to each pixel
     RGB[][] pixels = imageStorage.get(imageName);
-    System.out.println("pixels.length: " + pixels.length);
 
     for (int col = 0; col < pixels.length; col++) {
       for (int row = 0; row < pixels[0].length; row++) {
@@ -100,8 +112,8 @@ public class PhotoshopModelImpl implements PhotoshopModel {
   //figure out loading/saving an image and why its currently broken.
   public static void main(String []args) {
     PhotoshopModelImpl impl = new PhotoshopModelImpl();
-    impl.loadImage("images/koala.ppm", "2x2");
-    impl.saveImage("images/v2_koala", "2x2");
-    //impl.brighten(0, "koala", "another_koala");
+    impl.loadImage("images/koala.ppm", "koala");
+    impl.greyscaleComponent(ComponentGreyscale.Green, "koala", "green_koala");
+    impl.saveImage("images/green_koala", "green_koala");
   }
 }
