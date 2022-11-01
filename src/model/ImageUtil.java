@@ -51,14 +51,14 @@ public class ImageUtil {
     int maxValue = sc.nextInt();
     //System.out.println("Maximum value of a color in this file (usually 255): "+maxValue);
 
-    RGB[][] output = new RGB[width][height];
+    RGB[][] output = new RGB[height][width];
     for (int i=0;i<height;i++) {
         for (int j=0;j<width;j++) {
             int r = sc.nextInt();
             int g = sc.nextInt();
             int b = sc.nextInt();
             RGB pixel = new RGB(r,g,b);
-            output[j][i] = pixel;
+            output[i][j] = pixel;
             //System.out.println("Color of pixel ("+j+","+i+"): "+ r+","+g+","+b);
         }
     }

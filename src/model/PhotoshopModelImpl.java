@@ -17,18 +17,17 @@ public class PhotoshopModelImpl implements PhotoshopModel {
     ImageUtil util = new ImageUtil();
     RGB[][] pixels = util.readPPM(imagePath);
     this.imageStorage.put(imageName, pixels);
-
   }
 
   @Override
   public void saveImage(String imagePath, String imageName) {
     try {
-      PrintWriter outfile = new PrintWriter(imagePath + imageName + ".ppm");
+      PrintWriter outfile = new PrintWriter(imagePath + ".ppm");
 
       RGB[][] pixels = imageStorage.get(imageName);
 
       outfile.println("P3");
-      outfile.println(pixels.length + " " + pixels[0].length);
+      outfile.println(pixels[0].length + " " + pixels.length);
       outfile.println("255");
 
       for (int col = 0; col < pixels.length; col++) {
@@ -65,8 +64,7 @@ public class PhotoshopModelImpl implements PhotoshopModel {
         }
       }
     }
-    saveImage("images/", destImageName);
-
+    imageStorage.put(destImageName, output);
   }
 
   @Override
@@ -95,17 +93,15 @@ public class PhotoshopModelImpl implements PhotoshopModel {
         pixels[col][row].b = Math.min(increment + pixels[col][row].b, 255);;
       }
     }
-    //idk if this is how it should work.
     imageStorage.put(destImageName, pixels);
-    saveImage("images/", destImageName);
   }
 
 
   //figure out loading/saving an image and why its currently broken.
   public static void main(String []args) {
     PhotoshopModelImpl impl = new PhotoshopModelImpl();
-    impl.loadImage("images/Koala.ppm", "koala");
-    //impl.saveImage("images/", "koala");
-    impl.brighten(0, "koala", "another_koala");
+    impl.loadImage("images/koala.ppm", "2x2");
+    impl.saveImage("images/v2_koala", "2x2");
+    //impl.brighten(0, "koala", "another_koala");
   }
 }
