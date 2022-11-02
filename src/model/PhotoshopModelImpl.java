@@ -4,12 +4,12 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * An implementation of PhotoshopModel that supports all functionality.
+ */
 public class PhotoshopModelImpl implements PhotoshopModel {
 
   Map<String, RGB[][]> imageStorage = new HashMap<>();
-
-  public PhotoshopModelImpl() {
-  }
 
   @Override
   public void loadImage(String imagePath, String imageName) {
@@ -66,8 +66,6 @@ public class PhotoshopModelImpl implements PhotoshopModel {
     imageStorage.put(destImageName, output);
   }
 
-  // Should we do a factory thing here? command thing?
-  // like theres different equations for the luma, for whatever whatever
   @Override
   public void greyscaleComponent(ComponentGreyscale color, String imageName, String destImageName) {
     RGB[][] pixels = imageStorage.get(imageName);
@@ -86,8 +84,19 @@ public class PhotoshopModelImpl implements PhotoshopModel {
     imageStorage.put(destImageName, pixels);
   }
 
-  private int[] greyscaleHelper(int r, int g, int b, ComponentGreyscale greyScaleColor) {
-    switch (greyScaleColor) {
+  //command design here?
+
+  /**
+   * Helper for greyscaleComponent. Returns an updated version of the given rgb values.
+   *
+   * @param r         red value
+   * @param g         green value
+   * @param b         blue value
+   * @param component the component to greyscale.
+   * @return a int[3] of the new r, g, b values.
+   */
+  private int[] greyscaleHelper(int r, int g, int b, ComponentGreyscale component) {
+    switch (component) {
       case Red:
         g = 0;
         b = 0;
@@ -101,19 +110,19 @@ public class PhotoshopModelImpl implements PhotoshopModel {
         g = 0;
         break;
       case Luma:
-        int luma = (int)(.2126f * r + .7152f * g + .0722f * b);
+        int luma = (int) (.2126f * r + .7152f * g + .0722f * b);
         r = luma;
         g = luma;
         b = luma;
         break;
       case Value:
-        int value = Math.max(Math.max(r,g),b);
+        int value = Math.max(Math.max(r, g), b);
         r = value;
         g = value;
         b = value;
         break;
       case Intensity:
-        int intensity = (r + g + b)/3;
+        int intensity = (r + g + b) / 3;
         r = intensity;
         g = intensity;
         b = intensity;
@@ -122,7 +131,7 @@ public class PhotoshopModelImpl implements PhotoshopModel {
       default:
         throw new IllegalArgumentException("Greyscale not supported.");
     }
-    return new int[] {r,g,b};
+    return new int[]{r, g, b};
   }
 
   /**
@@ -151,6 +160,11 @@ public class PhotoshopModelImpl implements PhotoshopModel {
   }
 
 
+  /**
+   * Main method used for testing the model.
+   *
+   * @param args java parameters.
+   */
   public static void main(String[] args) {
     PhotoshopModelImpl impl = new PhotoshopModelImpl();
     impl.loadImage("images/koala.ppm", "koala");

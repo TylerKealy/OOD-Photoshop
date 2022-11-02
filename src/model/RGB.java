@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Stores the RGB value of a pixel.
+ */
 public class RGB {
   public int r;
   public int g;
