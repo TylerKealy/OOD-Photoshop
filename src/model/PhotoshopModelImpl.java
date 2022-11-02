@@ -9,7 +9,6 @@ public class PhotoshopModelImpl implements PhotoshopModel {
   Map<String, RGB[][]> imageStorage = new HashMap<>();
 
   public PhotoshopModelImpl() {
-
   }
 
   @Override
@@ -67,22 +66,63 @@ public class PhotoshopModelImpl implements PhotoshopModel {
     imageStorage.put(destImageName, output);
   }
 
+  // Should we do a factory thing here? command thing?
+  // like theres different equations for the luma, for whatever whatever
   @Override
   public void greyscaleComponent(ComponentGreyscale color, String imageName, String destImageName) {
     RGB[][] pixels = imageStorage.get(imageName);
 
     for (int col = 0; col < pixels.length; col++) {
       for (int row = 0; row < pixels[0].length; row++) {
-        pixels[col][row].r = greyscaleHelper(pixels[col][row].r, ComponentGreyscale.Red, color);
-        pixels[col][row].g = greyscaleHelper(pixels[col][row].g, ComponentGreyscale.Green, color);
-        pixels[col][row].b = greyscaleHelper(pixels[col][row].b, ComponentGreyscale.Blue, color);
+        int[] result = greyscaleHelper(pixels[col][row].r,
+                pixels[col][row].g,
+                pixels[col][row].b,
+                color);
+        pixels[col][row].r = result[0];
+        pixels[col][row].g = result[1];
+        pixels[col][row].b = result[2];
       }
     }
     imageStorage.put(destImageName, pixels);
   }
 
-  private int greyscaleHelper(int value, ComponentGreyscale thisColor, ComponentGreyscale greyScaleColor) {
-    return (thisColor == greyScaleColor) ? value : 0;
+  private int[] greyscaleHelper(int r, int g, int b, ComponentGreyscale greyScaleColor) {
+    switch (greyScaleColor) {
+      case Red:
+        g = 0;
+        b = 0;
+        break;
+      case Green:
+        r = 0;
+        b = 0;
+        break;
+      case Blue:
+        r = 0;
+        g = 0;
+        break;
+      case Luma:
+        int luma = (int)(.2126f * r + .7152f * g + .0722f * b);
+        r = luma;
+        g = luma;
+        b = luma;
+        break;
+      case Value:
+        int value = Math.max(Math.max(r,g),b);
+        r = value;
+        g = value;
+        b = value;
+        break;
+      case Intensity:
+        int intensity = (r + g + b)/3;
+        r = intensity;
+        g = intensity;
+        b = intensity;
+        break;
+
+      default:
+        throw new IllegalArgumentException("Greyscale not supported.");
+    }
+    return new int[] {r,g,b};
   }
 
   /**
@@ -101,19 +141,20 @@ public class PhotoshopModelImpl implements PhotoshopModel {
     for (int col = 0; col < pixels.length; col++) {
       for (int row = 0; row < pixels[0].length; row++) {
         pixels[col][row].r = Math.min(increment + pixels[col][row].r, 255);
-        pixels[col][row].g = Math.min(increment + pixels[col][row].g, 255);;
-        pixels[col][row].b = Math.min(increment + pixels[col][row].b, 255);;
+        pixels[col][row].g = Math.min(increment + pixels[col][row].g, 255);
+        ;
+        pixels[col][row].b = Math.min(increment + pixels[col][row].b, 255);
+        ;
       }
     }
     imageStorage.put(destImageName, pixels);
   }
 
 
-  //figure out loading/saving an image and why its currently broken.
-  public static void main(String []args) {
+  public static void main(String[] args) {
     PhotoshopModelImpl impl = new PhotoshopModelImpl();
     impl.loadImage("images/koala.ppm", "koala");
-    impl.greyscaleComponent(ComponentGreyscale.Green, "koala", "green_koala");
-    impl.saveImage("images/green_koala", "green_koala");
+    impl.greyscaleComponent(ComponentGreyscale.Value, "koala", "value");
+    impl.saveImage("images/value", "value");
   }
 }

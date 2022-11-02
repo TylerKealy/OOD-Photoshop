@@ -1,7 +1,7 @@
 package model;
 
 enum Direction {Horizontal, Vertical};
-enum ComponentGreyscale {Red, Green, Blue, Value, Luma};
+enum ComponentGreyscale {Red, Green, Blue, Value, Luma, Intensity};
 
 /**
  * The model for the Photoshop Program. Will handle all computations, adjustments to an iamge.
