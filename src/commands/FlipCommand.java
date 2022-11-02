@@ -8,9 +8,9 @@ import model.PhotoshopModel;
  * FlipCommand is a PhotoshopCommand that executes the flip method on the model.
  */
 public class FlipCommand implements PhotoshopCommand {
-  Direction dir;
-  String sourceName;
-  String destName;
+  private final Direction dir;
+  private final String sourceName;
+  private final String destName;
   public FlipCommand(Direction dir, String sourceName, String destName) {
     this.dir = dir;
     this.sourceName = sourceName;

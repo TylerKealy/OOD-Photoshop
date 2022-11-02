@@ -9,9 +9,9 @@ import model.PhotoshopModel;
  */
 public class ComponentCommand implements PhotoshopCommand {
 
-  ComponentGreyscale component;
-  String sourceName;
-  String destName;
+  private final ComponentGreyscale component;
+  private final String sourceName;
+  private final String destName;
 
   public ComponentCommand(ComponentGreyscale component, String sourceName, String destName) {
     this.component = component;
