@@ -25,6 +25,7 @@ public class PhotoshopModelImpl implements PhotoshopModel {
 
       RGB[][] pixels = imageStorage.get(imageName);
 
+
       outfile.println("P3");
       outfile.println(pixels[0].length + " " + pixels.length);
       outfile.println("255");
