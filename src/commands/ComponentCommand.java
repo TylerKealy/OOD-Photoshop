@@ -13,6 +13,12 @@ public class ComponentCommand implements PhotoshopCommand {
   private final String sourceName;
   private final String destName;
 
+  /**
+   * Constructor for information needed regarding executing a Component Command.
+   * @param component which component to greyscale.
+   * @param sourceName source image name.
+   * @param destName exported image name.
+   */
   public ComponentCommand(ComponentGreyscale component, String sourceName, String destName) {
     this.component = component;
     this.sourceName = sourceName;

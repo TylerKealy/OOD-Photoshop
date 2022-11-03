@@ -4,11 +4,8 @@ import org.junit.Test;
 import java.io.StringReader;
 import java.util.Scanner;
 
-import controller.PhotoshopController;
 import controller.PhotoshopControllerImpl;
 import model.MockPhotoshopModel;
-import model.PhotoshopModel;
-import model.PhotoshopModelImpl;
 import view.PhotoshopView;
 
 import static org.junit.Assert.assertEquals;

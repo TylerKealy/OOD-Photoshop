@@ -3,6 +3,9 @@ package model;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * MockModel for PhotoshopModel used for testing.
+ */
 public class MockPhotoshopModel implements PhotoshopModel {
 
   private final Appendable log;

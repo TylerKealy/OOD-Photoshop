@@ -11,6 +11,10 @@ import view.PhotoshopView;
  */
 public class PhotoshopPlayer {
 
+  /**
+   * Method used to run the Photoshop program.
+   * @param args java stuff.
+   */
   public static void main(String[] args) {
     PhotoshopModel model = new PhotoshopModelImpl();
     PhotoshopView view = null;

@@ -9,7 +9,23 @@ import java.util.Map;
  */
 public class PhotoshopModelImpl implements PhotoshopModel {
 
-  Map<String, RGB[][]> imageStorage = new HashMap<>();
+  private final Map<String, RGB[][]> imageStorage;
+
+  /**
+   * Default constructor for normal purposes.
+   */
+  public PhotoshopModelImpl() {
+    this.imageStorage = new HashMap<>();
+  }
+
+  /**
+   * Constructor for testing purposes, or for importing your own hashMap library of
+   * Pixel data for images. Will be accessible by those you call it.
+   * @param imageStorage provided map of String to RGB[][]
+   */
+  public PhotoshopModelImpl(Map<String, RGB[][]> imageStorage) {
+    this.imageStorage = imageStorage;
+  }
 
   @Override
   public void loadImage(String imagePath, String imageName) {
@@ -70,6 +86,7 @@ public class PhotoshopModelImpl implements PhotoshopModel {
   @Override
   public void greyscaleComponent(ComponentGreyscale color, String imageName, String destImageName) {
     RGB[][] pixels = imageStorage.get(imageName);
+    RGB[][] output = new RGB[pixels[0].length][pixels.length];
 
     for (int col = 0; col < pixels.length; col++) {
       for (int row = 0; row < pixels[0].length; row++) {
@@ -77,12 +94,13 @@ public class PhotoshopModelImpl implements PhotoshopModel {
                 pixels[col][row].g,
                 pixels[col][row].b,
                 color);
-        pixels[col][row].r = result[0];
-        pixels[col][row].g = result[1];
-        pixels[col][row].b = result[2];
+        output[col][row] = new RGB(0,0,0);
+        output[col][row].r = result[0];
+        output[col][row].g = result[1];
+        output[col][row].b = result[2];
       }
     }
-    imageStorage.put(destImageName, pixels);
+    imageStorage.put(destImageName, output);
   }
 
   //command design here?
@@ -147,17 +165,17 @@ public class PhotoshopModelImpl implements PhotoshopModel {
   public void brighten(int increment, String imageName, String destImageName) {
     //go through each pixel and add increment to each pixel
     RGB[][] pixels = imageStorage.get(imageName);
+    RGB[][] output = new RGB[pixels.length][pixels[0].length];
 
     for (int col = 0; col < pixels.length; col++) {
       for (int row = 0; row < pixels[0].length; row++) {
-        pixels[col][row].r = Math.min(increment + pixels[col][row].r, 255);
-        pixels[col][row].g = Math.min(increment + pixels[col][row].g, 255);
-        ;
-        pixels[col][row].b = Math.min(increment + pixels[col][row].b, 255);
-        ;
+        output[col][row] = new RGB(0,0,0);
+        output[col][row].r = Math.max(Math.min(increment + pixels[col][row].r, 255),0);
+        output[col][row].g = Math.max(Math.min(increment + pixels[col][row].g, 255),0);
+        output[col][row].b = Math.max(Math.min(increment + pixels[col][row].b, 255),0);
       }
     }
-    imageStorage.put(destImageName, pixels);
+    imageStorage.put(destImageName, output);
   }
 
 

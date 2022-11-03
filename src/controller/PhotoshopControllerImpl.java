@@ -27,6 +27,13 @@ public class PhotoshopControllerImpl implements PhotoshopController {
 
   Map<String, Function<Scanner, PhotoshopCommand>> commands = new HashMap<>();
 
+  /**
+   * Constructor to create a PhotoshopController. Runs the model.
+   *
+   * @param model model to run.
+   * @param view  view to show program.
+   * @param rd    user input.
+   */
   public PhotoshopControllerImpl(PhotoshopModel model, PhotoshopView view, Readable rd) {
     this.model = model;
     this.view = view;
@@ -36,28 +43,26 @@ public class PhotoshopControllerImpl implements PhotoshopController {
   }
 
   private void populateCommands() {
-    this.commands.put("load",
-            (Scanner s) -> new LoadCommand(s.next(), s.next()));
-    this.commands.put("save",
-            (Scanner s) -> new SaveCommand(s.next(), s.next()));
-    this.commands.put("brighten",
-            (Scanner s) -> new BrightenCommand(Integer.parseInt(s.next()), s.next(), s.next()));
-    this.commands.put("vertical-flip",
-            (Scanner s) -> new FlipCommand(Direction.Vertical, s.next(), s.next()));
-    this.commands.put("horizontal-flip",
-            (Scanner s) -> new FlipCommand(Direction.Horizontal, s.next(), s.next()));
-    this.commands.put("value-component",
-            (Scanner s) -> new ComponentCommand(ComponentGreyscale.Value, s.next(), s.next()));
-    this.commands.put("intensity-component",
-            (Scanner s) -> new ComponentCommand(ComponentGreyscale.Intensity, s.next(), s.next()));
-    this.commands.put("luma-component",
-            (Scanner s) -> new ComponentCommand(ComponentGreyscale.Luma, s.next(), s.next()));
-    this.commands.put("red-component",
-            (Scanner s) -> new ComponentCommand(ComponentGreyscale.Red, s.next(), s.next()));
-    this.commands.put("green-component",
-            (Scanner s) -> new ComponentCommand(ComponentGreyscale.Green, s.next(), s.next()));
-    this.commands.put("blue-component",
-            (Scanner s) -> new ComponentCommand(ComponentGreyscale.Value, s.next(), s.next()));
+    this.commands.put("load", (Scanner s) -> new LoadCommand(s.next(), s.next()));
+    this.commands.put("save", (Scanner s) -> new SaveCommand(s.next(), s.next()));
+    this.commands.put("brighten", (Scanner s) ->
+            new BrightenCommand(Integer.parseInt(s.next()), s.next(), s.next()));
+    this.commands.put("vertical-flip", (Scanner s) ->
+            new FlipCommand(Direction.Vertical, s.next(), s.next()));
+    this.commands.put("horizontal-flip", (Scanner s) ->
+            new FlipCommand(Direction.Horizontal, s.next(), s.next()));
+    this.commands.put("value-component", (Scanner s) ->
+            new ComponentCommand(ComponentGreyscale.Value, s.next(), s.next()));
+    this.commands.put("intensity-component", (Scanner s) ->
+            new ComponentCommand(ComponentGreyscale.Intensity, s.next(), s.next()));
+    this.commands.put("luma-component", (Scanner s) ->
+            new ComponentCommand(ComponentGreyscale.Luma, s.next(), s.next()));
+    this.commands.put("red-component", (Scanner s) ->
+            new ComponentCommand(ComponentGreyscale.Red, s.next(), s.next()));
+    this.commands.put("green-component", (Scanner s) ->
+            new ComponentCommand(ComponentGreyscale.Green, s.next(), s.next()));
+    this.commands.put("blue-component", (Scanner s) ->
+            new ComponentCommand(ComponentGreyscale.Value, s.next(), s.next()));
   }
 
   @Override
@@ -66,7 +71,7 @@ public class PhotoshopControllerImpl implements PhotoshopController {
       String next = scanner.next();
 
       //quit.
-      if(next.equalsIgnoreCase("q") || next.equalsIgnoreCase("quit")) {
+      if (next.equalsIgnoreCase("q") || next.equalsIgnoreCase("quit")) {
         return;
       }
 

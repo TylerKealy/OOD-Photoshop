@@ -12,6 +12,12 @@ public class BrightenCommand implements PhotoshopCommand {
   private final String source;
   private final String export;
 
+  /**
+   * Constructor for information needed regarding executing a Brighten Command.
+   * @param increment how much to brighten.
+   * @param sourcename source image name.
+   * @param exportName exported image name.
+   */
   public BrightenCommand(int increment, String sourcename, String exportName) {
     this.increment = increment;
     this.source = sourcename;

@@ -11,6 +11,14 @@ public class FlipCommand implements PhotoshopCommand {
   private final Direction dir;
   private final String sourceName;
   private final String destName;
+
+  /**
+   * Constructor for information needed regarding executing a Flip Command.
+   *
+   * @param dir        which direction to flip.
+   * @param sourceName source image name.
+   * @param destName   exported image name.
+   */
   public FlipCommand(Direction dir, String sourceName, String destName) {
     this.dir = dir;
     this.sourceName = sourceName;

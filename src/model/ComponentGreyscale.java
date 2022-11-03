@@ -3,4 +3,4 @@ package model;
 /**
  * Options for greyscaling an image through one of the following.
  */
-public enum ComponentGreyscale {Red, Green, Blue, Value, Luma, Intensity}
+public enum ComponentGreyscale { Red, Green, Blue, Value, Luma, Intensity }
