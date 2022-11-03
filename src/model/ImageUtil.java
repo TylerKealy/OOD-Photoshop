@@ -65,7 +65,11 @@ public class ImageUtil {
     return output;
   }
 
-  //demo main
+
+  /**
+   * main method used to demo the ImageUtil class.
+   * @param args java arguments.
+   */
   public static void main(String[] args) {
     String filename;
 

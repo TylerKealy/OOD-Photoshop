@@ -9,7 +9,7 @@ public class RGB {
   public int b;
 
   /**
-   * Create an object to store RGB values
+   * Create an object to store RGB values.
    * @param r red
    * @param g green
    * @param b blue
