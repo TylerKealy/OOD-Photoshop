@@ -62,7 +62,7 @@ public class PhotoshopControllerImpl implements PhotoshopController {
     this.commands.put("green-component", (Scanner s) ->
             new ComponentCommand(ComponentGreyscale.Green, s.next(), s.next()));
     this.commands.put("blue-component", (Scanner s) ->
-            new ComponentCommand(ComponentGreyscale.Value, s.next(), s.next()));
+            new ComponentCommand(ComponentGreyscale.Blue, s.next(), s.next()));
   }
 
   @Override

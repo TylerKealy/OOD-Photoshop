@@ -86,7 +86,7 @@ public class PhotoshopModelImpl implements PhotoshopModel {
   @Override
   public void greyscaleComponent(ComponentGreyscale color, String imageName, String destImageName) {
     RGB[][] pixels = imageStorage.get(imageName);
-    RGB[][] output = new RGB[pixels[0].length][pixels.length];
+    RGB[][] output = new RGB[pixels.length][pixels[0].length];
 
     for (int col = 0; col < pixels.length; col++) {
       for (int row = 0; row < pixels[0].length; row++) {

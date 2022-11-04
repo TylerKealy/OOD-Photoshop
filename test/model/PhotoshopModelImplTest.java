@@ -3,7 +3,6 @@ package model;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 
@@ -130,7 +129,7 @@ public class PhotoshopModelImplTest {
   public void testGreyscale() {
     Map<String, RGB[][]> imageStorage = new HashMap<>();
     PhotoshopModelImpl model = new PhotoshopModelImpl(imageStorage);
-    model.loadImage("images/Koala.ppm", "koala");
+    model.loadImage("images/dogs.ppm", "koala");
     RGB[][] source = imageStorage.get("koala");
 
     model.greyscaleComponent(ComponentGreyscale.Red, "koala", "red_koala");
@@ -141,9 +140,6 @@ public class PhotoshopModelImplTest {
         assertEquals(source[i][j].r, red[i][j].r);
         assertEquals(0, red[i][j].g);
         assertEquals(0, red[i][j].b);
-
-        assertFalse(source[i][j].g == red[i][j].g);
-        assertFalse(source[i][j].b == red[i][j].b);
       }
     }
 
@@ -154,9 +150,6 @@ public class PhotoshopModelImplTest {
         assertEquals(0, blue[i][j].r);
         assertEquals(0, blue[i][j].g);
         assertEquals(source[i][j].b, blue[i][j].b);
-
-        assertFalse(source[i][j].g == red[i][j].g);
-        assertFalse(source[i][j].r == red[i][j].r);
       }
     }
 
@@ -168,8 +161,6 @@ public class PhotoshopModelImplTest {
         assertEquals(source[i][j].g, green[i][j].g);
         assertEquals(0, green[i][j].b);
 
-        assertFalse(source[i][j].r == red[i][j].r);
-        assertFalse(source[i][j].b == red[i][j].b);
       }
     }
 
