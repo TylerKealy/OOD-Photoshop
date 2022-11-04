@@ -79,6 +79,21 @@ public class PhotoshopControllerTest {
 
 
   @Test
+  public void testBadInput() {
+    sr = new StringReader("hello I'm bad input");
+    ap = new StringBuilder();
+    model = new MockPhotoshopModel(ap);
+    view = null;
+    controller = new PhotoshopControllerImpl(model, view, sr);
+
+    try {
+      controller.run();
+    } catch (IllegalArgumentException e) {
+      assertEquals(e.getMessage(), "Improper command.");
+    }
+  }
+
+  @Test
   public void testBrighten() {
     sr = new StringReader("brighten 20 name destname");
     ap = new StringBuilder();
