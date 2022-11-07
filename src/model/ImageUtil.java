@@ -1,10 +1,11 @@
 package model;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
@@ -18,27 +19,74 @@ import java.io.FileInputStream;
 public class ImageUtil {
 
 
+  public static RGB[][] read(String filename) {
+    if (filename.endsWith(".ppm")) {
+      return readPPM(filename);
+    }
+    return readSTDFormats(filename);
+  }
+
+  public static void save(String filename, RGB[][] pixels) {
+    if (filename.endsWith(".ppm")) {
+      savePPM(filename,pixels);
+    }
+  }
+
+  //TODO: save as either a PNG or a JPG. use ImageIO.
+  public static void saveSTDFormats(String filename, RGB[][] pixels) {
+
+  }
+
+    public static void savePPM(String filename, RGB[][] pixels) {
+    try {
+      System.out.println("saving");
+      PrintWriter outfile = new PrintWriter(filename);
+
+      outfile.println("P3");
+      outfile.println(pixels[0].length + " " + pixels.length);
+      outfile.println("255");
+
+      int height = pixels.length;
+      int width = pixels[0].length;
+      for (int row = 0; row < height; row++) {
+        for (int col = 0; col < width; col++) {
+          outfile.println(pixels[row][col].r);
+          outfile.println(pixels[row][col].g);
+          outfile.println(pixels[row][col].b);
+        }
+      }
+      outfile.close();
+    } catch (Exception e) {
+      System.out.println(e.toString() + " caught in createPPM.");
+      e.printStackTrace();
+    }
+  }
+
+
   /**
    * Reads standard formats of imgaes such as PNG or JPG
+   *
    * @return
    */
   public static RGB[][] readSTDFormats(String filename) {
     BufferedImage bufferedImage;
     try {
-       bufferedImage = ImageIO.read(new File(filename));
-    }catch(IOException e) {
+      bufferedImage = ImageIO.read(new File(filename));
+    } catch (IOException e) {
       throw new IllegalStateException("Given file caused error!");
     }
 
     int height = bufferedImage.getHeight();
     int width = bufferedImage.getWidth();
+
     RGB[][] output = new RGB[height][width];
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        RGB pixel = new RGB(bufferedImage.getRGB(i, j));
-        output[i][j] = pixel;
+    for (int row = 0; row < height; row++) {
+      for (int col = 0; col < width; col++) {
+        RGB pixel = new RGB(bufferedImage.getRGB(col, row));
+        output[row][col] = pixel;
       }
     }
+
     return output;
   }
 
@@ -82,14 +130,14 @@ public class ImageUtil {
     //System.out.println("Maximum value of a color in this file (usually 255): "+maxValue);
 
     RGB[][] output = new RGB[height][width];
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
+    for (int row = 0; row < height; row++) {
+      for (int col = 0; col < width; col++) {
         int r = sc.nextInt();
         int g = sc.nextInt();
         int b = sc.nextInt();
         RGB pixel = new RGB(r, g, b);
-        output[i][j] = pixel;
-        //System.out.println("Color of pixel ("+j+","+i+"): "+ r+","+g+","+b);
+        output[row][col] = pixel;
+        //System.out.println("Color of pixel ("+j+","+row+"): "+ r+","+g+","+b);
       }
     }
     return output;
@@ -98,6 +146,7 @@ public class ImageUtil {
 
   /**
    * main method used to demo the ImageUtil class.
+   *
    * @param args java arguments.
    */
   public static void main(String[] args) {

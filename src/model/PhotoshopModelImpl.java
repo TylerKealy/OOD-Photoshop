@@ -30,34 +30,14 @@ public class PhotoshopModelImpl implements PhotoshopModel {
   @Override
   public void loadImage(String imagePath, String imageName) {
     ImageUtil util = new ImageUtil();
-    RGB[][] pixels = util.readPPM(imagePath);
+    RGB[][] pixels = util.read(imagePath);
     this.imageStorage.put(imageName, pixels);
   }
 
   @Override
   public void saveImage(String imagePath, String imageName) {
-    try {
-      PrintWriter outfile = new PrintWriter(imagePath + ".ppm");
-
-      RGB[][] pixels = imageStorage.get(imageName);
-
-
-      outfile.println("P3");
-      outfile.println(pixels[0].length + " " + pixels.length);
-      outfile.println("255");
-
-      for (int col = 0; col < pixels.length; col++) {
-        for (int row = 0; row < pixels[0].length; row++) {
-          outfile.println(pixels[col][row].r);
-          outfile.println(pixels[col][row].g);
-          outfile.println(pixels[col][row].b);
-        }
-      }
-      outfile.close();
-    } catch (Exception e) {
-      System.out.println(e.toString() + " caught in createPPM.");
-      e.printStackTrace();
-    }
+    ImageUtil util = new ImageUtil();
+    util.save(imagePath, imageStorage.get(imageName));
   }
 
   @Override
@@ -66,14 +46,16 @@ public class PhotoshopModelImpl implements PhotoshopModel {
     RGB[][] source = imageStorage.get(imageName);
     RGB[][] output = new RGB[source.length][source[0].length];
 
-    for (int col = 0; col < source.length; col++) {
-      for (int row = 0; row < source[0].length; row++) {
+    int height = source.length;
+    int width = source[0].length;
+    for (int row = 0; row < height; row++) {
+      for (int col = 0; col < width; col++) {
         switch (flipDirection) {
           case Horizontal:
-            output[col][source[0].length - row - 1] = source[col][row];
+            output[row][source[0].length - col - 1] = source[row][col];
             break;
           case Vertical:
-            output[source.length - col - 1][row] = source[col][row];
+            output[source.length - row - 1][col] = source[row][col];
             break;
           default:
             throw new IllegalArgumentException("Flip direction invalid.");
@@ -88,16 +70,18 @@ public class PhotoshopModelImpl implements PhotoshopModel {
     RGB[][] pixels = imageStorage.get(imageName);
     RGB[][] output = new RGB[pixels.length][pixels[0].length];
 
-    for (int col = 0; col < pixels.length; col++) {
-      for (int row = 0; row < pixels[0].length; row++) {
-        int[] result = greyscaleHelper(pixels[col][row].r,
-                pixels[col][row].g,
-                pixels[col][row].b,
+    int height = pixels.length;
+    int width = pixels[0].length;
+    for (int row = 0; row < height; row++) {
+      for (int col = 0; col < width; col++) {
+        int[] result = greyscaleHelper(pixels[row][col].r,
+                pixels[row][col].g,
+                pixels[row][col].b,
                 color);
-        output[col][row] = new RGB(0,0,0);
-        output[col][row].r = result[0];
-        output[col][row].g = result[1];
-        output[col][row].b = result[2];
+        output[row][col] = new RGB(0,0,0);
+        output[row][col].r = result[0];
+        output[row][col].g = result[1];
+        output[row][col].b = result[2];
       }
     }
     imageStorage.put(destImageName, output);
@@ -167,12 +151,14 @@ public class PhotoshopModelImpl implements PhotoshopModel {
     RGB[][] pixels = imageStorage.get(imageName);
     RGB[][] output = new RGB[pixels.length][pixels[0].length];
 
-    for (int col = 0; col < pixels.length; col++) {
-      for (int row = 0; row < pixels[0].length; row++) {
-        output[col][row] = new RGB(0,0,0);
-        output[col][row].r = Math.max(Math.min(increment + pixels[col][row].r, 255),0);
-        output[col][row].g = Math.max(Math.min(increment + pixels[col][row].g, 255),0);
-        output[col][row].b = Math.max(Math.min(increment + pixels[col][row].b, 255),0);
+    int height = pixels.length;
+    int width = pixels[0].length;
+    for (int row = 0; row < height; row++) {
+      for (int col = 0; col < width; col++) {
+        output[row][col] = new RGB(0,0,0);
+        output[row][col].r = Math.max(Math.min(increment + pixels[row][col].r, 255),0);
+        output[row][col].g = Math.max(Math.min(increment + pixels[row][col].g, 255),0);
+        output[row][col].b = Math.max(Math.min(increment + pixels[row][col].b, 255),0);
       }
     }
     imageStorage.put(destImageName, output);

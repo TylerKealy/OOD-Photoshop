@@ -34,5 +34,6 @@ public class RGB {
         this.r = pColor.getRed();
         this.g = pColor.getGreen();
         this.b = pColor.getBlue();
+
     }
 }

@@ -1,4 +1,5 @@
 import java.io.InputStreamReader;
+import java.io.StringReader;
 
 import controller.PhotoshopController;
 import controller.PhotoshopControllerImpl;
@@ -18,8 +19,9 @@ public class PhotoshopPlayer {
   public static void main(String[] args) {
     PhotoshopModel model = new PhotoshopModelImpl();
     PhotoshopView view = null;
-    PhotoshopController controller =
-            new PhotoshopControllerImpl(model, view, new InputStreamReader(System.in));
+    PhotoshopController controller;
+    controller = new PhotoshopControllerImpl(model, view, new StringReader("load images/dogs.jpg dogs save images/saved.ppm dogs"));
+    //controller = new PhotoshopControllerImpl(model, view, new InputStreamReader(System.in));
     controller.run();
   }
 }

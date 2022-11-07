@@ -86,7 +86,7 @@ public class PhotoshopControllerImpl implements PhotoshopController {
       try {
         cmd.apply(scanner).run(this.model);
       } catch (Exception e) {
-        throw new IllegalStateException("Command failed.");
+        throw new IllegalStateException("Command failed: " + e.getMessage());
       }
     }
   }
