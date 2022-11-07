@@ -1,5 +1,10 @@
 package model;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
@@ -11,6 +16,31 @@ import java.io.FileInputStream;
  * as required.
  */
 public class ImageUtil {
+
+
+  /**
+   * Reads standard formats of imgaes such as PNG or JPG
+   * @return
+   */
+  public static RGB[][] readSTDFormats(String filename) {
+    BufferedImage bufferedImage;
+    try {
+       bufferedImage = ImageIO.read(new File(filename));
+    }catch(IOException e) {
+      throw new IllegalStateException("Given file caused error!");
+    }
+
+    int height = bufferedImage.getHeight();
+    int width = bufferedImage.getWidth();
+    RGB[][] output = new RGB[height][width];
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        RGB pixel = new RGB(bufferedImage.getRGB(i, j));
+        output[i][j] = pixel;
+      }
+    }
+    return output;
+  }
 
   /**
    * Read an image file in the PPM format and print the colors.
