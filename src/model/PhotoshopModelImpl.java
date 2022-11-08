@@ -1,15 +1,18 @@
 package model;
 
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+
+import model.Enums.ComponentGreyscale;
+import model.Enums.Direction;
+import model.Enums.RGB;
 
 /**
  * An implementation of PhotoshopModel that supports all functionality.
  */
 public class PhotoshopModelImpl implements PhotoshopModel {
 
-  private final Map<String, RGB[][]> imageStorage;
+  protected final Map<String, RGB[][]> imageStorage;
 
   /**
    * Default constructor for normal purposes.

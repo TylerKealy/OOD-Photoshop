@@ -1,7 +1,7 @@
 package commands;
 
 import controller.PhotoshopCommand;
-import model.ComponentGreyscale;
+import model.Enums.ComponentGreyscale;
 import model.PhotoshopModel;
 
 /**

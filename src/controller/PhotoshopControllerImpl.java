@@ -10,8 +10,8 @@ import commands.ComponentCommand;
 import commands.FlipCommand;
 import commands.LoadCommand;
 import commands.SaveCommand;
-import model.ComponentGreyscale;
-import model.Direction;
+import model.Enums.ComponentGreyscale;
+import model.Enums.Direction;
 import model.PhotoshopModel;
 import view.PhotoshopView;
 

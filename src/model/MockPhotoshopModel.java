@@ -3,6 +3,9 @@ package model;
 import java.io.IOException;
 import java.util.Objects;
 
+import model.Enums.ComponentGreyscale;
+import model.Enums.Direction;
+
 /**
  * MockModel for PhotoshopModel used for testing.
  */

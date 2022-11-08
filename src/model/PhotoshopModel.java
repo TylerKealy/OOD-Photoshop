@@ -1,5 +1,8 @@
 package model;
 
+import model.Enums.ComponentGreyscale;
+import model.Enums.Direction;
+
 /**
  * The model for the Photoshop Program. Will handle all computations, adjustments to an iamge.
  */

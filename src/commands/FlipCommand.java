@@ -1,7 +1,7 @@
 package commands;
 
 import controller.PhotoshopCommand;
-import model.Direction;
+import model.Enums.Direction;
 import model.PhotoshopModel;
 
 /**

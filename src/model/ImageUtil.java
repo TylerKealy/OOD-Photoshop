@@ -10,6 +10,8 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
 
+import model.Enums.RGB;
+
 
 /**
  * This class contains utility methods to read a PPM image from file and simply print its contents.
@@ -28,16 +30,20 @@ public class ImageUtil {
 
   public static void save(String filename, RGB[][] pixels) {
     if (filename.endsWith(".ppm")) {
-      savePPM(filename,pixels);
+      savePPM(filename, pixels);
     }
   }
 
   //TODO: save as either a PNG or a JPG. use ImageIO.
   public static void saveSTDFormats(String filename, RGB[][] pixels) {
+    if (filename.endsWith(".png")) {
 
+    } else if (filename.endsWith(".jpg")) {
+
+    }
   }
 
-    public static void savePPM(String filename, RGB[][] pixels) {
+  public static void savePPM(String filename, RGB[][] pixels) {
     try {
       System.out.println("saving");
       PrintWriter outfile = new PrintWriter(filename);
@@ -63,6 +69,7 @@ public class ImageUtil {
   }
 
 
+  //TODO: add support for bmp.
   /**
    * Reads standard formats of imgaes such as PNG or JPG
    *

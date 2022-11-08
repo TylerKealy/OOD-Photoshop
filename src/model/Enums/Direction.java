@@ -1,4 +1,4 @@
-package model;
+package model.Enums;
 
 /**
  * Direction. Used for flipping.
