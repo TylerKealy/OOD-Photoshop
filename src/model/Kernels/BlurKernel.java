@@ -6,8 +6,7 @@ public class BlurKernel extends AKernel {
   //TODO: do we want to specify 3x3 in size, or in implementation?
   float[][] blur;
 
-  public BlurKernel(RGB[][] source) {
-    this.source = source;
+  public BlurKernel() {
     blur = new float[][]{
             {1f / 16f, 1f / 8f, 1f / 16f},
             {1f / 8f, 1f / 4f, 1f / 8f},

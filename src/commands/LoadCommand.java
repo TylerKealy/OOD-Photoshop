@@ -1,6 +1,5 @@
 package commands;
 
-import controller.PhotoshopCommand;
 import model.PhotoshopModel;
 
 /**

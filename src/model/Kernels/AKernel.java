@@ -4,7 +4,8 @@ import model.Enums.RGB;
 
 public abstract class AKernel implements IKernel{
   RGB[][] source;
-  public RGB[][] apply()  {
+  public RGB[][] apply(RGB[][] source)  {
+    this.source = source;
     RGB[][] output = new RGB[source.length][source[0].length];
 
     int height = source.length;

@@ -5,6 +5,7 @@ import controller.PhotoshopController;
 import controller.PhotoshopControllerImpl;
 import model.PhotoshopModel;
 import model.PhotoshopModelImpl;
+import model.PhotoshopModelProImpl;
 import view.PhotoshopView;
 
 /**
@@ -17,11 +18,11 @@ public class PhotoshopPlayer {
    * @param args java stuff.
    */
   public static void main(String[] args) {
-    PhotoshopModel model = new PhotoshopModelImpl();
+    PhotoshopModel model = new PhotoshopModelProImpl();
     PhotoshopView view = null;
     PhotoshopController controller;
-    controller = new PhotoshopControllerImpl(model, view, new StringReader("load images/dogs.jpg dogs save images/saved.ppm dogs"));
-    //controller = new PhotoshopControllerImpl(model, view, new InputStreamReader(System.in));
+    //controller = new PhotoshopControllerImpl(model, view, new StringReader("load images/dogs.jpg dogs save images/saved.ppm dogs"));
+    controller = new PhotoshopControllerImpl(model, view, new InputStreamReader(System.in));
     controller.run();
   }
 }

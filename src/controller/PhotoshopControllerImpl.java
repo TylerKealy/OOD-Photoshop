@@ -5,13 +5,17 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Function;
 
+import commands.KernelCommand;
 import commands.BrightenCommand;
 import commands.ComponentCommand;
 import commands.FlipCommand;
 import commands.LoadCommand;
+import commands.PhotoshopCommand;
 import commands.SaveCommand;
 import model.Enums.ComponentGreyscale;
 import model.Enums.Direction;
+import model.Kernels.BlurKernel;
+import model.Kernels.SharpenKernel;
 import model.PhotoshopModel;
 import view.PhotoshopView;
 
@@ -63,6 +67,10 @@ public class PhotoshopControllerImpl implements PhotoshopController {
             new ComponentCommand(ComponentGreyscale.Green, s.next(), s.next()));
     this.commands.put("blue-component", (Scanner s) ->
             new ComponentCommand(ComponentGreyscale.Blue, s.next(), s.next()));
+    this.commands.put("blur", (Scanner s) ->
+            new KernelCommand(new BlurKernel(), s.next(), s.next()));
+    this.commands.put("sharpen", (Scanner s) ->
+            new KernelCommand(new SharpenKernel(), s.next(), s.next()));
   }
 
   @Override

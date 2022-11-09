@@ -2,19 +2,14 @@ package model;
 
 import model.Enums.RGB;
 import model.Kernels.BlurKernel;
+import model.Kernels.IKernel;
+import model.Kernels.SharpenKernel;
 
 public class PhotoshopModelProImpl extends PhotoshopModelImpl implements PhotoshopModelPro {
   @Override
-  public void transform(String imageName, String destImageName) {
-    blur(imageName, destImageName);
-  }
-
-  private void blur(String imageName, String destImageName) {
+  public void kernel(String imageName, String destImageName, IKernel kernel) {
     RGB[][] source = imageStorage.get(imageName);
-    BlurKernel blurKernel = new BlurKernel(source);
-
-    RGB[][] output = blurKernel.apply();
-
+    RGB[][] output = kernel.apply(source);
     imageStorage.put(destImageName, output);
   }
 
@@ -26,7 +21,7 @@ public class PhotoshopModelProImpl extends PhotoshopModelImpl implements Photosh
   public static void main(String[] args) {
     PhotoshopModelProImpl impl = new PhotoshopModelProImpl();
     impl.loadImage("images/dogs.ppm", "dogs");
-    impl.transform("dogs", "blur_dogs");
+    impl.kernel("dogs", "blur_dogs", new BlurKernel());
     impl.saveImage("images/blur_dogs.ppm", "blur_dogs");
   }
 

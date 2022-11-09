@@ -1,7 +1,9 @@
 package model;
 
+import model.Kernels.IKernel;
+
 public interface PhotoshopModelPro extends PhotoshopModel{
 
-  void transform(String imageName, String destImageName);
+  void kernel(String imageName, String destImageName, IKernel kernel);
 
 }
