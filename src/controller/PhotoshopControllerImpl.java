@@ -20,6 +20,7 @@ import model.Kernels.GreyscaleMatrix;
 import model.Kernels.SharpenKernel;
 import model.Kernels.SepiaMatrix;
 import model.PhotoshopModel;
+import model.PhotoshopModelPro;
 import view.PhotoshopView;
 
 /**
@@ -50,34 +51,34 @@ public class PhotoshopControllerImpl implements PhotoshopController {
   }
 
   private void populateCommands() {
-    this.commands.put("load", (Scanner s) -> new LoadCommand(s.next(), s.next()));
-    this.commands.put("save", (Scanner s) -> new SaveCommand(s.next(), s.next()));
+    this.commands.put("load", (Scanner s) -> new LoadCommand(this.model, s.next(), s.next()));
+    this.commands.put("save", (Scanner s) -> new SaveCommand(this.model, s.next(), s.next()));
     this.commands.put("brighten", (Scanner s) ->
-            new BrightenCommand(Integer.parseInt(s.next()), s.next(), s.next()));
+            new BrightenCommand(this.model, Integer.parseInt(s.next()), s.next(), s.next()));
     this.commands.put("vertical-flip", (Scanner s) ->
-            new FlipCommand(Direction.Vertical, s.next(), s.next()));
+            new FlipCommand(this.model, Direction.Vertical, s.next(), s.next()));
     this.commands.put("horizontal-flip", (Scanner s) ->
-            new FlipCommand(Direction.Horizontal, s.next(), s.next()));
+            new FlipCommand(this.model, Direction.Horizontal, s.next(), s.next()));
     this.commands.put("value-component", (Scanner s) ->
-            new ComponentCommand(ComponentGreyscale.Value, s.next(), s.next()));
+            new ComponentCommand(this.model, ComponentGreyscale.Value, s.next(), s.next()));
     this.commands.put("intensity-component", (Scanner s) ->
-            new ComponentCommand(ComponentGreyscale.Intensity, s.next(), s.next()));
+            new ComponentCommand(this.model, ComponentGreyscale.Intensity, s.next(), s.next()));
     this.commands.put("luma-component", (Scanner s) ->
-            new ComponentCommand(ComponentGreyscale.Luma, s.next(), s.next()));
+            new ComponentCommand(this.model, ComponentGreyscale.Luma, s.next(), s.next()));
     this.commands.put("red-component", (Scanner s) ->
-            new ComponentCommand(ComponentGreyscale.Red, s.next(), s.next()));
+            new ComponentCommand(this.model, ComponentGreyscale.Red, s.next(), s.next()));
     this.commands.put("green-component", (Scanner s) ->
-            new ComponentCommand(ComponentGreyscale.Green, s.next(), s.next()));
+            new ComponentCommand(this.model, ComponentGreyscale.Green, s.next(), s.next()));
     this.commands.put("blue-component", (Scanner s) ->
-            new ComponentCommand(ComponentGreyscale.Blue, s.next(), s.next()));
+            new ComponentCommand(this.model, ComponentGreyscale.Blue, s.next(), s.next()));
     this.commands.put("blur", (Scanner s) ->
-            new KernelCommand(new BlurKernel(), s.next(), s.next()));
+            new KernelCommand((PhotoshopModelPro) this.model, new BlurKernel(), s.next(), s.next()));
     this.commands.put("sharpen", (Scanner s) ->
-            new KernelCommand(new SharpenKernel(), s.next(), s.next()));
+            new KernelCommand((PhotoshopModelPro) this.model, new SharpenKernel(), s.next(), s.next()));
     this.commands.put("sepia", (Scanner s) ->
-            new TransformCommand(new SepiaMatrix(), s.next(), s.next()));
+            new TransformCommand((PhotoshopModelPro) this.model, new SepiaMatrix(), s.next(), s.next()));
     this.commands.put("greyscale", (Scanner s) ->
-            new TransformCommand(new GreyscaleMatrix(), s.next(), s.next()));
+            new TransformCommand((PhotoshopModelPro) this.model, new GreyscaleMatrix(), s.next(), s.next()));
   }
 
   @Override
@@ -99,7 +100,7 @@ public class PhotoshopControllerImpl implements PhotoshopController {
 
       //Try running command. If it doesn't work, throw IllegalArgument
       try {
-        cmd.apply(scanner).run(this.model);
+        cmd.apply(scanner).run();
       } catch (Exception e) {
         throw new IllegalStateException("Command failed: " + e.getMessage());
       }

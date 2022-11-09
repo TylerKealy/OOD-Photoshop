@@ -14,6 +14,12 @@ Supported commands:
 "sharpen (String) (String)"
 "sepia (String) (String)"
 
+HOW TO USE COMMANDS:
+*must use "load" before any other command.
+*you can use all other commands (besides "load") in whichever order you prefer.
+*if you want to save the file, you must use the "save" command last.
+
+
 Examples:
 CMD: "load images/koala.ppm koala"
 	loads koala.ppm and call it 'koala'

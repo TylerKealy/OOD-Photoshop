@@ -7,5 +7,5 @@ import model.PhotoshopModel;
  * Used for text commands in console.
  */
 public interface PhotoshopCommand {
-  void run(PhotoshopModel model);
+  void run();
 }

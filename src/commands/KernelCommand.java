@@ -6,18 +6,20 @@ import model.PhotoshopModel;
 import model.PhotoshopModelPro;
 
 public class KernelCommand implements PhotoshopCommand {
-  String sourceName;
-  String destName;
-  IKernel kernel;
-  public KernelCommand(IKernel kernel, String sourceName, String destName) {
+  private final String sourceName;
+  private final String destName;
+  private final  IKernel kernel;
+
+  private final PhotoshopModelPro model;
+  public KernelCommand(PhotoshopModelPro model, IKernel kernel, String sourceName, String destName) {
+    this.model = model;
     this.kernel = kernel;
     this.sourceName = sourceName;
     this.destName = destName;
   }
 
   @Override
-  public void run(PhotoshopModel model) {
-    PhotoshopModelPro pro = (PhotoshopModelPro) model;
-    pro.kernel(sourceName, destName, kernel);
+  public void run() {
+    model.kernel(sourceName, destName, kernel);
   }
 }

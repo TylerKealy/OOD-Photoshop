@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="photoshop:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/photoshop_jar</output-path>
+  <artifact type="jar" build-on-make="true" name="Assignment4:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Assignment4_jar</output-path>
     <root id="archive" name="Assignment4.jar">
       <element id="module-output" name="Assignment4" />
     </root>
