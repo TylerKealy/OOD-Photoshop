@@ -13,6 +13,12 @@ public class PhotoshopModelProImpl extends PhotoshopModelImpl implements Photosh
     imageStorage.put(destImageName, output);
   }
 
+  public void transform(String imageName, String destImageName, IKernel matrix) {
+    RGB[][] source = imageStorage.get(imageName);
+    RGB[][] output = matrix.apply(source);
+    imageStorage.put(destImageName, output);
+  }
+
   /**
    * Main method used for testing the model.
    *

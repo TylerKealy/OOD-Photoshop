@@ -21,8 +21,8 @@ public class PhotoshopPlayer {
     PhotoshopModel model = new PhotoshopModelProImpl();
     PhotoshopView view = null;
     PhotoshopController controller;
-    //controller = new PhotoshopControllerImpl(model, view, new StringReader("load images/dogs.jpg dogs save images/saved.ppm dogs"));
-    controller = new PhotoshopControllerImpl(model, view, new InputStreamReader(System.in));
+    controller = new PhotoshopControllerImpl(model, view, new StringReader("load images/dogs.jpg dogs save images/saved.bmp dogs"));
+    //controller = new PhotoshopControllerImpl(model, view, new InputStreamReader(System.in));
     controller.run();
   }
 }

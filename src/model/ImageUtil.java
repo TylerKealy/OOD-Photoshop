@@ -2,6 +2,7 @@ package model;
 
 import javax.imageio.ImageIO;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -31,14 +32,39 @@ public class ImageUtil {
   public static void save(String filename, RGB[][] pixels) {
     if (filename.endsWith(".ppm")) {
       savePPM(filename, pixels);
+    } else {
+      saveSTDFormats(filename, pixels);
     }
   }
 
   //TODO: save as either a PNG or a JPG. use ImageIO.
   public static void saveSTDFormats(String filename, RGB[][] pixels) {
-    if (filename.endsWith(".png")) {
+    BufferedImage buff = null;
+    String fileEnding = filename.substring(filename.length() - 3);
+    int height = pixels.length;
+    int width = pixels[0].length;
+    switch (fileEnding) {
+      case "png":
+        buff = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
+        break;
+      case "jpg":
+        buff = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        break;
+      case "bmp":
+        buff = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        break;
+    }
+    for (int row = 0; row < height; row++) {
+      for (int col = 0; col < width; col++) {
+        Color color = new Color(pixels[row][col].r, pixels[row][col].g, pixels[row][col].b);
+        buff.setRGB(col, row, color.getRGB());
+      }
+    }
 
-    } else if (filename.endsWith(".jpg")) {
+    try {
+      System.out.println("output");
+      ImageIO.write(buff, fileEnding, new File(filename));
+    } catch (IOException e) {
 
     }
   }
@@ -70,6 +96,7 @@ public class ImageUtil {
 
 
   //TODO: add support for bmp.
+
   /**
    * Reads standard formats of imgaes such as PNG or JPG
    *

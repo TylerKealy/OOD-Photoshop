@@ -12,10 +12,13 @@ import commands.FlipCommand;
 import commands.LoadCommand;
 import commands.PhotoshopCommand;
 import commands.SaveCommand;
+import commands.TransformCommand;
 import model.Enums.ComponentGreyscale;
 import model.Enums.Direction;
 import model.Kernels.BlurKernel;
+import model.Kernels.GreyscaleMatrix;
 import model.Kernels.SharpenKernel;
+import model.Kernels.SepiaMatrix;
 import model.PhotoshopModel;
 import view.PhotoshopView;
 
@@ -71,6 +74,10 @@ public class PhotoshopControllerImpl implements PhotoshopController {
             new KernelCommand(new BlurKernel(), s.next(), s.next()));
     this.commands.put("sharpen", (Scanner s) ->
             new KernelCommand(new SharpenKernel(), s.next(), s.next()));
+    this.commands.put("sepia", (Scanner s) ->
+            new TransformCommand(new SepiaMatrix(), s.next(), s.next()));
+    this.commands.put("greyscale", (Scanner s) ->
+            new TransformCommand(new GreyscaleMatrix(), s.next(), s.next()));
   }
 
   @Override
