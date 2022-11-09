@@ -1,6 +1,6 @@
 package commands;
 
-import model.Enums.ComponentGreyscale;
+import model.enums.ComponentGreyscale;
 import model.PhotoshopModel;
 
 /**
@@ -16,11 +16,13 @@ public class ComponentCommand implements PhotoshopCommand {
 
   /**
    * Constructor for information needed regarding executing a Component Command.
-   * @param component which component to greyscale.
+   *
+   * @param component  which component to greyscale.
    * @param sourceName source image name.
-   * @param destName exported image name.
+   * @param destName   exported image name.
    */
-  public ComponentCommand(PhotoshopModel model, ComponentGreyscale component, String sourceName, String destName) {
+  public ComponentCommand(PhotoshopModel model,
+                          ComponentGreyscale component, String sourceName, String destName) {
     this.model = model;
     this.component = component;
     this.sourceName = sourceName;

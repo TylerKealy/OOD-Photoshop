@@ -1,7 +1,6 @@
 package commands;
 
-import model.Kernels.IKernel;
-import model.PhotoshopModel;
+import model.kernels.IKernel;
 import model.PhotoshopModelPro;
 
 public class TransformCommand implements PhotoshopCommand {
@@ -10,7 +9,9 @@ public class TransformCommand implements PhotoshopCommand {
   IKernel matrix;
 
   private final PhotoshopModelPro model;
-  public TransformCommand(PhotoshopModelPro model, IKernel matrix, String sourceName, String destName) {
+
+  public TransformCommand(PhotoshopModelPro model,
+                          IKernel matrix, String sourceName, String destName) {
     this.model = model;
     this.matrix = matrix;
     this.sourceName = sourceName;

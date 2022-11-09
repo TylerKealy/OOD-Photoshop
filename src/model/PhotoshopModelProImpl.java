@@ -1,9 +1,8 @@
 package model;
 
-import model.Enums.RGB;
-import model.Kernels.BlurKernel;
-import model.Kernels.IKernel;
-import model.Kernels.SharpenKernel;
+import model.enums.RGB;
+import model.kernels.BlurKernel;
+import model.kernels.IKernel;
 
 public class PhotoshopModelProImpl extends PhotoshopModelImpl implements PhotoshopModelPro {
   @Override

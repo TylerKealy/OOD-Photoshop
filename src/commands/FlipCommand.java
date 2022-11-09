@@ -1,8 +1,7 @@
 package commands;
 
-import model.Enums.Direction;
+import model.enums.Direction;
 import model.PhotoshopModel;
-import model.PhotoshopModelImpl;
 
 /**
  * FlipCommand is a PhotoshopCommand that executes the flip method on the model.

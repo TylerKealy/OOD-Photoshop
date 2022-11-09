@@ -1,7 +1,6 @@
 package commands;
 
 import model.PhotoshopModel;
-import model.PhotoshopModelPro;
 
 /**
  * A LoadCommand is a PhotoshopCommand that loads an image into the model.

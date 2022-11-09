@@ -9,9 +9,9 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.Enums.ComponentGreyscale;
-import model.Enums.Direction;
-import model.Enums.RGB;
+import model.enums.ComponentGreyscale;
+import model.enums.Direction;
+import model.enums.RGB;
 
 /**
  * PhotoshopModelImpl testing.

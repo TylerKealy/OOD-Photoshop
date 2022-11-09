@@ -1,8 +1,8 @@
-package model.Kernels;
+package model.kernels;
 
-import model.Enums.RGB;
+import model.enums.RGB;
 
-public class AMatrix extends AKernel{
+public class AMatrix extends AKernel {
   float[][] matrix;
 
   @Override

@@ -1,6 +1,5 @@
 package commands;
 
-import model.PhotoshopModel;
 
 /**
  * A Photoshop command is a command to be executed on the model.

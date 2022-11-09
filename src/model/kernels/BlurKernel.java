@@ -1,6 +1,4 @@
-package model.Kernels;
-
-import model.Enums.RGB;
+package model.kernels;
 
 public class BlurKernel extends AKernel {
   //TODO: do we want to specify 3x3 in size, or in implementation?

@@ -1,6 +1,4 @@
-package model.Kernels;
-
-import model.Enums.RGB;
+package model.kernels;
 
 public class GreyscaleMatrix extends AMatrix {
 

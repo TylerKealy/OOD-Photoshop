@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 import commands.KernelCommand;
 import commands.TransformCommand;
-import model.Kernels.BlurKernel;
-import model.Kernels.GreyscaleMatrix;
-import model.Kernels.SepiaMatrix;
-import model.Kernels.SharpenKernel;
+import model.kernels.BlurKernel;
+import model.kernels.GreyscaleMatrix;
+import model.kernels.SepiaMatrix;
+import model.kernels.SharpenKernel;
 import model.PhotoshopModelPro;
 import view.PhotoshopView;
 
@@ -20,6 +20,7 @@ public class PhotoshopControllerPro extends APhotoshopController {
    * @param rd    user input.
    */
   PhotoshopModelPro pro;
+
   public PhotoshopControllerPro(PhotoshopModelPro model, PhotoshopView view, Readable rd) {
     super(model, view, rd);
     this.pro = model;
@@ -29,12 +30,16 @@ public class PhotoshopControllerPro extends APhotoshopController {
   void populateCommands() {
     super.populateCommands();
     this.commands.put("blur", (Scanner s) ->
-            new KernelCommand((PhotoshopModelPro) this.model, new BlurKernel(), s.next(), s.next()));
+            new KernelCommand((PhotoshopModelPro) this.model,
+                    new BlurKernel(), s.next(), s.next()));
     this.commands.put("sharpen", (Scanner s) ->
-            new KernelCommand((PhotoshopModelPro) this.model, new SharpenKernel(), s.next(), s.next()));
+            new KernelCommand((PhotoshopModelPro) this.model,
+                    new SharpenKernel(), s.next(), s.next()));
     this.commands.put("sepia", (Scanner s) ->
-            new TransformCommand((PhotoshopModelPro) this.model, new SepiaMatrix(), s.next(), s.next()));
+            new TransformCommand((PhotoshopModelPro) this.model,
+                    new SepiaMatrix(), s.next(), s.next()));
     this.commands.put("greyscale", (Scanner s) ->
-            new TransformCommand((PhotoshopModelPro) this.model, new GreyscaleMatrix(), s.next(), s.next()));
+            new TransformCommand((PhotoshopModelPro) this.model,
+                    new GreyscaleMatrix(), s.next(), s.next()));
   }
 }

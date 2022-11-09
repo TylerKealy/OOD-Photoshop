@@ -11,8 +11,8 @@ import commands.FlipCommand;
 import commands.LoadCommand;
 import commands.PhotoshopCommand;
 import commands.SaveCommand;
-import model.Enums.ComponentGreyscale;
-import model.Enums.Direction;
+import model.enums.ComponentGreyscale;
+import model.enums.Direction;
 import model.PhotoshopModel;
 import view.PhotoshopView;
 
@@ -43,7 +43,7 @@ public abstract class APhotoshopController implements PhotoshopController {
     populateCommands();
   }
 
-   void populateCommands() {
+  void populateCommands() {
     this.commands.put("load", (Scanner s) -> new LoadCommand(this.model, s.next(), s.next()));
     this.commands.put("save", (Scanner s) -> new SaveCommand(this.model, s.next(), s.next()));
     this.commands.put("brighten", (Scanner s) ->

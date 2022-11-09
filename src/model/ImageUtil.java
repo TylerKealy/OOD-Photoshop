@@ -2,7 +2,7 @@ package model;
 
 import javax.imageio.ImageIO;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
 
-import model.Enums.RGB;
+import model.enums.RGB;
 
 
 /**
@@ -53,6 +53,8 @@ public class ImageUtil {
       case "bmp":
         buff = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         break;
+      default:
+        throw new IllegalStateException("Unsupported file");
     }
     for (int row = 0; row < height; row++) {
       for (int col = 0; col < width; col++) {
@@ -65,7 +67,7 @@ public class ImageUtil {
       System.out.println("output");
       ImageIO.write(buff, fileEnding, new File(filename));
     } catch (IOException e) {
-
+      throw new IllegalStateException("Image cannot be written");
     }
   }
 

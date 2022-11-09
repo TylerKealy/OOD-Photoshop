@@ -14,11 +14,13 @@ public class BrightenCommand implements PhotoshopCommand {
 
   /**
    * Constructor for information needed regarding executing a Brighten Command.
-   * @param increment how much to brighten.
+   *
+   * @param increment  how much to brighten.
    * @param sourcename source image name.
    * @param exportName exported image name.
    */
-  public BrightenCommand(PhotoshopModel model, int increment, String sourcename, String exportName) {
+  public BrightenCommand(PhotoshopModel model,
+                         int increment, String sourcename, String exportName) {
     this.model = model;
     this.increment = increment;
     this.source = sourcename;

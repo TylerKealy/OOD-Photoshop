@@ -1,4 +1,4 @@
-package model.Enums;
+package model.enums;
 
 /**
  * Options for greyscaling an image through one of the following.

@@ -1,7 +1,4 @@
-package model.Kernels;
-
-import model.Enums.RGB;
-import model.Kernels.AKernel;
+package model.kernels;
 
 public class SepiaMatrix extends AMatrix {
 
