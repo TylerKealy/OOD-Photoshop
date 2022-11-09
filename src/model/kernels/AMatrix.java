@@ -2,6 +2,10 @@ package model.kernels;
 
 import model.enums.RGB;
 
+/**
+ * An AMatrix is a type of AKernel that is a different type of filter. an AMatrix filters
+ * pixel to pixel instead of including the surrouding pixel data as well.
+ */
 public class AMatrix extends AKernel {
   float[][] matrix;
 

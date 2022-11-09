@@ -1,7 +1,13 @@
 package model.kernels;
 
+/**
+ * This is the matrix that when applied, results in an image with a Sepia effect.
+ */
 public class SepiaMatrix extends AMatrix {
 
+  /**
+   * This is the data that creates the sepia effect.
+   */
   public SepiaMatrix() {
     this.matrix = new float[][]{
             {.393f, .769f, .189f},

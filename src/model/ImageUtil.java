@@ -21,7 +21,11 @@ import model.enums.RGB;
  */
 public class ImageUtil {
 
-
+  /**
+   * Reads in any given file and outputs it as an array of RGB[][].
+   * @param filename the directory of the file to read
+   * @return the given file represented as a 2D array of RGB
+   */
   public static RGB[][] read(String filename) {
     if (filename.endsWith(".ppm")) {
       return readPPM(filename);
@@ -29,6 +33,11 @@ public class ImageUtil {
     return readSTDFormats(filename);
   }
 
+  /**
+   * Given a path to save to and a 2D array of RGB, will save the image to your computer.
+   * @param filename the directory to save the image to.
+   * @param pixels the image data to save.
+   */
   public static void save(String filename, RGB[][] pixels) {
     if (filename.endsWith(".ppm")) {
       savePPM(filename, pixels);
@@ -37,8 +46,7 @@ public class ImageUtil {
     }
   }
 
-  //TODO: save as either a PNG or a JPG. use ImageIO.
-  public static void saveSTDFormats(String filename, RGB[][] pixels) {
+  private static void saveSTDFormats(String filename, RGB[][] pixels) {
     BufferedImage buff = null;
     String fileEnding = filename.substring(filename.length() - 3);
     int height = pixels.length;
@@ -71,7 +79,7 @@ public class ImageUtil {
     }
   }
 
-  public static void savePPM(String filename, RGB[][] pixels) {
+  private static void savePPM(String filename, RGB[][] pixels) {
     try {
       System.out.println("saving");
       PrintWriter outfile = new PrintWriter(filename);
@@ -96,15 +104,7 @@ public class ImageUtil {
     }
   }
 
-
-  //TODO: add support for bmp.
-
-  /**
-   * Reads standard formats of imgaes such as PNG or JPG
-   *
-   * @return
-   */
-  public static RGB[][] readSTDFormats(String filename) {
+  private static RGB[][] readSTDFormats(String filename) {
     BufferedImage bufferedImage;
     try {
       bufferedImage = ImageIO.read(new File(filename));

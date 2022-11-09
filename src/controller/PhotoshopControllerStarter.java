@@ -3,6 +3,10 @@ package controller;
 import model.PhotoshopModel;
 import view.PhotoshopView;
 
+/**
+ * A PhotoshopControllerStarter is an APhotoshopController that can only run the default commands
+ * provided in APhotoshopController.
+ */
 public class PhotoshopControllerStarter extends APhotoshopController {
   /**
    * Constructor to create a PhotoshopController. Runs the model.

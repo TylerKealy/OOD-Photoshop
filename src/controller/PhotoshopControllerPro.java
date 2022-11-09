@@ -11,6 +11,9 @@ import model.kernels.SharpenKernel;
 import model.PhotoshopModelPro;
 import view.PhotoshopView;
 
+/**
+ * A PhotoshopControllerPro is a controller that can run Pro-only commands.
+ */
 public class PhotoshopControllerPro extends APhotoshopController {
   /**
    * Constructor to create a PhotoshopController. Runs the model.

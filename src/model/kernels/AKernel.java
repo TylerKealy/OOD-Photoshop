@@ -2,10 +2,18 @@ package model.kernels;
 
 import model.enums.RGB;
 
+/**
+ * AKernel abstracts common functionalities used between all IKernel implementations.
+ */
 public abstract class AKernel implements IKernel {
   RGB[][] source;
   float[][] kernel;
 
+  /**
+   * Applies Kernel to the given RGB[][]].
+   * @param source the source image to apply this Kernel to.
+   * @return an updated RGB pixel.
+   */
   public RGB[][] apply(RGB[][] source) {
     this.source = source;
     RGB[][] output = new RGB[source.length][source[0].length];
@@ -26,12 +34,20 @@ public abstract class AKernel implements IKernel {
     return Math.min(Math.max(input, 0), 255);
   }
 
+  /**
+   * Applies Kernel to the given RGB[row][col] pixel.
+   * @param row row of pixel.
+   * @param col col of pixel.
+   * @return an updated RGB pixel.
+   */
   RGB applyPixel(int row, int col) {
     RGB output = new RGB(0, 0, 0);
     int offset = kernel.length / 2;
     for (int i = -offset; i <= offset; i++) {
       for (int j = -offset; j <= offset; j++) {
-        if (isOutOfBounds(row + i, col + j)) continue;
+        if (isOutOfBounds(row + i, col + j)) {
+          continue;
+        }
         output.r += clampToRGB((int)
                 (source[row + i][col + j].r * kernel[i + offset][j + offset]));
         output.g += clampToRGB((int)
@@ -44,8 +60,6 @@ public abstract class AKernel implements IKernel {
   }
 
   protected boolean isOutOfBounds(int row, int col) {
-    //System.out.println("out: " +
-    // (row < 0 || row >= source.length || col < 0 || col >= source[0].length));
     return (row < 0 || row >= source.length || col < 0 || col >= source[0].length);
   }
 }
