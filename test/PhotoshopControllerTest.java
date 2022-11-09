@@ -3,7 +3,8 @@ import org.junit.Test;
 
 import java.io.StringReader;
 
-import controller.PhotoshopControllerImpl;
+import controller.APhotoshopController;
+import controller.PhotoshopControllerStarter;
 import model.MockPhotoshopModel;
 import view.PhotoshopView;
 
@@ -19,7 +20,7 @@ public class PhotoshopControllerTest {
   private PhotoshopView view = null;
   private Appendable ap;
   private StringReader sr;
-  private PhotoshopControllerImpl controller;
+  private APhotoshopController controller;
 
   @Before
   public void init() {
@@ -27,7 +28,7 @@ public class PhotoshopControllerTest {
     ap = new StringBuilder();
     model = new MockPhotoshopModel(ap);
     view = null;
-    controller = new PhotoshopControllerImpl(model, view, sr);
+    controller = new PhotoshopControllerStarter(model, view, sr);
   }
 
   @Test
@@ -36,7 +37,7 @@ public class PhotoshopControllerTest {
     ap = new StringBuilder();
     model = new MockPhotoshopModel(ap);
     view = null;
-    controller = new PhotoshopControllerImpl(model, view, sr);
+    controller = new PhotoshopControllerStarter(model, view, sr);
 
     controller.run();
     assertEquals(ap.toString(), "loadImage imagePath:name imageName: destname");
@@ -48,7 +49,7 @@ public class PhotoshopControllerTest {
     ap = new StringBuilder();
     model = new MockPhotoshopModel(ap);
     view = null;
-    controller = new PhotoshopControllerImpl(model, view, sr);
+    controller = new PhotoshopControllerStarter(model, view, sr);
 
     controller.run();
     assertEquals(ap.toString(), "saveImage imagePath:directory imageName: name");
@@ -60,7 +61,7 @@ public class PhotoshopControllerTest {
     ap = new StringBuilder();
     model = new MockPhotoshopModel(ap);
     view = null;
-    controller = new PhotoshopControllerImpl(model, view, sr);
+    controller = new PhotoshopControllerStarter(model, view, sr);
 
     controller.run();
     assertEquals(ap.toString(),
@@ -70,7 +71,7 @@ public class PhotoshopControllerTest {
     ap = new StringBuilder();
     model = new MockPhotoshopModel(ap);
     view = null;
-    controller = new PhotoshopControllerImpl(model, view, sr);
+    controller = new PhotoshopControllerStarter(model, view, sr);
 
     controller.run();
     assertEquals(ap.toString(),
@@ -84,7 +85,7 @@ public class PhotoshopControllerTest {
     ap = new StringBuilder();
     model = new MockPhotoshopModel(ap);
     view = null;
-    controller = new PhotoshopControllerImpl(model, view, sr);
+    controller = new PhotoshopControllerStarter(model, view, sr);
 
     try {
       controller.run();
@@ -99,7 +100,7 @@ public class PhotoshopControllerTest {
     ap = new StringBuilder();
     model = new MockPhotoshopModel(ap);
     view = null;
-    controller = new PhotoshopControllerImpl(model, view, sr);
+    controller = new PhotoshopControllerStarter(model, view, sr);
 
     controller.run();
     assertEquals(ap.toString(),
@@ -109,7 +110,7 @@ public class PhotoshopControllerTest {
     ap = new StringBuilder();
     model = new MockPhotoshopModel(ap);
     view = null;
-    controller = new PhotoshopControllerImpl(model, view, sr);
+    controller = new PhotoshopControllerStarter(model, view, sr);
 
     controller.run();
     assertEquals(ap.toString(),
@@ -122,7 +123,7 @@ public class PhotoshopControllerTest {
     ap = new StringBuilder();
     model = new MockPhotoshopModel(ap);
     view = null;
-    controller = new PhotoshopControllerImpl(model, view, sr);
+    controller = new PhotoshopControllerStarter(model, view, sr);
 
     controller.run();
     assertEquals(ap.toString(),
@@ -132,7 +133,7 @@ public class PhotoshopControllerTest {
     ap = new StringBuilder();
     model = new MockPhotoshopModel(ap);
     view = null;
-    controller = new PhotoshopControllerImpl(model, view, sr);
+    controller = new PhotoshopControllerStarter(model, view, sr);
 
     controller.run();
     assertEquals(ap.toString(),
@@ -143,7 +144,7 @@ public class PhotoshopControllerTest {
     ap = new StringBuilder();
     model = new MockPhotoshopModel(ap);
     view = null;
-    controller = new PhotoshopControllerImpl(model, view, sr);
+    controller = new PhotoshopControllerStarter(model, view, sr);
 
     controller.run();
     assertEquals(ap.toString(),
@@ -154,7 +155,7 @@ public class PhotoshopControllerTest {
     ap = new StringBuilder();
     model = new MockPhotoshopModel(ap);
     view = null;
-    controller = new PhotoshopControllerImpl(model, view, sr);
+    controller = new PhotoshopControllerStarter(model, view, sr);
 
     controller.run();
     assertEquals(ap.toString(),
@@ -165,7 +166,7 @@ public class PhotoshopControllerTest {
     ap = new StringBuilder();
     model = new MockPhotoshopModel(ap);
     view = null;
-    controller = new PhotoshopControllerImpl(model, view, sr);
+    controller = new PhotoshopControllerStarter(model, view, sr);
 
     controller.run();
     assertEquals(ap.toString(),
@@ -176,7 +177,7 @@ public class PhotoshopControllerTest {
     ap = new StringBuilder();
     model = new MockPhotoshopModel(ap);
     view = null;
-    controller = new PhotoshopControllerImpl(model, view, sr);
+    controller = new PhotoshopControllerStarter(model, view, sr);
 
     controller.run();
     assertEquals(ap.toString(),

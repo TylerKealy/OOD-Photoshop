@@ -5,29 +5,22 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Function;
 
-import commands.KernelCommand;
 import commands.BrightenCommand;
 import commands.ComponentCommand;
 import commands.FlipCommand;
 import commands.LoadCommand;
 import commands.PhotoshopCommand;
 import commands.SaveCommand;
-import commands.TransformCommand;
 import model.Enums.ComponentGreyscale;
 import model.Enums.Direction;
-import model.Kernels.BlurKernel;
-import model.Kernels.GreyscaleMatrix;
-import model.Kernels.SharpenKernel;
-import model.Kernels.SepiaMatrix;
 import model.PhotoshopModel;
-import model.PhotoshopModelPro;
 import view.PhotoshopView;
 
 /**
  * PhotoshopControllerImpl is an implementation of PhotoshopController that uses
  * command design pattern.
  */
-public class PhotoshopControllerImpl implements PhotoshopController {
+public abstract class APhotoshopController implements PhotoshopController {
   PhotoshopModel model;
   PhotoshopView view;
   Readable rd;
@@ -42,7 +35,7 @@ public class PhotoshopControllerImpl implements PhotoshopController {
    * @param view  view to show program.
    * @param rd    user input.
    */
-  public PhotoshopControllerImpl(PhotoshopModel model, PhotoshopView view, Readable rd) {
+  public APhotoshopController(PhotoshopModel model, PhotoshopView view, Readable rd) {
     this.model = model;
     this.view = view;
     this.rd = rd;
@@ -50,7 +43,7 @@ public class PhotoshopControllerImpl implements PhotoshopController {
     populateCommands();
   }
 
-  private void populateCommands() {
+   void populateCommands() {
     this.commands.put("load", (Scanner s) -> new LoadCommand(this.model, s.next(), s.next()));
     this.commands.put("save", (Scanner s) -> new SaveCommand(this.model, s.next(), s.next()));
     this.commands.put("brighten", (Scanner s) ->
@@ -71,14 +64,6 @@ public class PhotoshopControllerImpl implements PhotoshopController {
             new ComponentCommand(this.model, ComponentGreyscale.Green, s.next(), s.next()));
     this.commands.put("blue-component", (Scanner s) ->
             new ComponentCommand(this.model, ComponentGreyscale.Blue, s.next(), s.next()));
-    this.commands.put("blur", (Scanner s) ->
-            new KernelCommand((PhotoshopModelPro) this.model, new BlurKernel(), s.next(), s.next()));
-    this.commands.put("sharpen", (Scanner s) ->
-            new KernelCommand((PhotoshopModelPro) this.model, new SharpenKernel(), s.next(), s.next()));
-    this.commands.put("sepia", (Scanner s) ->
-            new TransformCommand((PhotoshopModelPro) this.model, new SepiaMatrix(), s.next(), s.next()));
-    this.commands.put("greyscale", (Scanner s) ->
-            new TransformCommand((PhotoshopModelPro) this.model, new GreyscaleMatrix(), s.next(), s.next()));
   }
 
   @Override
