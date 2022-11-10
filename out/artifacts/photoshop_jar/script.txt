@@ -1,0 +1,16 @@
+load images\dogs.jpg dogs 
+sepia dogs sogs save sepia_dogs.png sogs 
+greyscale dogs gogs save greyscale_dogs.png gogs 
+blur dogs bogs save blur_dogs.png bogs 
+sharpen dogs shogs save sharp_dogs.png shogs  
+horizontal-flip dogs hogs save horiz_dogs.png hogs  
+vertical-flip dogs vogs save vert_dogs.png vogs 
+brighten 20 dogs brogs save bright_dogs.png brogs 
+brighten -20 dogs darkogs save dark_dogs.png darkogs 
+red-component dogs redogs save red_dogs.png redogs 
+blue-component dogs blogs save blue_dogs.png blogs 
+green-component dogs grogs save green_dogs.png grogs 
+value-component dogs valogs save value_dogs.png valogs 
+intensity-component dogs intensogs save intensity_dogs.png intensogs 
+luma-component dogs lumogs save luma_dogs.png lumogs 
+q

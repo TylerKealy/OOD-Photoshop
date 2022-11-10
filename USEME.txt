@@ -1,6 +1,6 @@
 Supported commands:
-"load (String) (String)"
-"save (String) (String)"
+"load (String filePath) (String imageName)"
+"save (String filePath) (String imageName)"
 "brighten (int) (String) (String)"
 "horizontal-flip (String) (String)"
 "vertical-flip (String) (String)"
@@ -13,6 +13,10 @@ Supported commands:
 "blur (String) (String)"
 "sharpen (String) (String)"
 "sepia (String) (String)"
+
+FOR THE SCRIPT.TXT:
+please replace all "FILEPATH" with your local filepath.
+script.txt is located in res/script.text
 
 HOW TO USE COMMANDS:
 *must use "load" before any other command.

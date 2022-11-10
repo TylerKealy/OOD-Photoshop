@@ -1,3 +1,7 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 
@@ -20,9 +24,28 @@ public class PhotoshopPlayer {
     PhotoshopModelProImpl model = new PhotoshopModelProImpl();
     PhotoshopView view = null;
     PhotoshopController controller;
-    controller = new PhotoshopControllerPro(model, view,
-     new StringReader("load images/dogs.jpg dogs greyscale dogs modified save res/greyscale.ppm modified"));
-    //controller = new PhotoshopControllerPro(model, view, new InputStreamReader(System.in));
+
+    if (args.length > 0 && args[0].strip().equals("-file")) {
+      String file = args[1];
+      controller = new PhotoshopControllerPro(model, view, getScriptSR(file));
+
+    } else {
+      controller = new PhotoshopControllerPro(model, view, new InputStreamReader(System.in));
+    }
     controller.run();
   }
+
+  private static StringReader getScriptSR(String scriptPath) {
+    try {
+      File script = new File(scriptPath);
+      BufferedReader br = new BufferedReader(new FileReader(script));
+      String toString = "";
+      for (String line; (line = br.readLine()) != null; toString += line) ;
+      return new StringReader(toString);
+    } catch (IOException e) {
+      throw new IllegalStateException("-file command failed.");
+    }
+  }
+
+
 }
