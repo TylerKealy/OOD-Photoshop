@@ -1,0 +1,3 @@
+load */images/dogs.jpg dogs 
+sepia dogs sogs save */images/sepia.png sogs 
+q
