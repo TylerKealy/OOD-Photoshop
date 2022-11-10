@@ -12,7 +12,7 @@ import model.enums.RGB;
  */
 public class PhotoshopModelImpl implements PhotoshopModel {
 
-  protected final Map<String, RGB[][]> imageStorage;
+  protected Map<String, RGB[][]> imageStorage;
 
   /**
    * Default constructor for normal purposes.

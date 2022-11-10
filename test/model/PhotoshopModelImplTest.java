@@ -77,6 +77,7 @@ public class PhotoshopModelImplTest {
     }
   }
 
+
   @Test
   public void testBrighten() {
     Map<String, RGB[][]> imageStorage = new HashMap<>();
