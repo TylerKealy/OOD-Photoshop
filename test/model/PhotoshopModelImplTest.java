@@ -12,6 +12,8 @@ import java.util.Map;
 import model.enums.ComponentGreyscale;
 import model.enums.Direction;
 import model.enums.RGB;
+import model.kernels.AMatrix;
+import model.kernels.SepiaMatrix;
 
 /**
  * PhotoshopModelImpl testing.
@@ -166,6 +168,26 @@ public class PhotoshopModelImplTest {
         assertEquals(source[i][j].g, green[i][j].g);
         assertEquals(0, green[i][j].b);
 
+      }
+    }
+
+  }
+
+  @Test
+  public void testSepia() {
+    Map<String, RGB[][]> imageStorage = new HashMap<>();
+    PhotoshopModelProImpl model = new PhotoshopModelProImpl(imageStorage);
+    model.loadImage("images/dogs.ppm", "dogs");
+    RGB[][] source = imageStorage.get("dogs");
+
+    model.transform("dogs", "sogs", new SepiaMatrix());
+    RGB[][] sepia = imageStorage.get("sogs");
+
+    for (int i = 0; i < source.length; i++) {
+      for (int j = 0; j < source[0].length; j++) {
+        assertEquals(0, sepia[i][j].r);
+        assertEquals(0, sepia[i][j].g);
+        assertEquals(0, sepia[i][j].b);
       }
     }
 
