@@ -1,0 +1,1 @@
+load images/dogs.png dogs save images/parsing_test.png dogs q 

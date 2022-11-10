@@ -36,7 +36,7 @@ public class PhotoshopModelImplTest {
     model.loadImage("images/Koala.ppm", "koala");
     RGB[][] source = imageStorage.get("koala");
 
-    model.saveImage("images/save_test", "koala");
+    model.saveImage("images/save_test.ppm", "koala");
 
     model.loadImage("images/save_test.ppm", "save_test");
     RGB[][] loaded = imageStorage.get("save_test");
@@ -174,22 +174,23 @@ public class PhotoshopModelImplTest {
   }
 
   @Test
-  public void testSepia() {
+  public void testPNGJPGBMP() {
     Map<String, RGB[][]> imageStorage = new HashMap<>();
-    PhotoshopModelProImpl model = new PhotoshopModelProImpl(imageStorage);
-    model.loadImage("images/dogs.ppm", "dogs");
-    RGB[][] source = imageStorage.get("dogs");
+    PhotoshopModelImpl model = new PhotoshopModelImpl(imageStorage);
+    model.loadImage("images/Koala.ppm", "koala");
+    RGB[][] source = imageStorage.get("koala");
 
-    model.transform("dogs", "sogs", new SepiaMatrix());
-    RGB[][] sepia = imageStorage.get("sogs");
+    model.saveImage("images/jpg_test.jpg", "koala");
+    model.loadImage("images/jpg_test.jpg", "jpg");
+    RGB[][] loaded = imageStorage.get("jpg");
 
-    for (int i = 0; i < source.length; i++) {
-      for (int j = 0; j < source[0].length; j++) {
-        assertEquals(0, sepia[i][j].r);
-        assertEquals(0, sepia[i][j].g);
-        assertEquals(0, sepia[i][j].b);
-      }
-    }
+    model.saveImage("images/png_test.png", "koala");
+    model.loadImage("images/png_test.png", "png");
+    loaded = imageStorage.get("png");
+
+    model.saveImage("images/bmp_test.bmp", "koala");
+    model.loadImage("images/bmp_test.bmp", "bmp");
+    loaded = imageStorage.get("bmp");
 
   }
 }
