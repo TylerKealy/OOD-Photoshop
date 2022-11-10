@@ -23,6 +23,7 @@ public class ImageUtil {
 
   /**
    * Reads in any given file and outputs it as an array of RGB[][].
+   *
    * @param filename the directory of the file to read
    * @return the given file represented as a 2D array of RGB
    */
@@ -35,8 +36,9 @@ public class ImageUtil {
 
   /**
    * Given a path to save to and a 2D array of RGB, will save the image to your computer.
+   *
    * @param filename the directory to save the image to.
-   * @param pixels the image data to save.
+   * @param pixels   the image data to save.
    */
   public static void save(String filename, RGB[][] pixels) {
     if (filename.endsWith(".ppm")) {
@@ -69,8 +71,9 @@ public class ImageUtil {
         try {
           Color color = new Color(pixels[row][col].r, pixels[row][col].g, pixels[row][col].b);
           buff.setRGB(col, row, color.getRGB());
-        }catch(Exception e) {
-          throw new IllegalStateException(e.getMessage() + " r: " + pixels[row][col].r + " g: " + pixels[row][col].g + " b: " + pixels[row][col].b);
+        } catch (Exception e) {
+          throw new IllegalStateException(e.getMessage() + " r: " +
+                  pixels[row][col].r + " g: " + pixels[row][col].g + " b: " + pixels[row][col].b);
         }
       }
     }

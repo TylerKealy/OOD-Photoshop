@@ -1,0 +1,16 @@
+load FILEPATH\images\dogs.jpg dogs 
+sepia dogs sogs save FILEPATH\sepia_dogs.png sogs 
+greyscale dogs gogs save FILEPATH\greyscale_dogs.png gogs 
+blur dogs bogs save FILEPATH\blur_dogs.png bogs 
+sharpen dogs shogs save FILEPATH\sharp_dogs.png shogs  
+horizontal-flip dogs hogs save FILEPATH\horiz_dogs.png hogs  
+vertical-flip dogs vogs save FILEPATH\vert_dogs.png vogs 
+brighten 20 dogs brogs save FILEPATH\bright_dogs.png brogs 
+brighten -20 dogs darkogs save FILEPATH\dark_dogs.png darkogs 
+red-component dogs redogs save FILEPATH\red_dogs.png redogs 
+blue-component dogs blogs save FILEPATH\blue_dogs.png blogs 
+green-component dogs grogs save FILEPATH\green_dogs.png grogs 
+value-component dogs valogs save FILEPATH\value_dogs.png valogs 
+intensity-component dogs intensogs save FILEPATH\intensity_dogs.png intensogs 
+luma-component dogs lumogs save FILEPATH\luma_dogs.png lumogs 
+q

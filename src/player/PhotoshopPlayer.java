@@ -17,37 +17,45 @@ import view.PhotoshopView;
  */
 public class PhotoshopPlayer {
 
-    /**
-     * Method used to run the Photoshop program.
-     *
-     * @param args java stuff.
-     */
-    public static void main(String[] args) {
-        PhotoshopModelProImpl model = new PhotoshopModelProImpl();
-        PhotoshopView view = null;
-        PhotoshopController controller;
+  /**
+   * Method used to run the Photoshop program.
+   *
+   * @param args java stuff.
+   */
+  public static void main(String[] args) {
+    PhotoshopModelProImpl model = new PhotoshopModelProImpl();
+    PhotoshopView view = null;
+    PhotoshopController controller;
 
-        if (args.length > 0 && args[0].strip().equals("-file")) {
-            String file = args[1];
-            controller = new PhotoshopControllerPro(model, view, getScriptSR(file));
+    if (args.length > 0 && args[0].strip().equals("-file")) {
+      String file = args[1];
+      controller = new PhotoshopControllerPro(model, view, getScriptSR(file));
 
-        } else {
-            controller = new PhotoshopControllerPro(model, view, new InputStreamReader(System.in));
-        }
-        controller.run();
+    } else {
+      controller = new PhotoshopControllerPro(model, view, new InputStreamReader(System.in));
     }
+    controller.run();
+  }
 
-    public static StringReader getScriptSR(String scriptPath) {
-        try {
-            File script = new File(scriptPath);
-            BufferedReader br = new BufferedReader(new FileReader(script));
-            String toString = "";
-            for (String line; (line = br.readLine()) != null; toString += line) ;
-            return new StringReader(toString);
-        } catch (IOException e) {
-            throw new IllegalStateException("-file command failed.");
-        }
+  /**
+   * Method used to get the script file, read it and perform the commands.
+   *
+   * @param scriptPath is the list of commands on the script file
+   * @return string reader of commands
+   */
+  public static StringReader getScriptSR(String scriptPath) {
+    try {
+      File script = new File(scriptPath);
+      BufferedReader br = new BufferedReader(new FileReader(script));
+      String toString = "";
+      for (String line; (line = br.readLine()) != null;) {
+        toString += line;
+      }
+      return new StringReader(toString);
+    } catch (IOException e) {
+      throw new IllegalStateException("-file command failed.");
     }
+  }
 
 
 }

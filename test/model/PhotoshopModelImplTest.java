@@ -12,8 +12,6 @@ import java.util.Map;
 import model.enums.ComponentGreyscale;
 import model.enums.Direction;
 import model.enums.RGB;
-import model.kernels.AMatrix;
-import model.kernels.SepiaMatrix;
 
 /**
  * PhotoshopModelImpl testing.
@@ -177,20 +175,37 @@ public class PhotoshopModelImplTest {
   public void testPNGJPGBMP() {
     Map<String, RGB[][]> imageStorage = new HashMap<>();
     PhotoshopModelImpl model = new PhotoshopModelImpl(imageStorage);
-    model.loadImage("images/Koala.ppm", "koala");
-    RGB[][] source = imageStorage.get("koala");
+    model.loadImage("images/dogs.ppm", "dogs");
+    RGB[][] source = imageStorage.get("dogs");
 
-    model.saveImage("images/jpg_test.jpg", "koala");
+
+    model.saveImage("images/jpg_test.jpg", "dogs");
     model.loadImage("images/jpg_test.jpg", "jpg");
     RGB[][] loaded = imageStorage.get("jpg");
 
-    model.saveImage("images/png_test.png", "koala");
+    model.saveImage("images/png_test.png", "dogs");
     model.loadImage("images/png_test.png", "png");
     loaded = imageStorage.get("png");
 
-    model.saveImage("images/bmp_test.bmp", "koala");
+    for (int i = 0; i < source.length; i++) {
+      for (int j = 0; j < source[0].length; j++) {
+        assertEquals(source[i][j].r, loaded[i][j].r);
+        assertEquals(source[i][j].g, loaded[i][j].g);
+        assertEquals(source[i][j].b, loaded[i][j].b);
+      }
+    }
+
+    model.saveImage("images/bmp_test.bmp", "dogs");
     model.loadImage("images/bmp_test.bmp", "bmp");
     loaded = imageStorage.get("bmp");
+
+    for (int i = 0; i < source.length; i++) {
+      for (int j = 0; j < source[0].length; j++) {
+        assertEquals(source[i][j].r, loaded[i][j].r);
+        assertEquals(source[i][j].g, loaded[i][j].g);
+        assertEquals(source[i][j].b, loaded[i][j].b);
+      }
+    }
 
   }
 }
