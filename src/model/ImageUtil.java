@@ -66,8 +66,12 @@ public class ImageUtil {
     }
     for (int row = 0; row < height; row++) {
       for (int col = 0; col < width; col++) {
-        Color color = new Color(pixels[row][col].r, pixels[row][col].g, pixels[row][col].b);
-        buff.setRGB(col, row, color.getRGB());
+        try {
+          Color color = new Color(pixels[row][col].r, pixels[row][col].g, pixels[row][col].b);
+          buff.setRGB(col, row, color.getRGB());
+        }catch(Exception e) {
+          throw new IllegalStateException(e.getMessage() + " r: " + pixels[row][col].r + " g: " + pixels[row][col].g + " b: " + pixels[row][col].b);
+        }
       }
     }
 
