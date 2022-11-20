@@ -10,6 +10,7 @@ import java.io.StringReader;
 import controller.PhotoshopController;
 import controller.PhotoshopControllerPro;
 import model.PhotoshopModelProImpl;
+import view.PhotoshopGUIView;
 import view.PhotoshopView;
 
 /**
@@ -24,7 +25,7 @@ public class PhotoshopPlayer {
    */
   public static void main(String[] args) {
     PhotoshopModelProImpl model = new PhotoshopModelProImpl();
-    PhotoshopView view = null;
+    PhotoshopView view = new PhotoshopGUIView(model);
     PhotoshopController controller;
 
     if (args.length > 0 && args[0].strip().equals("-file")) {
