@@ -48,24 +48,11 @@ public class ImageUtil {
     }
   }
 
-  private static void saveSTDFormats(String filename, RGB[][] pixels) {
-    BufferedImage buff = null;
-    String fileEnding = filename.substring(filename.length() - 3);
+  public static BufferedImage RGBToBufferedImage(RGB[][] pixels, int imageType) {
     int height = pixels.length;
     int width = pixels[0].length;
-    switch (fileEnding) {
-      case "png":
-        buff = new BufferedImage(width, height, BufferedImage.TYPE_4BYTE_ABGR);
-        break;
-      case "jpg":
-        buff = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        break;
-      case "bmp":
-        buff = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        break;
-      default:
-        throw new IllegalStateException("Unsupported file");
-    }
+    BufferedImage buff = new BufferedImage(width, height, imageType);
+
     for (int row = 0; row < height; row++) {
       for (int col = 0; col < width; col++) {
         try {
@@ -76,6 +63,26 @@ public class ImageUtil {
                   pixels[row][col].r + " g: " + pixels[row][col].g + " b: " + pixels[row][col].b);
         }
       }
+    }
+    return buff;
+  }
+
+
+  private static void saveSTDFormats(String filename, RGB[][] pixels) {
+    BufferedImage buff = null;
+    String fileEnding = filename.substring(filename.length() - 3);
+    switch (fileEnding) {
+      case "png":
+        buff = RGBToBufferedImage(pixels, BufferedImage.TYPE_4BYTE_ABGR);
+        break;
+      case "jpg":
+        buff = RGBToBufferedImage(pixels, BufferedImage.TYPE_INT_RGB);
+        break;
+      case "bmp":
+        buff = RGBToBufferedImage(pixels, BufferedImage.TYPE_INT_RGB);
+        break;
+      default:
+        throw new IllegalStateException("Unsupported file");
     }
 
     try {

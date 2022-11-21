@@ -24,6 +24,11 @@ public class PhotoshopControllerPro extends APhotoshopController {
    */
   PhotoshopModelPro pro;
 
+  public PhotoshopControllerPro(PhotoshopModelPro model, PhotoshopView view) {
+    super(model, view);
+    this.pro = model;
+  }
+
   public PhotoshopControllerPro(PhotoshopModelPro model, PhotoshopView view, Readable rd) {
     super(model, view, rd);
     this.pro = model;

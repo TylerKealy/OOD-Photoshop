@@ -32,9 +32,11 @@ public class PhotoshopModelImpl implements PhotoshopModel {
 
   @Override
   public void loadImage(String imagePath, String imageName) {
+    System.out.println("in load");
     ImageUtil util = new ImageUtil();
     RGB[][] pixels = util.read(imagePath);
     this.imageStorage.put(imageName, pixels);
+    System.out.println("loaded");
   }
 
   @Override

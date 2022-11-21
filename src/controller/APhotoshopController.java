@@ -33,14 +33,25 @@ public abstract class APhotoshopController implements PhotoshopController {
    *
    * @param model model to run.
    * @param view  view to show program.
+   */
+  public APhotoshopController(PhotoshopModel model, PhotoshopView view) {
+    this.model = model;
+    this.view = view;
+    populateCommands();
+  }
+
+
+  /**
+   * Constructor to create a PhotoshopController. Runs the model. With a Readable.
+   *
+   * @param model model to run.
+   * @param view  view to show program.
    * @param rd    user input.
    */
   public APhotoshopController(PhotoshopModel model, PhotoshopView view, Readable rd) {
-    this.model = model;
-    this.view = view;
+    this(model, view);
     this.rd = rd;
     this.scanner = new Scanner(rd);
-    populateCommands();
   }
 
   void populateCommands() {
@@ -66,29 +77,33 @@ public abstract class APhotoshopController implements PhotoshopController {
             new ComponentCommand(this.model, ComponentGreyscale.Blue, s.next(), s.next()));
   }
 
+  protected void runCommand(Scanner scan) {
+    String next = scan.next();
+
+    //quit.
+    if (next.equalsIgnoreCase("q") || next.equalsIgnoreCase("quit")) {
+      return;
+    }
+
+    //Get command from hashmap, or return null.
+    Function<Scanner, PhotoshopCommand> cmd =
+            commands.getOrDefault(next, null);
+    if (cmd == null) {
+      throw new IllegalArgumentException("Improper command.");
+    }
+
+    //Try running command. If it doesn't work, throw IllegalArgument
+    try {
+      cmd.apply(scan).run();
+    } catch (Exception e) {
+      throw new IllegalStateException("Command failed: " + e.getMessage());
+    }
+  }
+
   @Override
   public void run() {
     while (scanner.hasNext()) {
-      String next = scanner.next();
-
-      //quit.
-      if (next.equalsIgnoreCase("q") || next.equalsIgnoreCase("quit")) {
-        return;
-      }
-
-      //Get command from hashmap, or return null.
-      Function<Scanner, PhotoshopCommand> cmd =
-              commands.getOrDefault(next, null);
-      if (cmd == null) {
-        throw new IllegalArgumentException("Improper command.");
-      }
-
-      //Try running command. If it doesn't work, throw IllegalArgument
-      try {
-        cmd.apply(scanner).run();
-      } catch (Exception e) {
-        throw new IllegalStateException("Command failed: " + e.getMessage());
-      }
+      runCommand(scanner);
     }
   }
 

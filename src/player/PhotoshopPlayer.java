@@ -25,7 +25,7 @@ public class PhotoshopPlayer {
    */
   public static void main(String[] args) {
     PhotoshopModelProImpl model = new PhotoshopModelProImpl();
-    PhotoshopView view = new PhotoshopGUIView(model);
+    PhotoshopView view = null;
     PhotoshopController controller;
 
     if (args.length > 0 && args[0].strip().equals("-file")) {
