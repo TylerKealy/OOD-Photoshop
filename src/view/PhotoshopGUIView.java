@@ -1,8 +1,6 @@
 package view;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,17 +11,16 @@ import java.util.Objects;
 import model.PhotoshopGUIModelImpl;
 import model.PhotoshopModel;
 
-public class PhotoshopGUIView extends JFrame implements  PhotoshopView, ActionListener, GUIView {
+public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionListener, GUIView {
 
   private PhotoshopModel model;
-
-  JTextField input;
-  JLabel image;
-  JButton terminalButton;
-  JButton quitButton;
+  private JTextField terminalInput;
+  private JTextField dialogInput;
+  private JLabel image;
+  private JButton terminalButton;
+  private JButton quitButton;
 
   PhotoshopFeatures features;
-
 
 
   public PhotoshopGUIView(PhotoshopModel model) {
@@ -48,16 +45,15 @@ public class PhotoshopGUIView extends JFrame implements  PhotoshopView, ActionLi
     // label for the field
     JLabel inputLabel = new JLabel("CMD:");
     // text input field
-    input = new JTextField(15);
+    terminalInput = new JTextField(15);
     // run button
     terminalButton = new JButton("run!");
     terminalButton.setActionCommand("TerminalAction");
     terminalButton.addActionListener(this);
 
     terminal.add(inputLabel);
-    terminal.add(input);
+    terminal.add(terminalInput);
     terminal.add(terminalButton);
-
 
     JPanel functions = new JPanel();
     // load button
@@ -66,6 +62,12 @@ public class PhotoshopGUIView extends JFrame implements  PhotoshopView, ActionLi
     loadButton.setActionCommand("LoadAction");
     loadButton.addActionListener(this);
     functions.add(loadButton);
+    // brighten button
+    JButton brightenButton;
+    brightenButton = new JButton("Brighten");
+    brightenButton.setActionCommand("BrightenAction");
+    brightenButton.addActionListener(this);
+    functions.add(brightenButton);
     // quit button
     quitButton = new JButton("Quit");
     quitButton.setActionCommand("QuitAction");
@@ -77,19 +79,53 @@ public class PhotoshopGUIView extends JFrame implements  PhotoshopView, ActionLi
     c.add(BorderLayout.CENTER, image);
     this.setVisible(true);
 
-
     this.pack();
 
   }
 
+  public void dialogPopup(String name) {
+    // create a dialog Box
+    JDialog d = new JDialog(this, "Dialog Box");
+
+    // create a label
+    JLabel l = new JLabel(name);
+    // create a button
+    dialogInput = new JTextField(5);
+    //button
+    JButton button = new JButton("Enter.");
+
+    button.setActionCommand("DialogAction");
+    button.addActionListener(this);
+
+    // create a panel
+    JPanel p = new JPanel();
+
+    p.add(dialogInput);
+    p.add(l);
+    p.add(button);
+    // add panel to dialog
+    d.add(p);
+    // setsize of dialog
+    d.setSize(200, 200);
+    d.pack();
+    // set visibility of dialog
+    d.setVisible(true);
+  }
+
   @Override
   public void actionPerformed(ActionEvent e) {
-    switch(e.getActionCommand()) {
+    switch (e.getActionCommand()) {
       case "TerminalAction":
         this.features.performCommand();
         break;
       case "LoadAction":
         this.features.loadImage();
+        break;
+      case "BrightenAction":
+        this.features.brightenImage();
+        break;
+      case "DialogAction":
+        System.out.println("dialog action");
         break;
       case "QuitAction":
         System.exit(0);
@@ -98,7 +134,7 @@ public class PhotoshopGUIView extends JFrame implements  PhotoshopView, ActionLi
   }
 
   String getFileLoaction() {
-    FileDialog dialog = new FileDialog((Frame)null, "Select File to Open");
+    FileDialog dialog = new FileDialog((Frame) null, "Select File to Open");
     dialog.setMode(FileDialog.LOAD);
     dialog.setVisible(true);
     String file = dialog.getDirectory() + dialog.getFile();
@@ -108,7 +144,7 @@ public class PhotoshopGUIView extends JFrame implements  PhotoshopView, ActionLi
 
   @Override
   public String getTerminalInput() {
-    return this.input.getText();
+    return this.terminalInput.getText();
   }
 
   @Override
@@ -118,7 +154,7 @@ public class PhotoshopGUIView extends JFrame implements  PhotoshopView, ActionLi
 
   @Override
   public void resetTerminalText() {
-    this.input.setText("");
+    this.terminalInput.setText("");
   }
 
   @Override
@@ -132,7 +168,6 @@ public class PhotoshopGUIView extends JFrame implements  PhotoshopView, ActionLi
     PhotoshopGUIController controller = new PhotoshopGUIController(model, view);
     view.setFeatures(controller);
     controller.run();
-
   }
 }
 

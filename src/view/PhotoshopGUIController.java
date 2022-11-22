@@ -3,6 +3,7 @@ package view;
 import java.util.Objects;
 import java.util.Scanner;
 
+import commands.BrightenCommand;
 import commands.LoadCommand;
 import controller.PhotoshopControllerPro;
 import model.PhotoshopGUIModelPro;
@@ -36,8 +37,15 @@ public class PhotoshopGUIController extends PhotoshopControllerPro implements Ph
   }
 
   @Override
-  public void run() {
+  public void brightenImage() {
+    gui.dialogPopup("Brighten");
+    //new BrightenCommand(this.guiModel, ,"loaded", "loaded").run();
 
+    //gui.setImage(guiModel.getRecentImage());
+  }
+
+  @Override
+  public void run() {
   }
 
 }

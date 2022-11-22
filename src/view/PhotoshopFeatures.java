@@ -6,4 +6,6 @@ public interface PhotoshopFeatures {
 
   void loadImage();
 
+  void brightenImage();
+
 }
