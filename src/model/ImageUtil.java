@@ -67,6 +67,20 @@ public class ImageUtil {
     return buff;
   }
 
+  public static RGB[][] bufferedImageToRGB(BufferedImage image) {
+    int height = image.getHeight();
+    int width = image.getWidth();
+
+    RGB[][] output = new RGB[height][width];
+    for (int row = 0; row < height; row++) {
+      for (int col = 0; col < width; col++) {
+        RGB pixel = new RGB(image.getRGB(col, row));
+        output[row][col] = pixel;
+      }
+    }
+    return output;
+  }
+
 
   private static void saveSTDFormats(String filename, RGB[][] pixels) {
     BufferedImage buff = null;
@@ -124,18 +138,7 @@ public class ImageUtil {
       throw new IllegalStateException("Given file caused error!");
     }
 
-    int height = bufferedImage.getHeight();
-    int width = bufferedImage.getWidth();
-
-    RGB[][] output = new RGB[height][width];
-    for (int row = 0; row < height; row++) {
-      for (int col = 0; col < width; col++) {
-        RGB pixel = new RGB(bufferedImage.getRGB(col, row));
-        output[row][col] = pixel;
-      }
-    }
-
-    return output;
+    return bufferedImageToRGB(bufferedImage);
   }
 
   /**

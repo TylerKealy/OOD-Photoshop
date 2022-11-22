@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,6 +12,7 @@ import java.util.Objects;
 import commands.CommandTypes;
 import controller.PhotoshopFeatures;
 import controller.PhotoshopGUIController;
+import model.ImageUtil;
 import model.PhotoshopGUIModelImpl;
 import model.PhotoshopModel;
 
@@ -25,6 +27,8 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
   private JLabel image;
   private JButton terminalButton;
   private JButton quitButton;
+  private ImageHistogram histogram;
+  private JPanel container;
 
   PhotoshopFeatures features;
 
@@ -39,14 +43,14 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
     this.setBounds(100, 0, 600, 400);
-    JPanel container = new JPanel();
+    container = new JPanel();
     JScrollPane scrPane = new JScrollPane(container);
     Container c = this.getContentPane();
     c.add(scrPane);
     container.setLayout(new BorderLayout());
 
     image = new JLabel();
-    image.setIcon(new ImageIcon("C:\\soala.jpg"));
+    //image.setIcon(new ImageIcon("C:\\soala.jpg"));
     Dimension size = image.getPreferredSize();
     System.out.println("h: " + size.height);
     System.out.println("w: " + size.width);
@@ -133,6 +137,11 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     functions.add(BorderLayout.CENTER, secondRow);
     functions.add(BorderLayout.PAGE_END, thirdRow);
 
+    ImageUtil util =new ImageUtil();
+
+/*    histogram = new ImageHistogram(util.RGBToBufferedImage(
+            util.read("C:\\soala.jpg"), BufferedImage.TYPE_4BYTE_ABGR));
+    container.add(BorderLayout.LINE_END, histogram);*/
 
     container.add(BorderLayout.PAGE_START, terminal);
     container.add(BorderLayout.LINE_START, functions);
@@ -142,7 +151,6 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     this.pack();
 
   }
-
 
   @Override
   public void actionPerformed(ActionEvent e) {
@@ -188,7 +196,6 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     dialog.setMode(FileDialog.LOAD);
     if(save) {
       dialog.setMode(FileDialog.SAVE);
-      //dialog.setFilenameFilter();
     }
     dialog.setVisible(true);
     String file = dialog.getDirectory() + dialog.getFile();
@@ -214,6 +221,13 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
   @Override
   public void setImage(BufferedImage image) {
     this.image.setIcon(new ImageIcon(image));
+    if(this.histogram != null) {
+      this.histogram.setVisible(false);
+    }
+    this.histogram = new ImageHistogram(image);
+    JPanel panel = new JPanel(new BorderLayout());
+    panel.add(BorderLayout.CENTER, histogram);
+    container.add(BorderLayout.LINE_END, histogram);
   }
 
   @Override
