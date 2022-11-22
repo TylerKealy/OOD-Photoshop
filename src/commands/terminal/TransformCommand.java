@@ -10,7 +10,7 @@ import model.PhotoshopModelPro;
 public class TransformCommand implements PhotoshopCommand {
   String sourceName;
   String destName;
-  AMatrix matrix;
+  public AMatrix matrix;
 
   private final PhotoshopModelPro model;
 

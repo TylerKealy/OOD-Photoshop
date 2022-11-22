@@ -4,7 +4,10 @@ import java.util.Scanner;
 
 import commands.CommandTypes;
 import commands.gui.GUIBrightenCommand;
+import commands.gui.GUIComponentCommand;
 import commands.gui.GUIFlipCommand;
+import commands.gui.GUIKernelCommand;
+import commands.gui.GUITransformCommand;
 import commands.terminal.LoadCommand;
 import controller.PhotoshopControllerPro;
 import model.PhotoshopGUIModelPro;
@@ -49,6 +52,19 @@ public class PhotoshopGUIController extends PhotoshopControllerPro implements Ph
       case Flip:
         gui.dialogDropdown("flip type:", new String[]{"Horizontal", "Vertical"},
                 new GUIFlipCommand(this.guiModel, this.gui));
+        break;
+      case Component:
+        gui.dialogDropdown("component type:", new String[]{"Red", "Green", "Blue",
+                        "Value", "Intensity", "Luma"},
+               new GUIComponentCommand(this.guiModel, this.gui));
+        break;
+      case Kernel:
+        gui.dialogDropdown("kernel type:", new String[]{"Blur", "Sharpen"},
+                new GUIKernelCommand(this.guiModel, this.gui));
+        break;
+      case Transform:
+        gui.dialogDropdown("transform type:", new String[]{"Sepia", "Greyscale"},
+                new GUITransformCommand(this.guiModel, this.gui));
         break;
       case Load:
         loadImage();

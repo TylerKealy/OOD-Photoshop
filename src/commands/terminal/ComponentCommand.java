@@ -8,7 +8,7 @@ import model.PhotoshopModel;
  */
 public class ComponentCommand implements PhotoshopCommand {
 
-  private final ComponentGreyscale component;
+  public ComponentGreyscale component;
   private final String sourceName;
   private final String destName;
 

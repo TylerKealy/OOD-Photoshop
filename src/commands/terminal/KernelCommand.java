@@ -10,7 +10,7 @@ import model.PhotoshopModelPro;
 public class KernelCommand implements PhotoshopCommand {
   private final String sourceName;
   private final String destName;
-  private final IKernel kernel;
+  public IKernel kernel;
 
   private final PhotoshopModelPro model;
 

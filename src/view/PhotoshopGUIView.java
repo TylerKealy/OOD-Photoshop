@@ -78,10 +78,28 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     functions.add(brightenButton);
     // flip button
     JButton flipButton;
-    brightenButton = new JButton("Flip");
-    brightenButton.setActionCommand("FlipAction");
-    brightenButton.addActionListener(this);
-    functions.add(brightenButton);
+    flipButton = new JButton("Flip");
+    flipButton.setActionCommand("FlipAction");
+    flipButton.addActionListener(this);
+    functions.add(flipButton);
+    // component button
+    JButton componentButton;
+    componentButton = new JButton("Component");
+    componentButton.setActionCommand("ComponentAction");
+    componentButton.addActionListener(this);
+    functions.add(componentButton);
+    // Kernel button
+    JButton kernelButton;
+    kernelButton = new JButton("Kernel");
+    kernelButton.setActionCommand("KernelAction");
+    kernelButton.addActionListener(this);
+    functions.add(kernelButton);
+    // Transform button
+    JButton transformButton;
+    transformButton = new JButton("Transform");
+    transformButton.setActionCommand("TransformAction");
+    transformButton.addActionListener(this);
+    functions.add(transformButton);
     // quit button
     quitButton = new JButton("Quit");
     quitButton.setActionCommand("QuitAction");
@@ -100,6 +118,9 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
 
   @Override
   public void actionPerformed(ActionEvent e) {
+    if (dialog != null) {
+      dialog.setVisible(false);
+    }
     switch (e.getActionCommand()) {
       case "TerminalAction":
         this.features.runTerminalCommand();
@@ -112,6 +133,15 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
         break;
       case "FlipAction":
         this.features.runGUICommand(CommandTypes.Flip);
+        break;
+      case "ComponentAction":
+        this.features.runGUICommand(CommandTypes.Component);
+        break;
+      case "KernelAction":
+        this.features.runGUICommand(CommandTypes.Kernel);
+        break;
+      case "TransformAction":
+        this.features.runGUICommand(CommandTypes.Transform);
         break;
       case "DialogAction":
         dialog.setVisible(false);
