@@ -1,5 +1,16 @@
 An overview and some description about the program.
 
+Description:all parts of the program are complete:all commands work, and the
+histogram is functional. Design wise we modified 
+the model for GUI to save the previosuly used image, there is the usage of
+ActionEvents now, and we made a new AGUICommand abstract class that listens
+for when new information is provided by the user. This needed to happen since
+we need to wait for user input and also keep abstraction.
+
+Citation for Images: https://www.pexels.com/photo/two-yellow-labrador-retriever-puppies-1108099/
+
+previously:
+
 Interfaces: 
 
 PhotoshopController

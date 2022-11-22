@@ -12,7 +12,7 @@ import view.PhotoshopGUIView;
  */
 public class GUITransformCommand extends AGUICommand {
 
-  TransformCommand transformCommand;
+  private TransformCommand transformCommand;
 
   public GUITransformCommand(PhotoshopGUIModelPro model, PhotoshopGUIView gui) {
     super(model, gui);

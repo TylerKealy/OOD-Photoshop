@@ -13,9 +13,9 @@ import view.PhotoshopGUIView;
  */
 public abstract class AGUICommand implements ActionListener, PhotoshopCommand {
 
-  PhotoshopGUIView gui;
-  PhotoshopGUIModelPro model;
-  PhotoshopCommand cmd;
+  protected PhotoshopGUIView gui;
+  protected PhotoshopGUIModelPro model;
+  private PhotoshopCommand cmd;
 
   /**
    * Constructor needs access to both GUI model and GUI view to get info, and run the command.

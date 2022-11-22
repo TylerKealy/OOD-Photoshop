@@ -37,7 +37,7 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
   private ImageHistogram histogram;
   private JPanel container;
 
-  PhotoshopFeatures features;
+  private PhotoshopFeatures features;
 
   private enum DialogType { Combo, Text }
 
@@ -57,13 +57,10 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     container.setLayout(new BorderLayout());
 
     image = new JLabel();
-    //image.setIcon(new ImageIcon("C:\\soala.jpg"));
     Dimension size = image.getPreferredSize();
     System.out.println("h: " + size.height);
     System.out.println("w: " + size.width);
-    //image.setBounds(50, 30, size.width, size.height);
 
-    ///
     JPanel terminal = new JPanel();
 
     // label for the field

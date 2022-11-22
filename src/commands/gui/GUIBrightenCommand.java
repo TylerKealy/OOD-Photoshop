@@ -10,7 +10,7 @@ import view.PhotoshopGUIView;
  */
 public class GUIBrightenCommand extends AGUICommand {
 
-  BrightenCommand brightenCommand;
+  private BrightenCommand brightenCommand;
 
   public GUIBrightenCommand(PhotoshopGUIModelPro model, PhotoshopGUIView gui) {
     super(model, gui);
