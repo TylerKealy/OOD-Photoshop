@@ -1,3 +1,13 @@
+GUI info!
+*run the photoshop.jar
+*load an image by clicking the load button.
+*import any image with the extensions .ppm, .jpg, .png, .bmp
+*click any button and apply any modification to the image you'd like
+*Transform offers: Sepia and Greyscale
+*Kernel offers: Blur and Sharpen
+*Component offers:red, green, blue, value, intensity, luma,
+
+
 Supported commands:
 "load (String filePath) (String imageName)"
 "save (String filePath) (String imageName)"

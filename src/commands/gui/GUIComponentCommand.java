@@ -11,7 +11,7 @@ import view.PhotoshopGUIView;
  */
 public class GUIComponentCommand extends AGUICommand {
 
-  ComponentCommand componentCommand;
+  private ComponentCommand componentCommand;
 
   public GUIComponentCommand(PhotoshopGUIModelPro model, PhotoshopGUIView gui) {
     super(model, gui);

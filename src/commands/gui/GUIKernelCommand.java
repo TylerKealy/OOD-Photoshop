@@ -12,7 +12,7 @@ import view.PhotoshopGUIView;
  */
 public class GUIKernelCommand extends AGUICommand {
 
-  KernelCommand kernelCommand;
+  private KernelCommand kernelCommand;
 
   public GUIKernelCommand(PhotoshopGUIModelPro model, PhotoshopGUIView gui) {
     super(model, gui);
