@@ -17,20 +17,24 @@ public class ImageHistogram extends JPanel {
     red = new int[256];
     blue = new int[256];
     green = new int[256];
+    intensity = new int[256];
 
     for (int i = 0; i < red.length; i++) {
       red[i] = 0;
       blue[i] = 0;
       green[i] = 0;
+      intensity[i] = 0;
     }
 
-    System.out.println("pixels squared: " + pixels.length * pixels.length);
+    //System.out.println("pixels squared: " + pixels.length * pixels.length);
     for (int i = 0; i < pixels.length; i++) {
       for (int j = 0; j < pixels.length; j++) {
         red[pixels[j][i].r] += 1;
         green[pixels[j][i].g] += 1;
         blue[pixels[j][i].b] += 1;
-        System.out.println("r: " + red[pixels[i][j].r] + " g: " + green[pixels[i][j].g] + " b: " + blue[pixels[i][j].b]);
+        int intens = (pixels[j][i].r + pixels[j][i].g + pixels[j][i].b) /3;
+        intensity[Math.min(intens,255)] +=1;
+        //System.out.println("r: " + red[pixels[i][j].r] + " g: " + green[pixels[i][j].g] + " b: " + blue[pixels[i][j].b]);
       }
     }
 
@@ -50,28 +54,31 @@ public class ImageHistogram extends JPanel {
     for (int i = 0; i < red.length; i++) {
 
       max = Math.max(Math.max(Math.max(red[i], max), green[i]), blue[i]);
-      System.out.println("r: " + red[i] + " g: " + green[i] + " b: " + blue[i]);
-      System.out.print("max: " + max);
+      //System.out.println("r: " + red[i] + " g: " + green[i] + " b: " + blue[i]);
+      //System.out.print("max: " + max);
     }
 
     for (int i = 0; i < red.length; i++) {
       red[i] = Math.round((red[i] / (float) max) * 100);
       blue[i] = Math.round((blue[i] / (float) max) * 100);
       green[i] = Math.round((green[i] / (float) max) * 100);
+      intensity[i] = Math.round((intensity[i]/(float) max) * 100);
     }
 
-    for (int i = 0; i < red.length; i++) {
-      System.out.println("red[" + i + "]" + red[i]);
-    }
+/*    for (int i = 0; i < red.length; i++) {
+      System.out.println("intensity[" + i + "]" + intensity[i]);
+    }*/
 
     unitX = 1f;
     unitY = endY / 100f;
-    System.out.println("highest value: " + max + ", unitY: " + unitY);
+    //System.out.println("highest value: " + max + ", unitY: " + unitY);
   }
 
   private int[] red;
   private int[] green;
   private int[] blue;
+  private int[] intensity;
+
   private int startX = 0;
   private int startY = 0;
   private int endX = 256;
@@ -108,6 +115,8 @@ public class ImageHistogram extends JPanel {
     drawData(green, g2d);
     g2d.setColor(Color.BLUE);
     drawData(blue, g2d);
+    g2d.setColor(Color.GRAY);
+    drawData(intensity, g2d);
   }
 
   private void drawData(int[] data, Graphics2D g2d) {
