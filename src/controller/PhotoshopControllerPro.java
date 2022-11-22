@@ -2,8 +2,8 @@ package controller;
 
 import java.util.Scanner;
 
-import commands.KernelCommand;
-import commands.TransformCommand;
+import commands.terminal.KernelCommand;
+import commands.terminal.TransformCommand;
 import model.kernels.BlurKernel;
 import model.kernels.GreyscaleMatrix;
 import model.kernels.SepiaMatrix;

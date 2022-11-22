@@ -15,6 +15,11 @@ public class PhotoshopGUIModelImpl extends PhotoshopModelProImpl implements Phot
   }
 
   @Override
+  public String getRecentImageName() {
+    return recentName;
+  }
+
+  @Override
   public BufferedImage getRecentImage() {
     ImageUtil util = new ImageUtil();
     return util.RGBToBufferedImage(this.imageStorage.get(recentName), BufferedImage.TYPE_INT_RGB);

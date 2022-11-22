@@ -76,8 +76,6 @@ public class ImageUtil {
         buff = RGBToBufferedImage(pixels, BufferedImage.TYPE_4BYTE_ABGR);
         break;
       case "jpg":
-        buff = RGBToBufferedImage(pixels, BufferedImage.TYPE_INT_RGB);
-        break;
       case "bmp":
         buff = RGBToBufferedImage(pixels, BufferedImage.TYPE_INT_RGB);
         break;

@@ -1,10 +1,10 @@
 package view;
 
-import java.util.Objects;
 import java.util.Scanner;
 
-import commands.BrightenCommand;
-import commands.LoadCommand;
+import commands.gui.GUIBrightenCommand;
+import commands.gui.GUIFlipCommand;
+import commands.terminal.LoadCommand;
 import controller.PhotoshopControllerPro;
 import model.PhotoshopGUIModelPro;
 
@@ -21,7 +21,7 @@ public class PhotoshopGUIController extends PhotoshopControllerPro implements Ph
   }
 
   @Override
-  public void performCommand() {
+  public void runTerminalCommand() {
     Scanner scan = new Scanner(gui.getTerminalInput());
     if(!scan.hasNext()) return;
     runCommand(scan);
@@ -31,17 +31,23 @@ public class PhotoshopGUIController extends PhotoshopControllerPro implements Ph
 
   @Override
   public void loadImage() {
-    System.out.println("yo");
-    new LoadCommand(this.guiModel, Objects.requireNonNull(gui.getFileLoaction()), "loaded").run();
+    String loc = gui.getFileLoaction();
+    if(loc == null) {
+      return;
+    }
+    new LoadCommand(this.guiModel, loc, "loaded").run();
     gui.setImage(guiModel.getRecentImage());
   }
 
   @Override
   public void brightenImage() {
-    gui.dialogPopup("Brighten");
-    //new BrightenCommand(this.guiModel, ,"loaded", "loaded").run();
+    gui.dialogTextField("brighten increment (number)", new GUIBrightenCommand(this.guiModel, this.gui));
+  }
 
-    //gui.setImage(guiModel.getRecentImage());
+  @Override
+  public void flipImage() {
+    gui.dialogDropdown("flip type:", new String[]{"Horizontal", "Vertical"},
+            new GUIFlipCommand(this.guiModel, this.gui));
   }
 
   @Override

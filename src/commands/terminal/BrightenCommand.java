@@ -1,4 +1,4 @@
-package commands;
+package commands.terminal;
 
 import model.PhotoshopModel;
 
@@ -7,7 +7,7 @@ import model.PhotoshopModel;
  */
 public class BrightenCommand implements PhotoshopCommand {
 
-  private final int increment;
+  public int increment;
   private final String source;
   private final String export;
   private final PhotoshopModel model;

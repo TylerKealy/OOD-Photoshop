@@ -1,4 +1,4 @@
-package commands;
+package commands.terminal;
 
 import model.kernels.AMatrix;
 import model.PhotoshopModelPro;

@@ -1,4 +1,4 @@
-package commands;
+package commands.terminal;
 
 import model.enums.Direction;
 import model.PhotoshopModel;
@@ -7,7 +7,7 @@ import model.PhotoshopModel;
  * FlipCommand is a PhotoshopCommand that executes the flip method on the model.
  */
 public class FlipCommand implements PhotoshopCommand {
-  private final Direction dir;
+  public Direction dir;
   private final String sourceName;
   private final String destName;
 

@@ -2,10 +2,12 @@ package view;
 
 public interface PhotoshopFeatures {
 
-  void performCommand();
+  void runTerminalCommand();
 
   void loadImage();
 
   void brightenImage();
+
+  void flipImage();
 
 }

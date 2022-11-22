@@ -5,12 +5,12 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Function;
 
-import commands.BrightenCommand;
-import commands.ComponentCommand;
-import commands.FlipCommand;
-import commands.LoadCommand;
-import commands.PhotoshopCommand;
-import commands.SaveCommand;
+import commands.terminal.BrightenCommand;
+import commands.terminal.ComponentCommand;
+import commands.terminal.FlipCommand;
+import commands.terminal.LoadCommand;
+import commands.terminal.PhotoshopCommand;
+import commands.terminal.SaveCommand;
 import model.enums.ComponentGreyscale;
 import model.enums.Direction;
 import model.PhotoshopModel;

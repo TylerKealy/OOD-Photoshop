@@ -12,6 +12,9 @@ public interface GUIView {
 
   void setImage(BufferedImage image);
 
+  String getDialogInput();
+
+
 
 
 }
