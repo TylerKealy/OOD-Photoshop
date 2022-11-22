@@ -9,6 +9,9 @@ import java.io.StringReader;
 
 import controller.PhotoshopController;
 import controller.PhotoshopControllerPro;
+import controller.PhotoshopGUIController;
+import model.PhotoshopGUIModelImpl;
+import model.PhotoshopGUIModelPro;
 import model.PhotoshopModelProImpl;
 import view.PhotoshopGUIView;
 import view.PhotoshopView;
@@ -32,8 +35,14 @@ public class PhotoshopPlayer {
       String file = args[1];
       controller = new PhotoshopControllerPro(model, view, getScriptSR(file));
 
-    } else {
+    } else if (args.length > 0 && args[0].strip().equals("-text")){
       controller = new PhotoshopControllerPro(model, view, new InputStreamReader(System.in));
+    }else {
+      PhotoshopGUIModelPro guiModelPro = new PhotoshopGUIModelImpl();
+      PhotoshopGUIView gui = new PhotoshopGUIView(guiModelPro);
+      PhotoshopGUIController guiController = new PhotoshopGUIController(guiModelPro, gui);
+      controller = guiController;
+      gui.setFeatures(guiController);
     }
     controller.run();
   }

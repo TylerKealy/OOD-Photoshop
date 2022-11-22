@@ -82,6 +82,7 @@ public abstract class APhotoshopController implements PhotoshopController {
 
     //quit.
     if (next.equalsIgnoreCase("q") || next.equalsIgnoreCase("quit")) {
+      System.exit(0);
       return;
     }
 

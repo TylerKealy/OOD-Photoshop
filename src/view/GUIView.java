@@ -2,6 +2,8 @@ package view;
 
 import java.awt.image.BufferedImage;
 
+import controller.PhotoshopFeatures;
+
 public interface GUIView {
 
   String getTerminalInput();

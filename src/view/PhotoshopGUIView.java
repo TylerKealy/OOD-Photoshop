@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 import commands.CommandTypes;
+import controller.PhotoshopFeatures;
+import controller.PhotoshopGUIController;
 import model.PhotoshopGUIModelImpl;
 import model.PhotoshopModel;
 
@@ -28,7 +30,6 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
 
   private enum DialogType {Combo, Text}
 
-  ;
   private DialogType latestDialog;
 
   public PhotoshopGUIView(PhotoshopModel model) {
@@ -68,8 +69,13 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     terminal.add(terminalButton);
 
     JPanel functions = new JPanel();
-    functions.setLayout(new GridLayout());
+    functions.setLayout(new BorderLayout());
+
     JPanel firstRow = new JPanel();
+    JPanel secondRow = new JPanel();
+    JPanel thirdRow = new JPanel();
+
+
     // load button
     JButton loadButton;
     loadButton = new JButton("Load");
@@ -83,14 +89,6 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     saveButton.addActionListener(this);
     firstRow.add(saveButton);
 
-    // quit button
-    quitButton = new JButton("Quit");
-    quitButton.setActionCommand("QuitAction");
-    quitButton.addActionListener(this);
-    firstRow.add(quitButton);
-
-
-    JPanel secondRow = new JPanel();
 
     // brighten button
     JButton brightenButton;
@@ -111,24 +109,30 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     componentButton.addActionListener(this);
     secondRow.add( componentButton);
 
-
-    JPanel thirdRow = new JPanel();
     // Kernel button
     JButton kernelButton;
     kernelButton = new JButton("Kernel");
     kernelButton.setActionCommand("KernelAction");
     kernelButton.addActionListener(this);
-    thirdRow.add( kernelButton);
+    secondRow.add( kernelButton);
     // Transform button
     JButton transformButton;
     transformButton = new JButton("Transform");
     transformButton.setActionCommand("TransformAction");
     transformButton.addActionListener(this);
-    thirdRow.add( transformButton);
+    secondRow.add( transformButton);
+
+
+    // quit button
+    quitButton = new JButton("Quit");
+    quitButton.setActionCommand("QuitAction");
+    quitButton.addActionListener(this);
+    thirdRow.add(quitButton);
 
     functions.add(BorderLayout.PAGE_START, firstRow);
     functions.add(BorderLayout.CENTER, secondRow);
     functions.add(BorderLayout.PAGE_END, thirdRow);
+
 
     container.add(BorderLayout.PAGE_START, terminal);
     container.add(BorderLayout.LINE_START, functions);
@@ -179,11 +183,12 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     }
   }
 
-  String fileDirectory(String message, boolean save) {
+  public String fileDirectory(String message, boolean save) {
     FileDialog dialog = new FileDialog((Frame) null, message);
     dialog.setMode(FileDialog.LOAD);
     if(save) {
       dialog.setMode(FileDialog.SAVE);
+      //dialog.setFilenameFilter();
     }
     dialog.setVisible(true);
     String file = dialog.getDirectory() + dialog.getFile();

@@ -1,4 +1,4 @@
-package view;
+package controller;
 
 import java.util.Scanner;
 
@@ -10,8 +10,8 @@ import commands.gui.GUIKernelCommand;
 import commands.gui.GUITransformCommand;
 import commands.terminal.LoadCommand;
 import commands.terminal.SaveCommand;
-import controller.PhotoshopControllerPro;
 import model.PhotoshopGUIModelPro;
+import view.PhotoshopGUIView;
 
 public class PhotoshopGUIController extends PhotoshopControllerPro implements PhotoshopFeatures {
 
@@ -37,11 +37,13 @@ public class PhotoshopGUIController extends PhotoshopControllerPro implements Ph
 
   private void loadImage() {
     String loc = gui.fileDirectory("Select a file to load.", false);
-    if (loc == null) {
+    if (loc.equals(null)) {
       return;
     }
+    //bug here.
     new LoadCommand(this.guiModel, loc, "loaded").run();
     gui.setImage(guiModel.getRecentImage());
+
   }
 
   private void saveImage() {
