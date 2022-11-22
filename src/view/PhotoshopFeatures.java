@@ -1,13 +1,12 @@
 package view;
 
+import commands.CommandTypes;
+
 public interface PhotoshopFeatures {
 
   void runTerminalCommand();
 
-  void loadImage();
-
-  void brightenImage();
-
-  void flipImage();
+  void runGUICommand(CommandTypes command);
 
 }
+

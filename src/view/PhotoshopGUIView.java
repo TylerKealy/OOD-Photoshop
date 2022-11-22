@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
+import commands.CommandTypes;
 import model.PhotoshopGUIModelImpl;
 import model.PhotoshopModel;
 
@@ -104,13 +105,13 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
         this.features.runTerminalCommand();
         break;
       case "LoadAction":
-        this.features.loadImage();
+        this.features.runGUICommand(CommandTypes.Load);
         break;
       case "BrightenAction":
-        this.features.brightenImage();
+        this.features.runGUICommand(CommandTypes.Brighten);
         break;
       case "FlipAction":
-        this.features.flipImage();
+        this.features.runGUICommand(CommandTypes.Flip);
         break;
       case "DialogAction":
         dialog.setVisible(false);
@@ -121,7 +122,7 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     }
   }
 
-  String getFileLoaction() {
+  String getFileLocation() {
     FileDialog dialog = new FileDialog((Frame) null, "Select File to Open");
     dialog.setMode(FileDialog.LOAD);
     dialog.setVisible(true);
@@ -162,12 +163,10 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     // create a dialog Box
     dialog = new JDialog(this, "Dialog Box");
 
-    // create a label
-    JLabel l = new JLabel(name);
 
-    // create a button
+    //Dropdown
     dialogCombo = new JComboBox(options);
-    //button
+    //Button
     JButton button = new JButton("Enter.");
     button.setActionCommand("DialogAction");
     button.addActionListener(this);
@@ -175,6 +174,7 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
 
     // create a panel
     JPanel p = new JPanel();
+    JLabel l = new JLabel(name);
     p.add(dialogCombo);
     p.add(l);
     p.add(button);
@@ -194,11 +194,6 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     // create a dialog Box
     dialog = new JDialog(this, "Dialog Box");
 
-    // create a label
-    JLabel l = new JLabel(name);
-    // create a button
-    dialogText = new JTextField(5);
-
     //button and adding listeners
     JButton button = new JButton("Enter.");
     button.setActionCommand("DialogAction");
@@ -207,6 +202,8 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
 
     // create a panel
     JPanel p = new JPanel();
+    JLabel l = new JLabel(name);
+    dialogText = new JTextField(5);
     p.add(dialogText);
     p.add(l);
     p.add(button);
