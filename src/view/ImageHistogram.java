@@ -18,40 +18,50 @@ public class ImageHistogram extends JPanel {
     blue = new int[256];
     green = new int[256];
 
-    for(int i = 0; i < red.length; i++) {
+    for (int i = 0; i < red.length; i++) {
       red[i] = 0;
       blue[i] = 0;
       green[i] = 0;
     }
 
-    for(int i = 0; i < pixels.length; i++) {
-      for(int j = 0; j < pixels.length; j++) {
-        red[pixels[i][j].r] += 1;
-        green[pixels[i][j].g] += 1;
-        blue[pixels[i][j].b] += 1;
+    System.out.println("pixels squared: " + pixels.length * pixels.length);
+    for (int i = 0; i < pixels.length; i++) {
+      for (int j = 0; j < pixels.length; j++) {
+        red[pixels[j][i].r] += 1;
+        green[pixels[j][i].g] += 1;
+        blue[pixels[j][i].b] += 1;
+        System.out.println("r: " + red[pixels[i][j].r] + " g: " + green[pixels[i][j].g] + " b: " + blue[pixels[i][j].b]);
       }
     }
 
-    int max = 0;
-    for(int i = 1; i < red.length; i++) {
+    int startIndex = 0;
+    for (int i = 0; i < red.length; i++) {
+      if(red[i] != 0 || green[i] != 0 || blue[i] != 0) {
+        startIndex = i;
+        break;
+      }
+    }
 
-      max = Math.max(Math.max(Math.max(red[i], max),green[i]), blue[i]);
+    red[startIndex] = 0;
+    green[startIndex] = 0;
+    blue[startIndex] = 0;
+
+    int max = 0;
+    for (int i = 0; i < red.length; i++) {
+
+      max = Math.max(Math.max(Math.max(red[i], max), green[i]), blue[i]);
       System.out.println("r: " + red[i] + " g: " + green[i] + " b: " + blue[i]);
       System.out.print("max: " + max);
     }
-/*
-    for(int i = 0; i < red.length; i++) {
-      System.out.println("red["+i+"]" + red[i]);
-    }*/
 
-    for(int i = 0; i < red.length; i++) {
-      red[i] = Math.round((red[i] / (float)max) * 100);
-      blue[i] = Math.round((blue[i] /(float)max) * 100 );
-      green[i] = Math.round((green[i] /(float)max) * 100);
+    for (int i = 0; i < red.length; i++) {
+      red[i] = Math.round((red[i] / (float) max) * 100);
+      blue[i] = Math.round((blue[i] / (float) max) * 100);
+      green[i] = Math.round((green[i] / (float) max) * 100);
     }
 
-    for(int i = 0; i < red.length; i++) {
-      System.out.println("red["+i+"]" + red[i]);
+    for (int i = 0; i < red.length; i++) {
+      System.out.println("red[" + i + "]" + red[i]);
     }
 
     unitX = 1f;
