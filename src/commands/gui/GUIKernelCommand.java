@@ -7,6 +7,9 @@ import model.kernels.BlurKernel;
 import model.kernels.SharpenKernel;
 import view.PhotoshopGUIView;
 
+/**
+ * A GUI Kernel command that waits to see WHICH Kernel command to run.
+ */
 public class GUIKernelCommand extends AGUICommand {
 
   KernelCommand kernelCommand;

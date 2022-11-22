@@ -6,7 +6,10 @@ import model.PhotoshopGUIModelPro;
 import model.enums.Direction;
 import view.PhotoshopGUIView;
 
-public class GUIFlipCommand extends AGUICommand{
+/**
+ * GUI Flip command. Waits to see which direction to flip before running.
+ */
+public class GUIFlipCommand extends AGUICommand {
 
   private FlipCommand flipCommand;
 
@@ -17,9 +20,9 @@ public class GUIFlipCommand extends AGUICommand{
   @Override
   protected void onDialogUpdated() {
     String input = gui.getDialogInput();
-    if(input.equalsIgnoreCase("horizontal")) {
+    if (input.equalsIgnoreCase("horizontal")) {
       flipCommand.dir = Direction.Horizontal;
-    }else {
+    } else {
       flipCommand.dir = Direction.Vertical;
     }
   }

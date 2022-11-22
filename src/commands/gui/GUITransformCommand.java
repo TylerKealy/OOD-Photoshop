@@ -3,12 +3,13 @@ package commands.gui;
 import commands.terminal.PhotoshopCommand;
 import commands.terminal.TransformCommand;
 import model.PhotoshopGUIModelPro;
-import model.kernels.BlurKernel;
 import model.kernels.GreyscaleMatrix;
 import model.kernels.SepiaMatrix;
-import model.kernels.SharpenKernel;
 import view.PhotoshopGUIView;
 
+/**
+ * A GUI Transform command that waits to see which Transform command to apply (from the GUI).
+ */
 public class GUITransformCommand extends AGUICommand {
 
   TransformCommand transformCommand;

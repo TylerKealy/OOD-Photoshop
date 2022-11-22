@@ -35,11 +35,11 @@ public class PhotoshopPlayer {
       String file = args[1];
       controller = new PhotoshopControllerPro(model, view, getScriptSR(file));
 
-    } else if (args.length > 0 && args[0].strip().equals("-text")){
+    } else if (args.length > 0 && args[0].strip().equals("-text")) {
       controller = new PhotoshopControllerPro(model, view, new InputStreamReader(System.in));
-    }else {
+    } else {
       PhotoshopGUIModelPro guiModelPro = new PhotoshopGUIModelImpl();
-      PhotoshopGUIView gui = new PhotoshopGUIView(guiModelPro);
+      PhotoshopGUIView gui = new PhotoshopGUIView();
       PhotoshopGUIController guiController = new PhotoshopGUIController(guiModelPro, gui);
       controller = guiController;
       gui.setFeatures(guiController);
@@ -58,7 +58,7 @@ public class PhotoshopPlayer {
       File script = new File(scriptPath);
       BufferedReader br = new BufferedReader(new FileReader(script));
       String toString = "";
-      for (String line; (line = br.readLine()) != null;) {
+      for (String line; (line = br.readLine()) != null; ) {
         toString += line;
       }
       return new StringReader(toString);

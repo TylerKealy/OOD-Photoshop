@@ -7,6 +7,10 @@ import model.enums.Direction;
 import model.kernels.AMatrix;
 import model.kernels.IKernel;
 
+/**
+ * A PhotoshopGUIModelImpl is a model that saves the most recent named image that has been
+ * worked on. Used for displaying the most recent image on GUI.
+ */
 public class PhotoshopGUIModelImpl extends PhotoshopModelProImpl implements PhotoshopGUIModelPro {
   private String recentName;
 
@@ -22,7 +26,7 @@ public class PhotoshopGUIModelImpl extends PhotoshopModelProImpl implements Phot
   @Override
   public BufferedImage getRecentImage() {
     ImageUtil util = new ImageUtil();
-    return util.RGBToBufferedImage(this.imageStorage.get(recentName), BufferedImage.TYPE_INT_RGB);
+    return util.rGBToBufferedImage(this.imageStorage.get(recentName), BufferedImage.TYPE_INT_RGB);
   }
 
   @Override

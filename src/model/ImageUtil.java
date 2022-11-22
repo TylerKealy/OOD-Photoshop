@@ -48,7 +48,14 @@ public class ImageUtil {
     }
   }
 
-  public static BufferedImage RGBToBufferedImage(RGB[][] pixels, int imageType) {
+  /**
+   * Converts RGB[][] to a BufferedImage.
+   *
+   * @param pixels    input RGB[][]
+   * @param imageType the type of image to make in BufferedImage.
+   * @return
+   */
+  public static BufferedImage rGBToBufferedImage(RGB[][] pixels, int imageType) {
     int height = pixels.length;
     int width = pixels[0].length;
     BufferedImage buff = new BufferedImage(width, height, imageType);
@@ -59,14 +66,20 @@ public class ImageUtil {
           Color color = new Color(pixels[row][col].r, pixels[row][col].g, pixels[row][col].b);
           buff.setRGB(col, row, color.getRGB());
         } catch (Exception e) {
-          throw new IllegalStateException(e.getMessage() + " r: " +
-                  pixels[row][col].r + " g: " + pixels[row][col].g + " b: " + pixels[row][col].b);
+          throw new IllegalStateException(e.getMessage() + " r: "
+                  + pixels[row][col].r + " g: " + pixels[row][col].g + " b: " + pixels[row][col].b);
         }
       }
     }
     return buff;
   }
 
+  /**
+   * converts a BufferedImage to RGB[][].
+   *
+   * @param image the image to be converted.
+   * @return
+   */
   public static RGB[][] bufferedImageToRGB(BufferedImage image) {
     int height = image.getHeight();
     int width = image.getWidth();
@@ -87,11 +100,11 @@ public class ImageUtil {
     String fileEnding = filename.substring(filename.length() - 3);
     switch (fileEnding) {
       case "png":
-        buff = RGBToBufferedImage(pixels, BufferedImage.TYPE_4BYTE_ABGR);
+        buff = rGBToBufferedImage(pixels, BufferedImage.TYPE_4BYTE_ABGR);
         break;
       case "jpg":
       case "bmp":
-        buff = RGBToBufferedImage(pixels, BufferedImage.TYPE_INT_RGB);
+        buff = rGBToBufferedImage(pixels, BufferedImage.TYPE_INT_RGB);
         break;
       default:
         throw new IllegalStateException("Unsupported file");

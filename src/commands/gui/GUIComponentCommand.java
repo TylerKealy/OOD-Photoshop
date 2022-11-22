@@ -6,12 +6,17 @@ import model.PhotoshopGUIModelPro;
 import model.enums.ComponentGreyscale;
 import view.PhotoshopGUIView;
 
+/**
+ * GUI command for Component. Waits to see WHICH from the GUI component before running the command.
+ */
 public class GUIComponentCommand extends AGUICommand {
 
   ComponentCommand componentCommand;
+
   public GUIComponentCommand(PhotoshopGUIModelPro model, PhotoshopGUIView gui) {
     super(model, gui);
   }
+
   @Override
   protected void onDialogUpdated() {
     ComponentGreyscale updatedComponent = componentCommand.component;

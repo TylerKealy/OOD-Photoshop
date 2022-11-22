@@ -1,13 +1,13 @@
 package commands.gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import commands.terminal.BrightenCommand;
 import commands.terminal.PhotoshopCommand;
 import model.PhotoshopGUIModelPro;
 import view.PhotoshopGUIView;
 
+/**
+ * GUI brighten command. Waits for information about how much to brighten before running.
+ */
 public class GUIBrightenCommand extends AGUICommand {
 
   BrightenCommand brightenCommand;
@@ -20,6 +20,7 @@ public class GUIBrightenCommand extends AGUICommand {
   protected void onDialogUpdated() {
     brightenCommand.increment = Integer.parseInt(gui.getDialogInput());
   }
+
   @Override
   public PhotoshopCommand initializeCommand() {
     brightenCommand = new BrightenCommand(model, 0,

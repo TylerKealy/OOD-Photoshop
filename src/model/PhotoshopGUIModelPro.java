@@ -2,8 +2,12 @@ package model;
 
 import java.awt.image.BufferedImage;
 
-public interface PhotoshopGUIModelPro extends PhotoshopModelPro{
+/**
+ * A PhotoshopModelPro that holds the most recentImage name and Image itself.
+ */
+public interface PhotoshopGUIModelPro extends PhotoshopModelPro {
 
   String getRecentImageName();
+
   BufferedImage getRecentImage();
 }

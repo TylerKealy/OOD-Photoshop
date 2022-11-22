@@ -1,45 +1,52 @@
 package view;
 
-import javax.swing.*;
-import javax.swing.border.Border;
+import javax.swing.JTextField;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.ImageIcon;
 
-import java.awt.*;
+
+import java.awt.BorderLayout;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FileDialog;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.util.Objects;
 
-import commands.CommandTypes;
+import commands.GUICommandTypes;
 import controller.PhotoshopFeatures;
-import controller.PhotoshopGUIController;
-import model.ImageUtil;
-import model.PhotoshopGUIModelImpl;
-import model.PhotoshopModel;
 
+/**
+ * PhotoshopGUIView implementation. Handles the interaction and displaying of
+ * the model.
+ */
 public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionListener, GUIView {
 
-  private PhotoshopModel model;
   private JTextField terminalInput;
-
   private JDialog dialog;
   private JTextField dialogText;
   private JComboBox dialogCombo;
   private JLabel image;
-  private JButton terminalButton;
-  private JButton quitButton;
   private ImageHistogram histogram;
   private JPanel container;
 
   PhotoshopFeatures features;
 
-  private enum DialogType {Combo, Text}
+  private enum DialogType { Combo, Text }
 
   private DialogType latestDialog;
 
-  public PhotoshopGUIView(PhotoshopModel model) {
-    Objects.requireNonNull(model);
-    this.model = model;
-
+  /**
+   * Default constructor for PhotoshopGUIView. Creates the buttons and lays them out properly.
+   */
+  public PhotoshopGUIView() {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
     this.setBounds(100, 0, 600, 400);
@@ -64,7 +71,7 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     // text input field
     terminalInput = new JTextField(15);
     // run button
-    terminalButton = new JButton("run!");
+    JButton terminalButton = new JButton("run!");
     terminalButton.setActionCommand("TerminalAction");
     terminalButton.addActionListener(this);
 
@@ -98,37 +105,37 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     JButton brightenButton;
     brightenButton = new JButton("Brighten");
     brightenButton.setActionCommand("BrightenAction");
-    brightenButton.addActionListener( this);
+    brightenButton.addActionListener(this);
     secondRow.add(brightenButton);
     // flip button
     JButton flipButton;
     flipButton = new JButton("Flip");
     flipButton.setActionCommand("FlipAction");
     flipButton.addActionListener(this);
-    secondRow.add( flipButton);
+    secondRow.add(flipButton);
     // component button
     JButton componentButton;
     componentButton = new JButton("Component");
     componentButton.setActionCommand("ComponentAction");
     componentButton.addActionListener(this);
-    secondRow.add( componentButton);
+    secondRow.add(componentButton);
 
     // Kernel button
     JButton kernelButton;
     kernelButton = new JButton("Kernel");
     kernelButton.setActionCommand("KernelAction");
     kernelButton.addActionListener(this);
-    secondRow.add( kernelButton);
+    secondRow.add(kernelButton);
     // Transform button
     JButton transformButton;
     transformButton = new JButton("Transform");
     transformButton.setActionCommand("TransformAction");
     transformButton.addActionListener(this);
-    secondRow.add( transformButton);
+    secondRow.add(transformButton);
 
 
     // quit button
-    quitButton = new JButton("Quit");
+    JButton quitButton = new JButton("Quit");
     quitButton.setActionCommand("QuitAction");
     quitButton.addActionListener(this);
     thirdRow.add(quitButton);
@@ -136,12 +143,6 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     functions.add(BorderLayout.PAGE_START, firstRow);
     functions.add(BorderLayout.CENTER, secondRow);
     functions.add(BorderLayout.PAGE_END, thirdRow);
-
-    ImageUtil util =new ImageUtil();
-
-/*    histogram = new ImageHistogram(util.RGBToBufferedImage(
-            util.read("C:\\soala.jpg"), BufferedImage.TYPE_4BYTE_ABGR));
-    container.add(BorderLayout.LINE_END, histogram);*/
 
     container.add(BorderLayout.PAGE_START, terminal);
     container.add(BorderLayout.LINE_START, functions);
@@ -162,39 +163,46 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
         this.features.runTerminalCommand();
         break;
       case "LoadAction":
-        this.features.runGUICommand(CommandTypes.Load);
+        this.features.runGUICommand(GUICommandTypes.Load);
         break;
       case "SaveAction":
-        this.features.runGUICommand(CommandTypes.Save);
+        this.features.runGUICommand(GUICommandTypes.Save);
         break;
       case "BrightenAction":
-        this.features.runGUICommand(CommandTypes.Brighten);
+        this.features.runGUICommand(GUICommandTypes.Brighten);
         break;
       case "FlipAction":
-        this.features.runGUICommand(CommandTypes.Flip);
+        this.features.runGUICommand(GUICommandTypes.Flip);
         break;
       case "ComponentAction":
-        this.features.runGUICommand(CommandTypes.Component);
+        this.features.runGUICommand(GUICommandTypes.Component);
         break;
       case "KernelAction":
-        this.features.runGUICommand(CommandTypes.Kernel);
+        this.features.runGUICommand(GUICommandTypes.Kernel);
         break;
       case "TransformAction":
-        this.features.runGUICommand(CommandTypes.Transform);
+        this.features.runGUICommand(GUICommandTypes.Transform);
         break;
       case "DialogAction":
         dialog.setVisible(false);
         break;
       case "QuitAction":
+      default:
         System.exit(0);
-        break;
     }
   }
 
+  /**
+   * Provides a file directory view for either loading or saving an image.
+   *
+   * @param message message to be displayed to the user.
+   * @param save    if true, does save view, if false, does load view.
+   * @return
+   */
   public String fileDirectory(String message, boolean save) {
     FileDialog dialog = new FileDialog((Frame) null, message);
     dialog.setMode(FileDialog.LOAD);
-    if(save) {
+    if (save) {
       dialog.setMode(FileDialog.SAVE);
     }
     dialog.setVisible(true);
@@ -221,7 +229,7 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
   @Override
   public void setImage(BufferedImage image) {
     this.image.setIcon(new ImageIcon(image));
-    if(this.histogram != null) {
+    if (this.histogram != null) {
       this.histogram.setVisible(false);
     }
     this.histogram = new ImageHistogram(image);
@@ -236,6 +244,14 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
             this.dialogCombo.getSelectedItem().toString();
   }
 
+  /**
+   * Creates a Dialog Dropdown menu with the given options, and adds the given listener to the
+   * done button.
+   *
+   * @param name     Message to be displayed to user.
+   * @param options  the options for the dropdown.
+   * @param listener listener for when the done button is hit.
+   */
   public void dialogDropdown(String name, String[] options, ActionListener listener) {
     latestDialog = DialogType.Combo;
 
@@ -266,6 +282,13 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
   }
 
 
+  /**
+   * Diplays Dialog Text field titled the given name, and subscribes the done button
+   * to the given listener.
+   *
+   * @param name     message to be displayed to the user.
+   * @param listener the listener to be called when the done button is hit.
+   */
   public void dialogTextField(String name, ActionListener listener) {
 
     latestDialog = DialogType.Text;
@@ -292,15 +315,6 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     dialog.setSize(200, 200);
     dialog.pack();
     dialog.setVisible(true);
-  }
-
-
-  public static void main(String[] args) {
-    PhotoshopGUIModelImpl model = new PhotoshopGUIModelImpl();
-    PhotoshopGUIView view = new PhotoshopGUIView(model);
-    PhotoshopGUIController controller = new PhotoshopGUIController(model, view);
-    view.setFeatures(controller);
-    controller.run();
   }
 }
 

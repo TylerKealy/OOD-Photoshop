@@ -1,16 +1,28 @@
 package view;
 
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.Dimension;
+
 import java.awt.image.BufferedImage;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 import model.ImageUtil;
 import model.enums.RGB;
 
 
+/**
+ * An ImageHistogram is a JPanel that displays the R G B and intesnity values of
+ * an image on a histogram.
+ */
 public class ImageHistogram extends JPanel {
 
+  /**
+   * Converts the given BufferedImage to a histogram chart.
+   * @param image image to be converted.
+   */
   public ImageHistogram(BufferedImage image) {
     ImageUtil util = new ImageUtil();
     RGB[][] pixels = util.bufferedImageToRGB(image);
@@ -26,21 +38,19 @@ public class ImageHistogram extends JPanel {
       intensity[i] = 0;
     }
 
-    //System.out.println("pixels squared: " + pixels.length * pixels.length);
     for (int i = 0; i < pixels.length; i++) {
       for (int j = 0; j < pixels.length; j++) {
         red[pixels[j][i].r] += 1;
         green[pixels[j][i].g] += 1;
         blue[pixels[j][i].b] += 1;
-        int intens = (pixels[j][i].r + pixels[j][i].g + pixels[j][i].b) /3;
-        intensity[Math.min(intens,255)] +=1;
-        //System.out.println("r: " + red[pixels[i][j].r] + " g: " + green[pixels[i][j].g] + " b: " + blue[pixels[i][j].b]);
+        int intens = (pixels[j][i].r + pixels[j][i].g + pixels[j][i].b) / 3;
+        intensity[Math.min(intens, 255)] += 1;
       }
     }
 
     int startIndex = 0;
     for (int i = 0; i < red.length; i++) {
-      if(red[i] != 0 || green[i] != 0 || blue[i] != 0) {
+      if (red[i] != 0 || green[i] != 0 || blue[i] != 0) {
         startIndex = i;
         break;
       }
@@ -52,26 +62,20 @@ public class ImageHistogram extends JPanel {
 
     int max = 0;
     for (int i = 0; i < red.length; i++) {
-
       max = Math.max(Math.max(Math.max(red[i], max), green[i]), blue[i]);
-      //System.out.println("r: " + red[i] + " g: " + green[i] + " b: " + blue[i]);
-      //System.out.print("max: " + max);
     }
 
     for (int i = 0; i < red.length; i++) {
       red[i] = Math.round((red[i] / (float) max) * 100);
       blue[i] = Math.round((blue[i] / (float) max) * 100);
       green[i] = Math.round((green[i] / (float) max) * 100);
-      intensity[i] = Math.round((intensity[i]/(float) max) * 100);
+      intensity[i] = Math.round((intensity[i] / (float) max) * 100);
     }
 
-/*    for (int i = 0; i < red.length; i++) {
-      System.out.println("intensity[" + i + "]" + intensity[i]);
-    }*/
+
 
     unitX = 1f;
     unitY = endY / 100f;
-    //System.out.println("highest value: " + max + ", unitY: " + unitY);
   }
 
   private int[] red;
@@ -93,22 +97,18 @@ public class ImageHistogram extends JPanel {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
 
-    //We draw in the following 2 loops the grid so it's visible what I explained before about each "unit"
-    g2d.setColor(Color.BLUE);
+    g2d.setColor(Color.BLACK);
     for (int i = startX; i <= endX; i += unitX * 10) {
       g2d.drawLine(i, startY, i, endY);
     }
-
     for (int i = startY; i <= endY; i += unitY * 10) {
       g2d.drawLine(startX, i, endX, i);
     }
 
-    //We draw the axis here instead of before because otherwise they would become blue colored.
     g2d.setColor(Color.BLACK);
     g2d.drawLine(startX, startY, startX, endY);
     g2d.drawLine(startX, endY, endX, endY);
 
-    //We draw each of our coords in red color
     g2d.setColor(Color.RED);
     drawData(red, g2d);
     g2d.setColor(Color.GREEN);
@@ -124,7 +124,6 @@ public class ImageHistogram extends JPanel {
       int y = data[i];
       int newX = Math.round(unitX * i);
       int newY = Math.round(endY - (unitY * y));
-      //System.out.println("line: (" + prevX + "," + prevY + ") -> (" + newX + "," + newY + ")");
       g2d.drawLine(prevX, prevY, newX, newY);
       prevY = newY;
       prevX = newX;
