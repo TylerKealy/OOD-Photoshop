@@ -236,6 +236,7 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     JPanel panel = new JPanel(new BorderLayout());
     panel.add(BorderLayout.CENTER, histogram);
     container.add(BorderLayout.LINE_END, histogram);
+    this.pack();
   }
 
   @Override
