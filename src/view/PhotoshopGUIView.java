@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -38,7 +39,12 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout());
     this.setBounds(100, 0, 600, 400);
+    JPanel container = new JPanel();
+    JScrollPane scrPane = new JScrollPane(container);
     Container c = this.getContentPane();
+    c.add(scrPane);
+    container.setLayout(new BorderLayout());
+
 
     image = new JLabel();
     image.setIcon(new ImageIcon("C:\\soala.jpg"));
@@ -51,7 +57,7 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     JPanel terminal = new JPanel();
 
     // label for the field
-    JLabel inputLabel = new JLabel("CMD:");
+    JLabel inputLabel = new JLabel("CMD terminal:");
     // text input field
     terminalInput = new JTextField(15);
     // run button
@@ -64,51 +70,71 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     terminal.add(terminalButton);
 
     JPanel functions = new JPanel();
+    functions.setLayout(new GridLayout());
+    JPanel firstRow = new JPanel();
     // load button
     JButton loadButton;
     loadButton = new JButton("Load");
     loadButton.setActionCommand("LoadAction");
     loadButton.addActionListener(this);
-    functions.add(loadButton);
+    firstRow.add(loadButton);
+    //save button
+    JButton saveButton;
+    saveButton = new JButton("Save");
+    saveButton.setActionCommand("SaveAction");
+    saveButton.addActionListener(this);
+    firstRow.add(saveButton);
+
+    // quit button
+    quitButton = new JButton("Quit");
+    quitButton.setActionCommand("QuitAction");
+    quitButton.addActionListener(this);
+    firstRow.add(quitButton);
+
+
+    JPanel secondRow = new JPanel();
+
     // brighten button
     JButton brightenButton;
     brightenButton = new JButton("Brighten");
     brightenButton.setActionCommand("BrightenAction");
-    brightenButton.addActionListener(this);
-    functions.add(brightenButton);
+    brightenButton.addActionListener( this);
+    secondRow.add(brightenButton);
     // flip button
     JButton flipButton;
     flipButton = new JButton("Flip");
     flipButton.setActionCommand("FlipAction");
     flipButton.addActionListener(this);
-    functions.add(flipButton);
+    secondRow.add( flipButton);
     // component button
     JButton componentButton;
     componentButton = new JButton("Component");
     componentButton.setActionCommand("ComponentAction");
     componentButton.addActionListener(this);
-    functions.add(componentButton);
+    secondRow.add( componentButton);
+
+
+    JPanel thirdRow = new JPanel();
     // Kernel button
     JButton kernelButton;
     kernelButton = new JButton("Kernel");
     kernelButton.setActionCommand("KernelAction");
     kernelButton.addActionListener(this);
-    functions.add(kernelButton);
+    thirdRow.add( kernelButton);
     // Transform button
     JButton transformButton;
     transformButton = new JButton("Transform");
     transformButton.setActionCommand("TransformAction");
     transformButton.addActionListener(this);
-    functions.add(transformButton);
-    // quit button
-    quitButton = new JButton("Quit");
-    quitButton.setActionCommand("QuitAction");
-    quitButton.addActionListener(this);
-    functions.add(quitButton);
+    thirdRow.add( transformButton);
 
-    c.add(BorderLayout.PAGE_START, terminal);
-    c.add(BorderLayout.LINE_START, functions);
-    c.add(BorderLayout.CENTER, image);
+    functions.add(BorderLayout.PAGE_START, firstRow);
+    functions.add(BorderLayout.CENTER, secondRow);
+    functions.add(BorderLayout.PAGE_END, thirdRow);
+
+    container.add(BorderLayout.PAGE_START, terminal);
+    container.add(BorderLayout.LINE_START, functions);
+    container.add(BorderLayout.CENTER, image);
     this.setVisible(true);
 
     this.pack();
@@ -127,6 +153,9 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
         break;
       case "LoadAction":
         this.features.runGUICommand(CommandTypes.Load);
+        break;
+      case "SaveAction":
+        this.features.runGUICommand(CommandTypes.Save);
         break;
       case "BrightenAction":
         this.features.runGUICommand(CommandTypes.Brighten);

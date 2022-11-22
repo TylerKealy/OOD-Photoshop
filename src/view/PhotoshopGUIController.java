@@ -9,6 +9,7 @@ import commands.gui.GUIFlipCommand;
 import commands.gui.GUIKernelCommand;
 import commands.gui.GUITransformCommand;
 import commands.terminal.LoadCommand;
+import commands.terminal.SaveCommand;
 import controller.PhotoshopControllerPro;
 import model.PhotoshopGUIModelPro;
 
@@ -43,6 +44,14 @@ public class PhotoshopGUIController extends PhotoshopControllerPro implements Ph
     gui.setImage(guiModel.getRecentImage());
   }
 
+  private void saveImage() {
+    String loc = gui.getFileLocation();
+    if (loc == null) {
+      return;
+    }
+    new SaveCommand(this.guiModel, loc, "saved").run();
+  }
+
   @Override
   public void runGUICommand(CommandTypes command) {
     switch (command) {
@@ -68,6 +77,9 @@ public class PhotoshopGUIController extends PhotoshopControllerPro implements Ph
         break;
       case Load:
         loadImage();
+        break;
+      case Save:
+        saveImage();
         break;
     }
   }
