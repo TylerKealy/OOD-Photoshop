@@ -4,4 +4,6 @@ public interface PhotoshopFeatures {
 
   void performCommand();
 
+  void loadImage();
+
 }

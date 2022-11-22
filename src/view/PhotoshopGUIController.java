@@ -1,19 +1,19 @@
 package view;
 
+import java.util.Objects;
 import java.util.Scanner;
 
-import controller.APhotoshopController;
+import commands.LoadCommand;
 import controller.PhotoshopControllerPro;
-import model.PhotoshopGUIModel;
-import model.PhotoshopModel;
+import model.PhotoshopGUIModelPro;
 
 public class PhotoshopGUIController extends PhotoshopControllerPro implements PhotoshopFeatures {
 
   PhotoshopGUIView gui;
-  PhotoshopGUIModel guiModel;
+  PhotoshopGUIModelPro guiModel;
 
 
-  public PhotoshopGUIController(PhotoshopGUIModel guiModel, PhotoshopGUIView view) {
+  public PhotoshopGUIController(PhotoshopGUIModelPro guiModel, PhotoshopGUIView view) {
     super(guiModel, view);
     this.gui = view;
     this.guiModel = guiModel;
@@ -25,6 +25,13 @@ public class PhotoshopGUIController extends PhotoshopControllerPro implements Ph
     if(!scan.hasNext()) return;
     runCommand(scan);
     gui.resetTerminalText();
+    gui.setImage(guiModel.getRecentImage());
+  }
+
+  @Override
+  public void loadImage() {
+    System.out.println("yo");
+    new LoadCommand(this.guiModel, Objects.requireNonNull(gui.getFileLoaction()), "loaded").run();
     gui.setImage(guiModel.getRecentImage());
   }
 

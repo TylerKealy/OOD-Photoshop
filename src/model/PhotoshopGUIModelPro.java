@@ -2,9 +2,7 @@ package model;
 
 import java.awt.image.BufferedImage;
 
-import model.enums.RGB;
-
-public interface PhotoshopGUIModel extends PhotoshopModelPro{
+public interface PhotoshopGUIModelPro extends PhotoshopModelPro{
 
   BufferedImage getRecentImage();
 }

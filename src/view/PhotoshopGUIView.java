@@ -1,6 +1,9 @@
 package view;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,7 +12,6 @@ import java.util.Objects;
 
 import model.PhotoshopGUIModelImpl;
 import model.PhotoshopModel;
-import model.PhotoshopModelProImpl;
 
 public class PhotoshopGUIView extends JFrame implements  PhotoshopView, ActionListener, GUIView {
 
@@ -17,8 +19,7 @@ public class PhotoshopGUIView extends JFrame implements  PhotoshopView, ActionLi
 
   JTextField input;
   JLabel image;
-  JLabel terminalTextLabel;
-  JButton updateButton;
+  JButton terminalButton;
   JButton quitButton;
 
   PhotoshopFeatures features;
@@ -30,63 +31,79 @@ public class PhotoshopGUIView extends JFrame implements  PhotoshopView, ActionLi
     this.model = model;
 
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.setLayout(new FlowLayout());
-    this.setBounds(100, 200, 800, 300);
-
+    this.setLayout(new BorderLayout());
+    this.setBounds(100, 0, 600, 400);
     Container c = this.getContentPane();
 
     image = new JLabel();
     image.setIcon(new ImageIcon("C:\\soala.jpg"));
     Dimension size = image.getPreferredSize();
-    System.out.println("size: " + size.height);
-    image.setBounds(50, 30, size.width, size.height);
+    System.out.println("h: " + size.height);
+    System.out.println("w: " + size.width);
+    //image.setBounds(50, 30, size.width, size.height);
 
-    c.add(image);
-
-    this.setVisible(true);
-
+    ///
+    JPanel terminal = new JPanel();
 
     // label for the field
-    JLabel inputLabel = new JLabel("terminal:");
-    c.add(inputLabel);
-
+    JLabel inputLabel = new JLabel("CMD:");
     // text input field
-    input = new JTextField(20);
-    c.add(input);
+    input = new JTextField(15);
+    // run button
+    terminalButton = new JButton("run!");
+    terminalButton.setActionCommand("TerminalAction");
+    terminalButton.addActionListener(this);
 
-    // the current text
-    terminalTextLabel = new JLabel("To be displayed");
-    c.add(terminalTextLabel);
+    terminal.add(inputLabel);
+    terminal.add(input);
+    terminal.add(terminalButton);
 
-    // update button
-    updateButton = new JButton("Update");
-    updateButton.setActionCommand("UpdateAction");
-    updateButton.addActionListener(this);
-    c.add(updateButton);
+
+    JPanel functions = new JPanel();
+    // load button
+    JButton loadButton;
+    loadButton = new JButton("Load");
+    loadButton.setActionCommand("LoadAction");
+    loadButton.addActionListener(this);
+    functions.add(loadButton);
     // quit button
-
     quitButton = new JButton("Quit");
     quitButton.setActionCommand("QuitAction");
     quitButton.addActionListener(this);
-    c.add(quitButton);
+    functions.add(quitButton);
 
-    //this.addKeyListener(setupKeyboardListener());
+    c.add(BorderLayout.PAGE_START, terminal);
+    c.add(BorderLayout.LINE_START, functions);
+    c.add(BorderLayout.CENTER, image);
+    this.setVisible(true);
 
-    //this.pack();
 
+    this.pack();
 
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
     switch(e.getActionCommand()) {
-      case "UpdateAction":
+      case "TerminalAction":
         this.features.performCommand();
         break;
+      case "LoadAction":
+        this.features.loadImage();
+        break;
       case "QuitAction":
-        System.exit(1);
+        System.exit(0);
         break;
     }
+  }
+
+  String getFileLoaction() {
+    FileDialog dialog = new FileDialog((Frame)null, "Select File to Open");
+    dialog.setMode(FileDialog.LOAD);
+    dialog.setVisible(true);
+    String file = dialog.getDirectory() + dialog.getFile();
+    System.out.println(file + " chosen.");
+    return file;
   }
 
   @Override

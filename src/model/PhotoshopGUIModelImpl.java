@@ -4,11 +4,10 @@ import java.awt.image.BufferedImage;
 
 import model.enums.ComponentGreyscale;
 import model.enums.Direction;
-import model.enums.RGB;
 import model.kernels.AMatrix;
 import model.kernels.IKernel;
 
-public class PhotoshopGUIModelImpl extends PhotoshopModelProImpl implements PhotoshopGUIModel {
+public class PhotoshopGUIModelImpl extends PhotoshopModelProImpl implements PhotoshopGUIModelPro {
   private String recentName;
 
   public PhotoshopGUIModelImpl() {
