@@ -1,7 +1,6 @@
 package view;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -44,7 +43,6 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     Container c = this.getContentPane();
     c.add(scrPane);
     container.setLayout(new BorderLayout());
-
 
     image = new JLabel();
     image.setIcon(new ImageIcon("C:\\soala.jpg"));
@@ -181,9 +179,12 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
     }
   }
 
-  String getFileLocation() {
-    FileDialog dialog = new FileDialog((Frame) null, "Select File to Open");
+  String fileDirectory(String message, boolean save) {
+    FileDialog dialog = new FileDialog((Frame) null, message);
     dialog.setMode(FileDialog.LOAD);
+    if(save) {
+      dialog.setMode(FileDialog.SAVE);
+    }
     dialog.setVisible(true);
     String file = dialog.getDirectory() + dialog.getFile();
     System.out.println(file + " chosen.");

@@ -36,7 +36,7 @@ public class PhotoshopGUIController extends PhotoshopControllerPro implements Ph
 
 
   private void loadImage() {
-    String loc = gui.getFileLocation();
+    String loc = gui.fileDirectory("Select a file to load.", false);
     if (loc == null) {
       return;
     }
@@ -45,11 +45,11 @@ public class PhotoshopGUIController extends PhotoshopControllerPro implements Ph
   }
 
   private void saveImage() {
-    String loc = gui.getFileLocation();
+    String loc = gui.fileDirectory("Select a directory to save to, and name your file.", true);
     if (loc == null) {
       return;
     }
-    new SaveCommand(this.guiModel, loc, "saved").run();
+    new SaveCommand(this.guiModel, loc, this.guiModel.getRecentImageName()).run();
   }
 
   @Override
@@ -65,7 +65,7 @@ public class PhotoshopGUIController extends PhotoshopControllerPro implements Ph
       case Component:
         gui.dialogDropdown("component type:", new String[]{"Red", "Green", "Blue",
                         "Value", "Intensity", "Luma"},
-               new GUIComponentCommand(this.guiModel, this.gui));
+                new GUIComponentCommand(this.guiModel, this.gui));
         break;
       case Kernel:
         gui.dialogDropdown("kernel type:", new String[]{"Blur", "Sharpen"},
