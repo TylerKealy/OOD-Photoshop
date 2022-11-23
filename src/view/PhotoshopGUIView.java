@@ -58,8 +58,6 @@ public class PhotoshopGUIView extends JFrame implements PhotoshopView, ActionLis
 
     image = new JLabel();
     Dimension size = image.getPreferredSize();
-    System.out.println("h: " + size.height);
-    System.out.println("w: " + size.width);
 
     JPanel terminal = new JPanel();
 

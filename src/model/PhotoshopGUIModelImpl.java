@@ -31,7 +31,6 @@ public class PhotoshopGUIModelImpl extends PhotoshopModelProImpl implements Phot
 
   @Override
   public void loadImage(String imagePath, String imageName) {
-    System.out.println("hiiiii");
     super.loadImage(imagePath, imageName);
     recentName = imageName;
   }
