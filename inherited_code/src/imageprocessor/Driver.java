@@ -9,12 +9,14 @@ import imageprocessor.controller.GUIController;
 import imageprocessor.controller.IController;
 import imageprocessor.controller.ITextController;
 import imageprocessor.controller.TextController;
+import imageprocessor.controller.revision.GUIControllerRevision;
 import imageprocessor.controller.revision.TextControllerRevision;
 import imageprocessor.model.data.ImageCollection;
 import imageprocessor.model.data.ImageMapCollection;
 import imageprocessor.view.IView;
 import imageprocessor.view.guiview.IGUIView;
 import imageprocessor.view.guiview.SwingView;
+import imageprocessor.view.guiview.revision.SwingViewRevision;
 import imageprocessor.view.textview.TextView;
 
 /**
@@ -70,12 +72,16 @@ public class Driver {
     Readable input = Driver.getInputStream(args);
 
     //FOR TESTING MUST REMOVE
+
+    view = new SwingViewRevision(model);
+    controller = new GUIControllerRevision((IGUIView) view, model);
+
 /*    input = new InputStreamReader(System.in);
     view = new TextView(System.out);
     controller = new TextControllerRevision(input, view);
     ((ITextController) controller).start();*/
 
-    if (input == null) {
+/*    if (input == null) {
       view = new SwingView(model);
       controller = new GUIController((IGUIView) view, model);
     }
@@ -83,6 +89,6 @@ public class Driver {
       view = new TextView(System.out);
       controller = new TextControllerRevision(input, view);
       ((ITextController) controller).start();
-    }
+    }*/
   }
 }

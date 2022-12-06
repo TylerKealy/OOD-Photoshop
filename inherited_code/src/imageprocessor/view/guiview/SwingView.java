@@ -50,7 +50,7 @@ public class SwingView extends JFrame implements IGUIView, ActionListener, ItemL
   private JButton fileSaveButton;
   private IGUIController controller;
   private JPanel dialogBoxesPanel;
-  private Map<String, JButton> effects;
+  protected Map<String, JButton> effects;  //REVISION: made protected to allow for extension.
   private JLabel imageLabel;
   private ComponentAccesser histogramState;
   private HistogramDisplay hist;
@@ -167,8 +167,10 @@ public class SwingView extends JFrame implements IGUIView, ActionListener, ItemL
 
   /**
    * Loads the effects into a hashmap.
+   *
+   * REVISION: made protected to allow for extension.
    */
-  private void loadEffects() {
+  protected void loadEffects() {
     this.effects = new LinkedHashMap<String, JButton>();
 
     this.effects.put("Flip Vertically", null);
@@ -185,10 +187,6 @@ public class SwingView extends JFrame implements IGUIView, ActionListener, ItemL
     this.effects.put("Sepia Tone", null);
     this.effects.put("Gaussian Blur", null);
     this.effects.put("Sharpen", null);
-
-    //FOR TESTING MUST REMOVE
-    this.effects.put("Mosaic", null);
-    //
   }
 
   /**

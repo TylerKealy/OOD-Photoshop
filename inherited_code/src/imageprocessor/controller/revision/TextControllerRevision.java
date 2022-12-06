@@ -1,5 +1,6 @@
 package imageprocessor.controller.revision;
 
+import imageprocessor.controller.GUIController;
 import imageprocessor.controller.TextController;
 import imageprocessor.model.commands.ICommand;
 import imageprocessor.model.commands.LoadImage;
@@ -25,6 +26,7 @@ import imageprocessor.model.imageoperations.pixelmanipulators.GreyscaleRed;
 import imageprocessor.model.imageoperations.pixelmanipulators.PixelTransformation;
 import imageprocessor.model.imageoperations.pixelmanipulators.SepiaTone;
 import imageprocessor.view.IView;
+import imageprocessor.view.guiview.IGUIView;
 
 public class TextControllerRevision extends TextController {
   public TextControllerRevision(Readable read, IView view) {
@@ -196,5 +198,17 @@ public class TextControllerRevision extends TextController {
         throw new IllegalStateException("Invalid command");
     }
     cmd.execute();
+  }
+
+  public static class GUIControllerRevision extends GUIController {
+    /**
+     * Creates a new Gui controller.
+     *
+     * @param view  the view that is being controlled
+     * @param model the model that the view is implementing
+     */
+    public GUIControllerRevision(IGUIView view, ImageCollection model) {
+      super(view, model);
+    }
   }
 }

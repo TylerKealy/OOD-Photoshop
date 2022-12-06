@@ -1,19 +1,16 @@
-package imageprocessor.controller;
+package imageprocessor.controller.revision;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import imageprocessor.model.commands.ApplyTransformation;
+
+import imageprocessor.controller.GUIController;
 import imageprocessor.model.commands.ICommand;
 import imageprocessor.model.components.image.IImage;
 import imageprocessor.model.data.ImageCollection;
-import imageprocessor.model.imageoperations.imagetransformations.FilterAllPixels;
-import imageprocessor.model.imageoperations.imagetransformations.ImageTransformation;
-import imageprocessor.model.imageoperations.imagetransformations.TransformAllPixels;
-import imageprocessor.model.imageoperations.imagetransformations.TranslateAllPixels;
 import imageprocessor.model.imageoperations.pixelaccessers.FlipHorizontally;
 import imageprocessor.model.imageoperations.pixelaccessers.FlipVertically;
 import imageprocessor.model.imageoperations.pixelaccessers.PixelAccesser;
 import imageprocessor.model.imageoperations.pixelfilters.GaussianBlur;
+import imageprocessor.model.imageoperations.pixelfilters.Mosaic;
 import imageprocessor.model.imageoperations.pixelfilters.PixelFilter;
 import imageprocessor.model.imageoperations.pixelfilters.Sharpen;
 import imageprocessor.model.imageoperations.pixelmanipulators.ChangeBrightness;
@@ -28,31 +25,17 @@ import imageprocessor.model.imageoperations.pixelmanipulators.PixelTransformatio
 import imageprocessor.model.imageoperations.pixelmanipulators.SepiaTone;
 import imageprocessor.view.guiview.IGUIView;
 
-/**
- * Represents the controller for the gui. Performs transformations based on an action listener
- * that listens for button clicks.
- */
-public class GUIController implements ActionListener, IGUIController {
-  //REVISION: made protected to allow for extension.
-  protected ImageCollection model;
- //REVISION: made protected to allow for extension.
-  protected IGUIView view;
-
+public class GUIControllerRevision extends GUIController {
   /**
    * Creates a new Gui controller.
-   * @param view the view that is being controlled
+   *
+   * @param view  the view that is being controlled
    * @param model the model that the view is implementing
    */
-  public GUIController(IGUIView view, ImageCollection model) {
-    this.view = view;
-    this.model = model;
-    this.view.setActionListener(this);
+  public GUIControllerRevision(IGUIView view, ImageCollection model) {
+    super(view, model);
   }
 
-  /**
-   * Takes in an event and performs the corresponding change.
-   * @param argument the event to be processed
-   */
   @Override
   public void actionPerformed(ActionEvent argument) {
     try {
@@ -124,6 +107,15 @@ public class GUIController implements ActionListener, IGUIController {
           cmd = this.createFilterAllPixels(effect);
           break;
         }
+        //ADDED
+        case "Mosaic": {
+          String name = this.model.getSelectedImage();
+          IImage image = model.getImage(name);
+          PixelFilter effect = new Mosaic(20, image);
+          cmd = this.createFilterAllPixels(effect);
+          break;
+        }
+        //
         default: {
           // not possible under normal circumstances due to button based gui.
           throw new IllegalStateException("unknown button case statement");
@@ -137,76 +129,4 @@ public class GUIController implements ActionListener, IGUIController {
     }
   }
 
-  /**
-   * Creates a filter transformation that edits individual pixels to help the controller
-   * apply transformations.
-   *
-   * REVISION: made protected to allow for extension.
-   *
-   * @param pixelFil the interface for transformations that edit individual pixels which holds
-   *                   the desired transformation that will be performed on the image.
-   *                   image.
-   * @return the applied filter of the command.
-   */
-  protected ApplyTransformation createFilterAllPixels(PixelFilter pixelFil) {
-    String name = this.model.getSelectedImage();
-    IImage img = model.getImage(name);
-    if (img == null) {
-      throw new IllegalStateException("Invalid image");
-    }
-    IImage copy = img.copyImage();
-    ImageTransformation filterAll = new FilterAllPixels(pixelFil);
-    return new ApplyTransformation(this.model, copy, name, filterAll);
-  }
-
-  /**
-   * Creates a transform transformation that edits individual pixels to help the controller
-   * apply transformations.
-   *
-   * REVISION: made protected to allow for extension.
-   *
-   * @param pixelManip the interface for transformations that edit individual pixels which holds
-   *                   the desired transformation that will be performed on the image.
-   *                   image.
-   * @return the applied transformation of the command.
-   */
-  protected ApplyTransformation createTransformAllPixels(PixelTransformation pixelManip) {
-    String name = this.model.getSelectedImage();
-    IImage img = model.getImage(name);
-    if (img == null) {
-      throw new IllegalStateException("Invalid image");
-    }
-    IImage copy = img.copyImage();
-    ImageTransformation transformAll = new TransformAllPixels(pixelManip);
-    return new ApplyTransformation(this.model, copy, name, transformAll);
-  }
-
-  /**
-   * Creates a translate transformation that doesn't edit individual pixels to help the controller
-   * apply transformations.
-   *
-   * REVISION: made protected to allow for extension.
-   *
-   * @param accesser the interface for transformations that doesn't edit individual pixels which
-   *                 holds the desired transformation that will be performed on the image.
-   * @return the applied transformation of the command.
-   */
-  protected ApplyTransformation createTranslateAllPixels(PixelAccesser accesser) {
-    String name = this.model.getSelectedImage();
-    IImage img = model.getImage(name);
-    if (img == null) {
-      throw new IllegalStateException("Invalid image");
-    }
-    IImage copy = img.copyImage();
-    ImageTransformation translateAll = new TranslateAllPixels(accesser);
-    return new ApplyTransformation(this.model, copy, name, translateAll);
-  }
-
-  /**
-   * Takes in a command and executes it.
-   * @param command the given command
-   */
-  public void acceptCommand(ICommand command) {
-    command.execute();
-  }
 }
