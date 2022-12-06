@@ -3,11 +3,13 @@ package imageprocessor;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 
 import imageprocessor.controller.GUIController;
 import imageprocessor.controller.IController;
 import imageprocessor.controller.ITextController;
 import imageprocessor.controller.TextController;
+import imageprocessor.controller.revision.TextControllerRevision;
 import imageprocessor.model.data.ImageCollection;
 import imageprocessor.model.data.ImageMapCollection;
 import imageprocessor.view.IView;
@@ -67,14 +69,19 @@ public class Driver {
     IController controller;
     Readable input = Driver.getInputStream(args);
 
-    if (input == null) {
+    input = new InputStreamReader(System.in);
+    view = new TextView(System.out);
+    controller = new TextControllerRevision(input, view);
+    ((ITextController) controller).start();
+
+/*    if (input == null) {
       view = new SwingView(model);
       controller = new GUIController((IGUIView) view, model);
     }
     else {
       view = new TextView(System.out);
-      controller = new TextController(input, view);
+      controller = new TextControllerRevision(input, view);
       ((ITextController) controller).start();
-    }
+    }*/
   }
 }

@@ -39,12 +39,16 @@ import imageprocessor.view.textview.ITextView;
  * directory of stored images.
  */
 public class TextController implements ITextController {
-  private ImageCollection collection;
+  //REVISION: made protected to allow for extension.
+  protected ImageCollection collection;
   private Readable read;
   private IView view;
-  private Scanner scan;
-  private Appendable app;
-  private boolean blockedIO;
+  //REVISION: made protected to allow for extension.
+  protected Scanner scan;
+  //REVISION: made protected to allow for extension.
+  protected Appendable app;
+  //REVISION: made protected to allow for extension.
+  protected boolean blockedIO;
 
   /**
    * Create a new controller with a given readable and view.
@@ -89,9 +93,9 @@ public class TextController implements ITextController {
   }
 
   /** Executes a command based on input.
-   *
+   *  REVISION: made protected to allow for extension.
    */
-  private void executeCommandInput() {
+  protected void executeCommandInput() {
     String command = this.scan.next();
     ImageTransformation transform;
     ICommand cmd = null;
@@ -260,6 +264,8 @@ public class TextController implements ITextController {
    * Creates a filter transformation that edits individual pixels to help the controller
    * apply transformations.
    *
+   * REVISION: made protected to allow for extension.
+   *
    * @param oldName    the old name of the image.
    * @param newName    the new name of the image.
    * @param pixelFil the interface for transformations that edit individual pixels which holds
@@ -267,7 +273,7 @@ public class TextController implements ITextController {
    *                   image.
    * @return the applied filter of the command.
    */
-  private ApplyTransformation createFilterAllPixels(String oldName, String newName,
+  protected ApplyTransformation createFilterAllPixels(String oldName, String newName,
                                                        PixelFilter pixelFil) {
     IImage img = collection.getImage(oldName);
     if (img == null) {
@@ -282,6 +288,8 @@ public class TextController implements ITextController {
    * Creates a transform transformation that edits individual pixels to help the controller
    * apply transformations.
    *
+   * REVISION: made protected to allow for extension.
+   *
    * @param oldName    the old name of the image.
    * @param newName    the new name of the image.
    * @param pixelManip the interface for transformations that edit individual pixels which holds
@@ -289,7 +297,7 @@ public class TextController implements ITextController {
    *                   image.
    * @return the applied transformation of the command.
    */
-  private ApplyTransformation createTransformAllPixels(String oldName, String newName,
+  protected ApplyTransformation createTransformAllPixels(String oldName, String newName,
                                                        PixelTransformation pixelManip) {
     IImage img = collection.getImage(oldName);
     if (img == null) {
@@ -304,13 +312,15 @@ public class TextController implements ITextController {
    * Creates a translate transformation that doesn't edit individual pixels to help the controller
    * apply transformations.
    *
+   * REVISION: made protected to allow for extension.
+   *
    * @param oldName  the old name of the image.
    * @param newName  the new name of the image.
    * @param accesser the interface for transformations that doesn't edit individual pixels which
    *                 holds the desired transformation that will be performed on the image.
    * @return the applied transformation of the command.
    */
-  private ApplyTransformation createTranslateAllPixels(String oldName, String newName,
+  protected ApplyTransformation createTranslateAllPixels(String oldName, String newName,
                                                        PixelAccesser accesser) {
     IImage img = collection.getImage(oldName);
     if (img == null) {
@@ -324,10 +334,12 @@ public class TextController implements ITextController {
   /**
    * Takes in a number of inputs and stores them in an array.
    *
+   * REVISION: made protected to allow for extension.
+   *
    * @param numArgs the number of inputs to process
    * @return the array of inputs
    */
-  private String[] processInputs(int numArgs) {
+  protected String[] processInputs(int numArgs) {
     int count = 0;
     String[] inputs = new String[numArgs];
     while (count < numArgs) {
