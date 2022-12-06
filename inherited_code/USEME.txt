@@ -1,0 +1,104 @@
+﻿—----------------------------------
+Running the Application
+—----------------------------------
+This program can either be run using the jar file or directly in an IDE. 
+To run this in an IDE, run the main method in the src/Driver.java file.
+To do this with intelliJ: Click the green arrow by the class or main method and run.
+To do with other IDEs: Varies, but will just have to run the Driver.java class without any arguments or extra setup needed
+
+If you are using the res directory to store / access images, keep the directory directly under the project (at the same level as src or test)
+
+To run via the jar file:
+Locate the jar file under res. The following are the different options in order to run the program:
+
+Automatically execute .txt command file (use commands.txt as an example):
+java -jar imageprocessor-new.jar -file [path-of-script-file]
+
+Run with the text view:
+java -jar imageprocessor-new.jar -text
+
+Run with the GUI view (default):
+java -jar imageprocessor-new.jar
+
+—----------------------------------
+Using the GUI
+—----------------------------------
+In using the program with the GUI view, the view is self explanatory.
+- Simply load an image of .png, .jpg, .jpeg, .bmp, or .ppm with the Load Image button, and then use the buttons to run effect commands on the image.
+- For instance, if you wanted to do a vertical flip, click the Vertical Flip button. The descriptions  for what each of these buttons do is in the Readme (and corresponds with what is described in the assignment as a second reference)
+- There is a histogram that shows the frequency of each pixel value for different components.
+- To switch between components (red, green, blue, and intensity), simply select the corresponding component button.
+- To save the image being worked on, simply click the Save Image button and choose a file location and enter a file name (including the desired extension) before saving.
+- For instance, if you wanted to name your image new-koala and to make it a png image, enter new-koala.png as the file name in the pop up window before saving.
+
+—----------------------------------
+Supported Text View Commands
+—----------------------------------
+load image-path image-name: Load an image from the specified path and refer it to henceforth in the program by the given image name.
+
+save image-path image-name: Save the image with the given name to the specified path which should include the name of the file.
+
+red-component image-name dest-image-name: Create a greyscale image with the red-component of the image with the given name, and refer to it henceforth in the program by the given destination name. Similar commands for green, blue, value, luma, intensity components should be supported.
+
+horizontal-flip image-name dest-image-name: Flip an image horizontally to create a new image, referred to henceforth by the given destination name.
+
+vertical-flip image-name dest-image-name: Flip an image vertically to create a new image, referred to henceforth by the given destination name.
+
+brighten increment image-name dest-image-name: brighten the image by the given increment to create a new image, referred to henceforth by the given destination name. The increment may be positive (brightening) or negative (darkening)
+
+darken increment image-name dest-image-name: darken the image by the given increment to create a new image, referred to henceforth by the given destination name.
+
+sharpen image-name dest-image-name: sharpen an image to create a new image, referred to henceforth by the given destination name.
+
+blur image-name dest-image-name: blur an image to create a new image, referred to henceforth by the given destination name.
+
+sepia-tone image-name dest-image-name: apply a sepia tone on an image to create a new image, referred to henceforth by the given destination name.
+
+greyscale image-name dest-image-name: apply a luma greyscale on an image to create a new image, referred to henceforth by the given destination name.
+
+—----------------------------------
+Example Command Sequence using Text / script view
+—----------------------------------
+load temp/basicImg.png basic-img
+brighten 70 basic-img brighten-img
+save temp/brighten-img.jpg brighten-img
+load temp/brighten-img.jpg brighten-img2
+sharpen basic-img sharpen-img
+save temp/sharpen-img.bmp sharpen-img
+load temp/sharpen-img.bmp sharpen-img2
+sharpen sharpen-img2 sharpen-img3
+save temp/sharpen-img2.jpeg sharpen-img3
+greyscale sharpen-img2 greyscale-img
+save temp/greyscale-img.png greyscale-img
+darken 130 basic-img darken-img
+vertical-flip basic-img vert-img
+horizontal-flip basic-img horiz-img
+value-component basic-img value-img
+intensity-component basic-img intensity-img
+red-component basic-img red-img
+blue-component brighten-img blue-brighten-img
+green-component basic-img green-img
+blur basic-img blur-img
+blur blur-img blur-img2
+blur blur-img2 blur-img3
+luma-component basic-img luma-img
+sepia-tone basic-img sepia-img
+
+save temp/darken-img.ppm darken-img
+save temp/vert-img.ppm vert-img
+save temp/horiz-img.ppm horiz-img
+save temp/value-img.ppm value-img
+save temp/red-img.ppm red-img
+save temp/blue-brighten-img.ppm blue-brighten-img
+save temp/blur-img.ppm blur-img
+save temp/blur-img2.png blur-img2
+save temp/blur-img3.jpg blur-img3
+save temp/green-img.ppm green-img
+save temp/luma-img.ppm luma-img
+save temp/intensity-img.ppm intensity-img
+save temp/sepia-img.ppm sepia-img
+
+—----------------------------------
+Command Ordering
+—----------------------------------
+Generally, image transformation commands can be ran in any order. However, in order to apply an image transformation, an image must be loaded first using the load command. Similarly, in order to load, if an image doesn’t initially exist in a directory, the image must be added to the directory first using the save command.
