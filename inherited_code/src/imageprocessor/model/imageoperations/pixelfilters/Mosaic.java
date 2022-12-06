@@ -3,7 +3,6 @@ package imageprocessor.model.imageoperations.pixelfilters;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 import imageprocessor.model.components.image.IImage;
 import imageprocessor.model.components.pixel.IPixel;
@@ -21,13 +20,21 @@ public class Mosaic implements PixelFilter {
       Posn seed = new Posn(randX, randY);
       seeds.put(seed, new ArrayList());
     }
+
+    for(int row = 0; row < image.getHeight(); row++) {
+      for(int col = 0; col < image.getWidth(); col++) {
+        Posn seed = findNearestSeed(row, col);
+        seeds.get(seed).add(new Posn(row, col));
+      }
+    }
+
   }
 
-  private Posn findNearestSeed(int x, int y) {
-    float closestDistance = -1f;
+  private Posn findNearestSeed(int r, int c) {
+    float closestDistance = 100000000;
     Posn nearest = null;
     for (Posn seed : seeds.keySet()) {
-      float thisDistance = (float) Math.pow(Math.abs(seed.x - x) + Math.abs(seed.y - y), 2);
+      float thisDistance = (float) Math.pow(Math.abs(seed.r - r) + Math.abs(seed.c - c), 2);
       if (thisDistance < closestDistance) {
         closestDistance = thisDistance;
         nearest = seed;
@@ -41,7 +48,7 @@ public class Mosaic implements PixelFilter {
     int totalG = 0;
     int totalB = 0;
     for (int i = 0; i < seedValues.size(); i++) {
-      IPixel pixel = image.getPixelAt(seedValues.get(i).x, seedValues.get(i).y);
+      IPixel pixel = image.getPixelAt(seedValues.get(i).r, seedValues.get(i).c);
       totalR += pixel.getRedComponent();
       totalG += pixel.getGreenComponent();
       totalB += pixel.getBlueComponent();
@@ -51,8 +58,10 @@ public class Mosaic implements PixelFilter {
 
   @Override
   public void apply(IPixel pixel, IImage image, int r, int c) {
-    Posn seed = findNearestSeed(c, r);
-    Color color = averageColor(seeds.get(seed));
-    pixel.setComponents(color.getRed(), color.getGreen(), color.getBlue());
+    Posn seed = findNearestSeed(r, c);
+    if(seeds.get(seed) != null) {
+      Color color = averageColor(seeds.get(seed));
+      pixel.setComponents(color.getRed(), color.getGreen(), color.getBlue());
+    }
   }
 }

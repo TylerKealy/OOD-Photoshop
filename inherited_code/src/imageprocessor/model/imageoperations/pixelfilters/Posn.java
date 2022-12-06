@@ -1,12 +1,12 @@
 package imageprocessor.model.imageoperations.pixelfilters;
 
 public class Posn {
-  int x;
-  int y;
+  int r;
+  int c;
 
   public Posn(int x, int y) {
-    this.x = x;
-    this.y = y;
+    this.r = x;
+    this.c = y;
   }
 
 }
