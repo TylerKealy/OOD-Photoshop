@@ -14,6 +14,7 @@ import imageprocessor.model.imageoperations.pixelaccessers.FlipHorizontally;
 import imageprocessor.model.imageoperations.pixelaccessers.FlipVertically;
 import imageprocessor.model.imageoperations.pixelaccessers.PixelAccesser;
 import imageprocessor.model.imageoperations.pixelfilters.GaussianBlur;
+import imageprocessor.model.imageoperations.pixelfilters.Mosaic;//FOR TESTING MUST REMOVE
 import imageprocessor.model.imageoperations.pixelfilters.PixelFilter;
 import imageprocessor.model.imageoperations.pixelfilters.Sharpen;
 import imageprocessor.model.imageoperations.pixelmanipulators.ChangeBrightness;
@@ -122,6 +123,15 @@ public class GUIController implements ActionListener, IGUIController {
           cmd = this.createFilterAllPixels(effect);
           break;
         }
+        //FOR TESTING MUST REMOVE
+        case "Mosaic": {
+          String name = this.model.getSelectedImage();
+          IImage image = model.getImage(name);
+          PixelFilter effect = new Mosaic(20, image);
+          cmd = this.createFilterAllPixels(effect);
+          break;
+        }
+        //
         default: {
           // not possible under normal circumstances due to button based gui.
           throw new IllegalStateException("unknown button case statement");

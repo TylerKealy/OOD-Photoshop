@@ -69,12 +69,13 @@ public class Driver {
     IController controller;
     Readable input = Driver.getInputStream(args);
 
-    input = new InputStreamReader(System.in);
+    //FOR TESTING MUST REMOVE
+/*    input = new InputStreamReader(System.in);
     view = new TextView(System.out);
     controller = new TextControllerRevision(input, view);
-    ((ITextController) controller).start();
+    ((ITextController) controller).start();*/
 
-/*    if (input == null) {
+    if (input == null) {
       view = new SwingView(model);
       controller = new GUIController((IGUIView) view, model);
     }
@@ -82,6 +83,6 @@ public class Driver {
       view = new TextView(System.out);
       controller = new TextControllerRevision(input, view);
       ((ITextController) controller).start();
-    }*/
+    }
   }
 }

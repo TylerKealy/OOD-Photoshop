@@ -185,6 +185,10 @@ public class SwingView extends JFrame implements IGUIView, ActionListener, ItemL
     this.effects.put("Sepia Tone", null);
     this.effects.put("Gaussian Blur", null);
     this.effects.put("Sharpen", null);
+
+    //FOR TESTING MUST REMOVE
+    this.effects.put("Mosaic", null);
+    //
   }
 
   /**
