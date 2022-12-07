@@ -24,16 +24,23 @@ import imageprocessor.model.imageoperations.pixelmanipulators.GreyscaleRed;
 import imageprocessor.model.imageoperations.pixelmanipulators.PixelTransformation;
 import imageprocessor.model.imageoperations.pixelmanipulators.SepiaTone;
 import imageprocessor.view.guiview.IGUIView;
+import imageprocessor.view.guiview.IGUIViewRevision;
 
 public class GUIControllerRevision extends GUIController {
+
+  IGUIViewRevision gui;
+  String storedAction;
+  String[] dialogArgs = null;
+
   /**
    * Creates a new Gui controller.
    *
    * @param view  the view that is being controlled
    * @param model the model that the view is implementing
    */
-  public GUIControllerRevision(IGUIView view, ImageCollection model) {
+  public GUIControllerRevision(IGUIViewRevision view, ImageCollection model) {
     super(view, model);
+    this.gui = view;
   }
 
   @Override
@@ -109,10 +116,28 @@ public class GUIControllerRevision extends GUIController {
         }
         //ADDED
         case "Mosaic": {
-          String name = this.model.getSelectedImage();
-          IImage image = model.getImage(name);
-          PixelFilter effect = new Mosaic(20, image);
-          cmd = this.createFilterAllPixels(effect);
+          if(dialogArgs == null) {
+            storedAction = "Mosaic";
+            gui.dialogBox("Number of Seeds", this);
+          }else {
+            try {
+              String name = this.model.getSelectedImage();
+              IImage image = model.getImage(name);
+              int seeds = Integer.parseInt(dialogArgs[0]);
+              PixelFilter effect = new Mosaic(seeds, image);
+              cmd = this.createFilterAllPixels(effect);
+            }catch(NumberFormatException e) {
+              throw new IllegalArgumentException("Seeds must be a number.");
+            }
+            dialogArgs = null;
+          }
+
+          break;
+        }
+        case "DialogBox": {
+          this.dialogArgs = new String[] {gui.getDialogBoxText()};
+          this.actionPerformed(
+                  new ActionEvent(this, ActionEvent.ACTION_PERFORMED, storedAction));
           break;
         }
         //
@@ -121,8 +146,11 @@ public class GUIControllerRevision extends GUIController {
           throw new IllegalStateException("unknown button case statement");
         }
       }
-      cmd.execute();
-      this.view.updateData();
+
+      if(cmd != null) {
+        cmd.execute();
+        this.view.updateData();
+      }
     }
     catch (IllegalStateException e) {
       // no effect necessary for catching exception.

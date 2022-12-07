@@ -3,19 +3,15 @@ package imageprocessor;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 
-import imageprocessor.controller.GUIController;
 import imageprocessor.controller.IController;
 import imageprocessor.controller.ITextController;
-import imageprocessor.controller.TextController;
 import imageprocessor.controller.revision.GUIControllerRevision;
 import imageprocessor.controller.revision.TextControllerRevision;
 import imageprocessor.model.data.ImageCollection;
 import imageprocessor.model.data.ImageMapCollection;
 import imageprocessor.view.IView;
-import imageprocessor.view.guiview.IGUIView;
-import imageprocessor.view.guiview.SwingView;
+import imageprocessor.view.guiview.IGUIViewRevision;
 import imageprocessor.view.guiview.revision.SwingViewRevision;
 import imageprocessor.view.textview.TextView;
 
@@ -23,7 +19,8 @@ import imageprocessor.view.textview.TextView;
  * The Main method that starts the controller.
  */
 public class Driver {
-  /** Creates a File Reader based on a file name.
+  /**
+   * Creates a File Reader based on a file name.
    *
    * @param fileName the name of a file
    * @return a readable that reads the file
@@ -32,14 +29,14 @@ public class Driver {
     try {
       Readable in = new InputStreamReader(new FileInputStream(fileName));
       return in;
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       throw new IllegalArgumentException("Cannot read from file");
     }
   }
 
   /**
    * Gets the users input stream.
+   *
    * @param args the passed in arguments
    * @return an input stream for either user input or file stream
    */
@@ -52,8 +49,7 @@ public class Driver {
         }
       } else if (args[i].equalsIgnoreCase("-text")) {
         return new InputStreamReader(System.in);
-      }
-      else {
+      } else {
         System.out.println("Invalid arguments");
         System.exit(0);
       }
@@ -63,6 +59,7 @@ public class Driver {
 
   /**
    * Creates a view, input, and controller.
+   *
    * @param args the argument passed through.
    */
   public static void main(String[] args) {
@@ -71,24 +68,13 @@ public class Driver {
     IController controller;
     Readable input = Driver.getInputStream(args);
 
-    //FOR TESTING MUST REMOVE
-
-    view = new SwingViewRevision(model);
-    controller = new GUIControllerRevision((IGUIView) view, model);
-
-/*    input = new InputStreamReader(System.in);
-    view = new TextView(System.out);
-    controller = new TextControllerRevision(input, view);
-    ((ITextController) controller).start();*/
-
-/*    if (input == null) {
-      view = new SwingView(model);
-      controller = new GUIController((IGUIView) view, model);
-    }
-    else {
+    if (input == null) {
+      view = new SwingViewRevision(model); //added Revision
+      controller = new GUIControllerRevision((IGUIViewRevision) view, model); //added Revisions.
+    } else {
       view = new TextView(System.out);
       controller = new TextControllerRevision(input, view);
       ((ITextController) controller).start();
-    }*/
+    }
   }
 }

@@ -1,13 +1,19 @@
 package imageprocessor.view.guiview.revision;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.LinkedHashMap;
 
 import javax.swing.*;
 
 import imageprocessor.model.data.ImageCollectionState;
+import imageprocessor.view.guiview.IGUIViewRevision;
 import imageprocessor.view.guiview.SwingView;
 
-public class SwingViewRevision extends SwingView {
+public class SwingViewRevision extends SwingView implements IGUIViewRevision {
+  private JTextField dialogText;
+  private JDialog dialog;
+
   /**
    * Represents a class that uses the swing application to display an interactable interface
    * that allows the user to load, view, modify, and save an image. The interface works by
@@ -40,4 +46,50 @@ public class SwingViewRevision extends SwingView {
     this.effects.put("Sharpen", null);
     this.effects.put("Mosaic", null);
   }
+
+  /**
+   * Diplays Dialog Text field titled the given name, and subscribes the done button
+   * to the given listener.
+   *
+   * @param name     message to be displayed to the user.
+   * @param listener the listener to be called when the done button is hit.
+   */
+  public void dialogBox(String name, ActionListener listener) {
+    // create a dialog Box
+    dialog = new JDialog(this, "Dialog Box");
+
+    //button and adding listeners
+    JButton button = new JButton("Enter.");
+    button.setActionCommand("DialogBox");
+    button.addActionListener(this);
+    button.addActionListener(listener);
+
+    // create a panel
+    JPanel p = new JPanel();
+    JLabel l = new JLabel(name);
+    dialogText = new JTextField(5);
+    p.add(dialogText);
+    p.add(l);
+    p.add(button);
+
+    // adds panel to dialog box and sets it visible.
+    dialog.add(p);
+    dialog.setSize(200, 200);
+    dialog.pack();
+    dialog.setVisible(true);
+  }
+
+  @Override
+  public String getDialogBoxText() {
+    return dialogText.getText();
+  }
+
+  @Override
+  public void actionPerformed(ActionEvent argument) {
+    super.actionPerformed(argument);
+    if(argument.getActionCommand().equals("DialogBox")) {
+      dialog.setVisible(false);
+    }
+  }
+
 }
