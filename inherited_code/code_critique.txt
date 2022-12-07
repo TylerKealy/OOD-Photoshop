@@ -1,0 +1,16 @@
+design/implementation critique:
+Switch statement didn’t allow for ease of extendability. Using a hashmap and the command design pattern would’ve been more ideal. The usage of switch statement implementation forced us to have to copy code in our derived version which is bad practice: since we couldn’t easily add a new switch case. It seems like there are a lot of classes where there may be room to consolidate them. At first glance, the large amount of packages was a bit overwhelming and tricky to navigate as well. Also not having a dialog box implemented was a pitfall when having to implement Mosaic, since it requires additional data (number of seeds).
+
+design/code limitations and suggestions on how to address them.:
+For ImageTransformation, it appears there could’ve been fewer objects/less code duplication. They all seemingly run through a for loop. The main difference appears to be the “effect”’s Data Type. Maybe this could’ve been an interface, allowing for One Class to implement ImageTransformation instead of 4.
+
+I find the distinction of modifying by Pixels to be a bit limiting (Pixel Assessor, Pixel Manipulator, Pixel Filter). Why not just modify the image entirely, and have the shared code of looping over each pixel be in an abstract shared class. There would still be a method for applying each pixel as well, but the whole operation would be held in a singular object, instead of spread over many. The large amount of objects was a bit confusing as an onboarding developer. 
+
+documentation critique:
+The comments are good, and the useme is thorough.
+
+design/code strengths
+Model-View-Controller format was used well. We really liked how the buttons were set up using a for loop and two neat functions in the Swing View. The code was also very thoroughly commented up which was very helpful. Also all fields accessibility was correctly named as well. The view setup and the box format looks really neat, the histogram is good! We also generally liked the usage of Function Objects frequently.
+
+design/code limitations
+We previously mentioned all the limitations earlier: mainly being too many unnecessary classes that have room for consolidation, the usage of hard-coded switch statements, and certain design decisions.

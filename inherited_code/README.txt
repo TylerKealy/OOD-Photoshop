@@ -1,0 +1,5 @@
+Mosaic through text: Y
+Mosaic through GUI: Y
+
+Image Mosaicking:
+We implemented image mosaicking by implementing a new PixelFilter class called Mosaic. We then Overrode the GUIController's actionPerformed method and added a new case to the swtich statement for Mosaicking in a new class GUIControllerRevision. We also did the same thing with the TextController and a TextControllerRevision but with the executeCommandInput method. Also we overrode the SwingView and allowed for Dialog text box (to input the number of seeds), and correctly linked up the SwingViewRevision with the GUIControllerRevision. We also had to override the button creation method and added a button for Mosaic. We had to make a couple of methods and fields on the super classes protected to allow for extension. Finally, in the GUIControllerRevision and TextControllerRevision we created a new Mosaic object, and applied it.
